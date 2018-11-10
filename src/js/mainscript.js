@@ -1,69 +1,67 @@
-// Google api console clientID and apiKey
+$(document).ready(function() {
+  var outfit_Section = $('#outfitSection');
 
-var clientId = '252751we734600-se6610ol8twerwern886jj7gc5m2ugaai.apps.googleuserecontent.com';
-var apiKey = 'AIzaSyCnk5CDEX3Pvwerwerwe0OpnVf4eW_Lmeere80';
+  var outfit_calendar_con = $("<div id='outfit_calendar_pill'></div>");
 
-// enter the scope of current project (this API must be turned on in the Google console)
-var scopes = 'https://www.googleapis.com/auth/calendar';
+  var jacket_img = $("<img id='jacket_img' src='' alt-img='' />");
+  jacket_img.attr('src', 'https://dummyimage.com/200x200/44AA10/fff');
+  var top_img = $("<img id='top_img' src='' alt-img='' />");
+  top_img.attr('src', 'https://dummyimage.com/200x200/10AA44/fff');
+  var bottom_img = $("<img id='bottom_img' src='' alt-img='' />");
+  bottom_img.attr('src', 'https://dummyimage.com/200x200/aa0000/fff');
 
+  var date_h3 = $("<h3></h3>");
+  date_h3.text("hello");
+  outfit_calendar_con.append(date_h3, jacket_img, top_img, bottom_img);
 
-// OAuth2 functions
-function handleClientLoad() {
-   gapi.client.setApiKey(apiKey);
-   window.setTimeout(checkAuth, 1);
-}
+  outfit_Section.append(outfit_calendar_con);
 
-//To authenticate
-function checkAuth() {
-  gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: true }, handleAuthResult);
-}
+  var listOfClothes = ["https://dummyimage.com/200x200/44AA10/fff&text=Img+1",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+2",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+3",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+4",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+5",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+6",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+7",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+8",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+9",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+10",
+                        "https://dummyimage.com/200x200/44AA10/fff&text=Img+11"];
 
-// This is the resource we will pass while calling api function
-var resource = {
-    "summary": "My Event",
-    "start": {
-        "dateTime": today
-    },
-    "end": {
-        "dateTime": twoHoursLater
-    },
-    "description":"We are organizing events",
-    "location":"US",
-    "attendees":[
-    {
-            "email":"attendee1@gmail.com",
-            "displayName":"Jhon",
-            "organizer":true,
-            "self":false,
-            "resource":false,
-            "optional":false,
-            "responseStatus":"needsAction",
-            "comment":"This is my demo event",
-            "additionalGuests":3
+  var listOfDates = ["Date 1",
+                      "Date 2",
+                      "Date 3",
+                      "Date 4",
+                      "Date 5",
+                      "Date 6",
+                      "Date 7",
+                      "Date 8",
+                      "Date 9",
+                      "Date 10",
+                      "Date 11"];
 
-    },
-    {
-        "email":"attendee2@gmail.com",
-            "displayName":"Marry",
-            "organizer":true,
-            "self":false,
-            "resource":false,
-            "optional":false,
-            "responseStatus":"needsAction",
-            "comment":"This is an official event",
-            "additionalGuests":3
+  function createOutfitPill(dates, listOfLinks) {
+    for (var i = 0; i < dates.length; i++) {
+      var jacket_img = $("<img id='jacket_img' src='' alt-img='' />");
+      jacket_img.attr('src', listOfLinks[i]);
+      var top_img = $("<img id='top_img' src='' alt-img='' />");
+      top_img.attr('src', listOfLinks[i]);
+      var bottom_img = $("<img id='bottom_img' src='' alt-img='' />");
+      bottom_img.attr('src', listOfLinks[i]);
+
+      var date_h3 = $("<h3></h3>");
+      date_h3.text("Date " + dates[i]);
+
+      outfit_calendar_con.append(date_h3, jacket_img, top_img, bottom_img);
+
+      outfit_Section.append(outfit_calendar_con);
     }
-    ],
-};
+  }
 
-function makeApiCall(){
-gapi.client.load('calendar', 'v3', function () {
-  // load the calendar api (version 3)
-  var request = gapi.client.calendar.events.insert
-  ({
-      'calendarId': '24tn4fht2tr6m86efdiqqlsedk@group.calendar.google.com',
-// calendar ID which id of Google Calendar where you are creating events. this can be copied from your Google Calendar user view.
 
-      "resource": resource 	// above resource will be passed here
-  });
-}
+
+  createOutfitPill(listOfDates, listOfClothes);
+
+
+
+});
