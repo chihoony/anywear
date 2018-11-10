@@ -1,8 +1,14 @@
+main {
+}
+
+#loginRegisterCon {
+  height: 100vh;
+}
 #welcomeMoment, #signingIn, #signingUp {
     width: 30em;
     height: 20em;
     border: solid black 1px;
-    position: absolute;
+    position: relative;
     top: 20%;
     left: 15%;
 }
