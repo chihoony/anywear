@@ -1,17 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <% include ../partials/head %>
-</head>
-<body class="container">
-  <header>
-    <% include ../partials/header %>
-  </header>
-  <main>
 
-  </main>
-  <footer>
-    <% include ../partials/footer %>
-  </footer>
-  </body>
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="/src/css/welcomepage.css" />
+</head>
+
+<body class="container">
+    <main>
+
+        <!--welcome page-->
+        <div id='welcomeMoment'>
+            any Wear<br />
+            Worry-free Traveling.<br />
+            <button id='signIn'>To Sign In</button>
+            <button id='signUp'>To Sign Up</button>
+        </div>
+
+        <!--sign in page-->
+        <div id='signingIn'>
+            <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
+            <br />
+            <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+            <br />
+            <a href='#'>Forget password?</a>
+            <br />
+            <a href='#'>Register?</a>
+            <br />
+            <button type='submit' id='signedIn'>Sign In</button>
+
+        </div>
+
+
+        <!--sign up page-->
+        <div id='signingUp'>
+            <fieldset>
+
+                <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
+                <br />
+
+                <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                <br />
+                <input type="password" id="cfpwd" name="pwd" placeholder="Confirm Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                <br />
+                <input type="email" id="email" name="email" placeholder="Email" /><br />
+                <input type="email" id="email" name="email" placeholder="Confirm Email" /><br />
+
+                <input min="18" max="99" type="number" id="number" name="number" value="number" placeholder="Age" required="required" />
+                <br />
+                <input list="gender" placeholder="Gender">
+                <br />
+                <button type='submit' id='signedUp'>Sign Up</button>
+            </fieldset>
+
+            <datalist id="gender">
+                <option value="Female">
+                <option value="Male">
+                <option value="Prefer not to say">
+            </datalist>
+        </div>
+
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        /*<![CDATA[*/
+        $(document).ready(function() {
+
+            $("#signingIn").hide();
+            $("#signingUp").hide();
+            $("#signIn").click(function(event) {
+                event.preventDefault();
+                $("#welcomeMoment").hide();
+                $("#signingIn").show(100);
+            });
+
+            $("#signUp").click(function() {
+                $("#welcomeMoment").hide();
+                $("#signingUp").show(100);
+            });
+
+        })
+    </script>
+</body>
+
 </html>
