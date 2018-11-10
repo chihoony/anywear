@@ -3,17 +3,9 @@ $(document).ready(function() {
 
   var outfit_calendar_con = $("<div id='outfit_calendar_pill'></div>");
 
-  var jacket_img = $("<img id='jacket_img' src='' alt-img='' />");
-  jacket_img.attr('src', 'https://dummyimage.com/200x200/44AA10/fff');
-  var top_img = $("<img id='top_img' src='' alt-img='' />");
-  top_img.attr('src', 'https://dummyimage.com/200x200/10AA44/fff');
-  var bottom_img = $("<img id='bottom_img' src='' alt-img='' />");
-  bottom_img.attr('src', 'https://dummyimage.com/200x200/aa0000/fff');
-
-  var date_h3 = $("<h3></h3>");
-  date_h3.text("hello");
-  outfit_calendar_con.append(date_h3, jacket_img, top_img, bottom_img);
-
+  outfit_Section.append(outfit_calendar_con);
+  var cardDeck = $("<div class='card-deck'></div>");
+  outfit_calendar_con.append(cardDeck);
   outfit_Section.append(outfit_calendar_con);
 
   var listOfClothes = ["https://dummyimage.com/200x200/44AA10/fff&text=Img+1",
@@ -42,19 +34,28 @@ $(document).ready(function() {
 
   function createOutfitPill(dates, listOfLinks) {
     for (var i = 0; i < dates.length; i++) {
-      var jacket_img = $("<img id='jacket_img' src='' alt-img='' />");
+      var card = $("<div class='card'></div>");
+
+      var cardBody = $('<div class="card-body"></div>');
+      var cardTitle = $('<h5 class="card-title">TEST</h5>');
+      var cardText = $('<p class="card-text"></p>');
+      cardBody.append(cardTitle, cardText);
+
+      var cardFooter = $('<div class="card-footer"></div>');
+      var cardFooterText = $('<small class="text-muted"></small>');
+      cardFooterText.text(dates[i]);
+      cardFooter.append(cardFooterText);
+
+
+      var jacket_img = $("<img class='card-img-top cloth-img' id='jacket_img' src='' alt-img='' />");
       jacket_img.attr('src', listOfLinks[i]);
-      var top_img = $("<img id='top_img' src='' alt-img='' />");
+      var top_img = $("<img class='card-img-top cloth-img' id='top_img' src='' alt-img='' />");
       top_img.attr('src', listOfLinks[i]);
-      var bottom_img = $("<img id='bottom_img' src='' alt-img='' />");
+      var bottom_img = $("<img class='card-img-top cloth-img' id='bottom_img' src='' alt-img='' />");
       bottom_img.attr('src', listOfLinks[i]);
 
-      var date_h3 = $("<h3></h3>");
-      date_h3.text("Date " + dates[i]);
-
-      outfit_calendar_con.append(date_h3, jacket_img, top_img, bottom_img);
-
-      outfit_Section.append(outfit_calendar_con);
+      card.append(jacket_img, top_img, bottom_img, cardBody, cardFooter);
+      cardDeck.append(card);
     }
   }
 
