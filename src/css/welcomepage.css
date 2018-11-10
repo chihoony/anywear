@@ -1,42 +1,36 @@
-main {
-}
-
-#loginRegisterCon {
-  height: 100vh;
-}
-#welcomeMoment, #signingIn, #signingUp {
+#welcomeMoment, #signInMoment, #signUpMoment {
     width: 30em;
     height: 20em;
     border: solid black 1px;
-    position: relative;
+    position: absolute;
     top: 20%;
     left: 15%;
 }
 
-#signIn, #signUp {
+#buttonIn, #buttonUp {
     width: 6em;
     height: 2em;
     margin-left: 3em;
 }
 
-#signingIn, #signingUp {
+
+#signInMoment, #signUpMoment {
     text-align: center;
 }
 
 button {
     margin: 2em;
-    float: right;
 }
 
-input {
+input, select {
     border: none;
     border-bottom: 2px solid #6f6f6f;
     outline: none;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.4);
     text-align: center;
     width: 10em;
 }
 
 input:focus {
-    border-bottom: 2px solid #000000;
+    border-bottom: 2px solid black;
 }

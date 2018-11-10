@@ -8,58 +8,63 @@
 
 <body class="container">
     <main>
-      <div id ="loginRegisterCon">
-        <!--welcome page-->
-        <div id='welcomeMoment'>
-            any Wear<br />
-            Worry-free Traveling.<br />
-            <button id='signIn'>To Sign In</button>
-            <button id='signUp'>To Sign Up</button>
-        </div>
+        <div id="loginRegisterCon">
+            <!--welcome page-->
+            <div id='welcomeMoment'>
+                any Wear<br />
+                Worry-free Traveling.<br />
+                <button id='buttonIn'>To Sign In</button>
+                <button id='buttonUp'>To Sign Up</button>
+            </div>
 
-        <!--sign in page-->
-        <div id='signingIn'>
-            <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
-            <br />
-            <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
-            <br />
-            <a href='#'>Forget password?</a>
-            <br />
-            <a href='#'>Register?</a>
-            <br />
-            <button type='submit' id='signedIn'>Sign In</button>
-
-        </div>
-
-
-        <!--sign up page-->
-        <div id='signingUp'>
-            <fieldset>
+            <!--sign in page-->
+            <div id='signInMoment'>
+                <div id='placing_signin'>
 
                 <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
                 <br />
-
                 <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
                 <br />
-                <input type="password" id="cfpwd" name="pwd" placeholder="Confirm Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                <a href='#'>Forgot password?</a>
                 <br />
-                <input type="email" id="email" name="email" placeholder="Email" /><br />
-                <input type="email" id="email" name="email" placeholder="Confirm Email" /><br />
+                <a href='#'>Register?</a>
+            </div>
+                <br />
+                <button id='backToWelcom1'>Back to the main</button>
+                <button type='submit' id='signedIn'>Sign In</button>
 
-                <input min="18" max="99" type="number" id="number" name="number" value="number" placeholder="Age" required="required" />
-                <br />
-                <input list="gender" placeholder="Gender">
-                <br />
-                <button type='submit' id='signedUp'>Sign Up</button>
-            </fieldset>
+            </div>
 
-            <datalist id="gender">
-                <option value="Female">
-                <option value="Male">
-                <option value="Prefer not to say">
-            </datalist>
+
+            <!--sign up page-->
+            <div id='signUpMoment'>
+                <fieldset>
+
+                    <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
+                    <br />
+
+                    <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                    <br />
+                    <input type="password" id="cfpwd" name="pwd" placeholder="Confirm Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                    <br />
+                    <input type="email" id="email" name="email" placeholder="Email" /><br />
+                    <input type="email" id="email" name="email" placeholder="Confirm Email" /><br />
+
+                    <input min="18" max="99" type="number" id="number" name="number" value="number" placeholder="Age" required="required" />
+                    <br />
+                    <select size="1" name="gender" id="gender">
+                        <option value="" disabled selected>Gender</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="prefernottosay">Prefer not to say</option>
+                    </select>
+                    <br />
+                    <button id='backToWelcom2'>Back to the main</button>
+                    <button type='submit' id='signedUp'>Sign Up</button>
+                </fieldset>
+
+            </div>
         </div>
-      </div>
     </main>
 
     <footer>
@@ -71,17 +76,27 @@
         /*<![CDATA[*/
         $(document).ready(function() {
 
-            $("#signingIn").hide();
-            $("#signingUp").hide();
-            $("#signIn").click(function(event) {
+            $("#signInMoment").hide();
+            $("#signUpMoment").hide();
+            $("#buttonIn").click(function(event) {
                 event.preventDefault();
                 $("#welcomeMoment").hide();
-                $("#signingIn").show(100);
+                $("#signInMoment").show(100);
             });
 
-            $("#signUp").click(function() {
+            $("#buttonUp").click(function() {
                 $("#welcomeMoment").hide();
-                $("#signingUp").show(100);
+                $("#signUpMoment").show(100);
+            });
+
+            $("#backToWelcom1").click(function() {
+                $("#welcomeMoment").show();
+                $("#signInMoment").hide();
+            });
+
+            $("#backToWelcom2").click(function() {
+                $("#welcomeMoment").show();
+                $("#signUpMoment").hide();
             });
 
         })
