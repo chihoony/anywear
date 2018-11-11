@@ -55,6 +55,11 @@ app.get('/login', function(req, res) {
   res.render('pages/login');
 })
 
+// create a trip page
+app.get('/createtrip', function(req, res) {
+  res.render('pages/createtrip');
+})
+
 // serving up public files
 app.use('/src', express.static('src'));
 
