@@ -4,6 +4,9 @@
 <head>
     <% include ../partials/head %>
     <link rel="stylesheet" href="/src/css/welcomepage.css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body class="container">
@@ -19,52 +22,128 @@
 
             <!--sign in page-->
             <div id='signInMoment'>
-                <div id='placing_signin'>
+                <form method="post" action="/login">
+                    <input type="text" id="userNameForSignIn" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
+                    <br />
+                    <input type="password" id="pwdForSignIn" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" /><br />
+                    <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                    <label class="form-check-label" for="inlineFormCheck">
+                        Remember me
+                    </label>
+                    <br /><br />
+                    <a href='#'>Forgot password?</a>
+                    <a href='#' id='buttonUp1'>Register?</a>
+                    <br />
+                    <button id='backToWelcom1'>Back to the main</button>
+                    <button type="submit" id="signedIn">Sign In</button>
 
-                <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
-                <br />
-                <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
-                <br />
-                <a href='#'>Forgot password?</a>
-                <br />
-                <a href='#'>Register?</a>
+                </form>
             </div>
-                <br />
-                <button id='backToWelcom1'>Back to the main</button>
-                <button type='submit' id='signedIn'>Sign In</button>
-
-            </div>
-
 
             <!--sign up page-->
             <div id='signUpMoment'>
-                <fieldset>
-
-                    <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
+                <form method="post" action="/register">
+                    <input type="text" id="userName" name="name" placeholder="User Name *" pattern="[A-Za-z]{2,20}" required="required" title="This will be your user name!" />
                     <br />
 
-                    <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                    <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{8,20}" required="required" title="Password must be 8-20 characters long." />
                     <br />
-                    <input type="password" id="cfpwd" name="pwd" placeholder="Confirm Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                    <input type="password" id="cfpwd" name="pwd" placeholder="Confirm Password" pattern="[A-Za-z0-9]{8,20}" required="required" title="Confirm your password." />
                     <br />
-                    <input type="email" id="email" name="email" placeholder="Email" /><br />
-                    <input type="email" id="email" name="email" placeholder="Confirm Email" /><br />
+                    <input type="email" id="email" name="email" placeholder="Email" title="This will be used only when you forget your password." /><br />
+                    <input type="email" id="cfemail" name="email" placeholder="Confirm Email" title="Confirm your email." /><br />
 
-                    <input min="18" max="99" type="number" id="number" name="number" value="number" placeholder="Age" required="required" />
+                    <input min="18" max="99" type="number" id="number" name="number" placeholder="Age" required="required" title="This will be used only for statistical purpose." />
                     <br />
-                    <select size="1" name="gender" id="gender">
+                    <select size="1" name="gender" id="gender" required="required">
                         <option value="" disabled selected>Gender</option>
                         <option value="female">Female</option>
                         <option value="male">Male</option>
                         <option value="prefernottosay">Prefer not to say</option>
                     </select>
                     <br />
+                    <input type="file" name="file" id="uploadPhoto" data-multiple-caption="{count} files selected" />
+                    <label for="file" id="uploadPhoto1">Choose a file</label>
+                    <br />
                     <button id='backToWelcom2'>Back to the main</button>
-                    <button type='submit' id='signedUp'>Sign Up</button>
-                </fieldset>
+                    <button type="submit" id="signedUp" disabled>Sign Up</button>
+
+                </form>
 
             </div>
         </div>
+
+
+        <div class="container marketing">
+
+          <!-- Three columns of text below the carousel -->
+          <div class="row">
+            <div class="col-lg-4">
+              <img class="rounded-circle" src="https://dummyimage.com/400x400/a8d2ff/000000.png&text=profile" alt="Generic placeholder image" width="140" height="140">
+              <h2>Bret</h2>
+              <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+              <img class="rounded-circle" src="https://dummyimage.com/400x400/a8d2ff/000000.png&text=profile" alt="Generic placeholder image" width="140" height="140">
+              <h2>Edward</h2>
+              <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+              <img class="rounded-circle" src="https://dummyimage.com/400x400/a8d2ff/000000.png&text=profile" alt="Generic placeholder image" width="140" height="140">
+              <h2>Hannah</h2>
+              <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            </div><!-- /.col-lg-4 -->
+          </div><!-- /.row -->
+
+
+          <!-- START THE FEATURETTES -->
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" style="width: 500px; height: 500px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22500%22%20height%3D%22500%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_167059a0880%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A25pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_167059a0880%22%3E%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22185.125%22%20y%3D%22261.1%22%3E500x500%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+            </div>
+          </div>
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22500%22%20height%3D%22500%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_167059a0885%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A25pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_167059a0885%22%3E%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22185.125%22%20y%3D%22261.1%22%3E500x500%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 500px; height: 500px;">
+            </div>
+          </div>
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22500%22%20height%3D%22500%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_167059a0889%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A25pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_167059a0889%22%3E%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22185.125%22%20y%3D%22261.1%22%3E500x500%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 500px; height: 500px;">
+            </div>
+          </div>
+
+          <hr class="featurette-divider">
+
+          <!-- /END THE FEATURETTES -->
+
+        </div><!-- /.container -->
+
+
+
+
     </main>
 
     <footer>
@@ -72,6 +151,9 @@
     </footer>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         /*<![CDATA[*/
         $(document).ready(function() {
@@ -81,12 +163,16 @@
             $("#buttonIn").click(function(event) {
                 event.preventDefault();
                 $("#welcomeMoment").hide();
-                $("#signInMoment").show(100);
+                $("#signInMoment").show();
             });
 
             $("#buttonUp").click(function() {
                 $("#welcomeMoment").hide();
-                $("#signUpMoment").show(100);
+                $("#signUpMoment").show();
+            });
+            $("#buttonUp1").click(function() {
+                $("#signInMoment").hide();
+                $("#signUpMoment").show();
             });
 
             $("#backToWelcom1").click(function() {
@@ -98,6 +184,51 @@
                 $("#welcomeMoment").show();
                 $("#signUpMoment").hide();
             });
+
+            var tooltips = $("[title]").tooltip({
+                position: {
+                    my: "left top",
+                    at: "right+5 top-5",
+                    collision: "none"
+                }
+            });
+
+            $("#uploadPhoto1").click(function() {
+                $("#uploadPhoto").click();
+            });
+
+
+            // var pwd = document.getElementById("pwd").value;
+            // var cfpwd = document.getElementById("cfpwd").value;
+            // var signedUp = document.getElementById("signedUp");
+            // $(cfpwd).keyup(function() {
+            //     if (pwd == cfpwd)
+            //         console.log(pwd);
+            //     //signedUp.setAttribute(enabled);
+            //
+            // });
+
+            //    function
+            // var inputs = document.querySelectorAll( '#uploadPhoto' );
+            // Array.prototype.forEach.call( inputs, function( input )
+            // {
+            // 	var label	 = input.nextElementSibling,
+            // 		labelVal = label.innerHTML;
+            //
+            // 	input.addEventListener( 'change', function( e )
+            // 	{
+            // 		var fileName = '';
+            // 		if( this.files && this.files.length > 1 )
+            // 			fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+            // 		else
+            // 			fileName = e.target.value.split( '\\' ).pop();
+            //
+            // 		if( fileName )
+            // 			label.querySelector( 'span' ).innerHTML = fileName;
+            // 		else
+            // 			label.innerHTML = labelVal;
+            // 	});
+            // });
 
         })
     </script>

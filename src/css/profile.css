@@ -1,0 +1,29 @@
+
+#profilePage{
+    padding: 3em;
+}
+#profile{
+    width: 340px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 5em;
+    margin-bottom:  5em;
+    padding-bottom: 2em;
+    border:1px solid black;
+}
+#profilePhoto{
+    display: block;
+    width: 150px;
+
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: -5em;
+    margin-bottom: 1em;
+}
+
+#profile p{
+    display:block;
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 1em;
+}

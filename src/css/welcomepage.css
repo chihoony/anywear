@@ -1,7 +1,12 @@
+#loginRegisterCon, #aboutUs{
+float: center;
+height:50em;
+}
+
+
 #welcomeMoment, #signInMoment, #signUpMoment {
     width: 30em;
     height: 20em;
-    border: solid black 1px;
     position: absolute;
     top: 20%;
     left: 15%;
@@ -11,6 +16,8 @@
     width: 6em;
     height: 2em;
     margin-left: 3em;
+    position: relative;
+    top: 20%;
 }
 
 
@@ -24,13 +31,37 @@ button {
 
 input, select {
     border: none;
-    border-bottom: 2px solid #6f6f6f;
+    border-bottom: 2px solid #c3c3c3;
     outline: none;
     background: rgba(255, 255, 255, 0.4);
-    text-align: center;
-    width: 10em;
+    width: 15em;
+    margin : 0.1em;
 }
-
 input:focus {
     border-bottom: 2px solid black;
+}
+a{
+    margin-left: 1em;
+}
+.ui-tooltip {
+  width: 13em;
+}
+
+#uploadPhoto{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#uploadPhoto + label{
+	cursor: pointer;
+    color: #7b7b7b;
+    display: inline-block;
+}
+#uploadPhoto:focus + label,
+#uploadPhoto + label:hover {
+    color: black;
 }
