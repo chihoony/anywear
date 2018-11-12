@@ -4,16 +4,57 @@
 <html lang="en">
 <head>
   <% include ../partials/head %>
+  <link rel="stylesheet" href="./src/css/trip.css" />
 </head>
 <body class="container">
   <header>
     <% include ../partials/header %>
   </header>
   <main>
+    <div id="destinationimg_con">
+    </div>
+    <div id="tripdetails_con">
+      <div id="destination_con" class="details_con">
+        <h5>Destination</h5>
+        <p>Location</p>
+      </div>
+      <div id="checkin_con" class="details_con">
+        <h5>Check in</h5>
+        <p>Location</p>
+      </div>
+      <div id="checkout_con" class="details_con">
+        <h5>Check out</h5>
+        <p>Location</p>
+      </div>
+      <div id="bagsize_con" class="details_con">
+        <h5>Bag Size</h5>
+        <p>Location</p>
+      </div>
+    </div>
+
+
+    <div id="warddrobe_con">
+      <div id="top_con_top">
+        <h5>Top Wear</h5>
+        <div id="top_con" class="clothing_containers">
+        </div>
+      </div>
+      <div id="bottom_con_top">
+        <h5>Bottom Wear</h5>
+          <div id="bottom_con" class="clothing_containers">
+          </div>
+      </div>
+      <div id="jacket_con_top">
+        <h5>Coat Wear</h5>
+          <div id="jacket_con" class="clothing_containers">
+          </div>
+      </div>
+    </div>
 
   </main>
   <footer>
     <% include ../partials/footer %>
+    <script src="./src/js/trip.js"></script>
   </footer>
   </body>
 </html>

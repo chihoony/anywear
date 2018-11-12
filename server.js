@@ -2,8 +2,10 @@
 // load the things we need
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 var nodemon = require('nodemon');
 
+var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -58,6 +60,12 @@ app.get('/login', function(req, res) {
 // create a trip page
 app.get('/createtrip', function(req, res) {
   res.render('pages/createtrip');
+})
+
+app.post('/createtrip', urlencodedParser,function(req, res) {
+  console.log(req.body);
+  console.log(req.body.destination);
+  res.render('pages/currenttrip', {data: req.body});
 })
 
 // serving up public files

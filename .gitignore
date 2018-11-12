@@ -5,3 +5,7 @@
 # api ignores
 weatherapi.js
 mapsapi.js
+
+# helpful resources ignore
+resources.txt
+

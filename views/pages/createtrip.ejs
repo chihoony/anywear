@@ -4,17 +4,41 @@
 <html lang="en">
 <head>
   <% include ../partials/head %>
+  <link href="./src/css/createtrip.css" rel="stylesheet"/>
 </head>
 <body class="container">
   <header>
     <% include ../partials/header %>
   </header>
-  <main>
-    <input id="search_term" type="text" placeholder="hello"/>
+  <main id="createtrip_main">
+    <form id="createTripForm" method="post" action="/createtrip">
+      <div id="search_container" class="form-row align-items-center">
+        <div class="form-group col-md-4">
+          <input class="form-control" name="destination" id="search_term_input" type="text" placeholder="Enter a destination" required="required" oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
+        </div>
+        <div class="form-group col-md-2">
+          <input class="form-control" name="checkin" id="check_in_input" type="date" placeholder="Check in" required="required" oninvalid="this.setCustomValidity('Please fill in your check in date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
+        </div>
+        <div class="form-group col-md-2">
+          <input class="form-control" name="checkout" id="check_out_input" type="date" placeholder="Check out" required="required" oninvalid="this.setCustomValidity('Please fill in your check out date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
+        </div>
+        <div id="sizeCon" class="form-group col-md-2">
+          <input class="form-control" name="bagsize" id="bag_size_input" type="text" placeholder="Size" required="required" oninvalid="this.setCustomValidity('Please select a bag size.')" oninput="this.setCustomValidity('')" onfocus="showBagSelection(this)" readonly/>
+        </div>
+        <div id="buttonNext" class="form-group col-md-1">
+          <input class="btn btn-primary" id="next_button" type="submit" name="next" value="Next"/>
+        </div>
+      </div>
+    </form>
+    <div id="inner">
+      <div id="bag_container">
+      </div>
+    </div>
   </main>
   <footer>
     <% include ../partials/footer %>
   </footer>
+    <script src="./src/js/createtrip.js"></script>
     <script src="./src/js/mapsapi.js"></script>
   </body>
 </html>
