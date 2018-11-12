@@ -4,6 +4,8 @@
 <head>
     <% include ../partials/head %>
     <link rel="stylesheet" href="/src/css/welcomepage.css" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body class="container">
@@ -16,53 +18,65 @@
                 <button id='buttonIn'>To Sign In</button>
                 <button id='buttonUp'>To Sign Up</button>
             </div>
-
             <!--sign in page-->
             <div id='signInMoment'>
-                <div id='placing_signin'>
+                <form action=".">
+                    <input type="text" id="userNameForSignIn" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
+                    <br />
+                    <input type="password" id="pwdForSignIn" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" /><br />
+                    <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                    <label class="form-check-label" for="inlineFormCheck">
+                        Remember me
+                    </label>
+                    <br /><br />
+                    <a href='#'>Forgot password?</a>
+                    <a href='#' id='buttonUp1'>Register?</a>
+                    <br />
+                    <button id='backToWelcom1'>Back to the main</button>
+                    <button type="submit" id="signedIn">Sign In</button>
 
-                <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
-                <br />
-                <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
-                <br />
-                <a href='#'>Forgot password?</a>
-                <br />
-                <a href='#'>Register?</a>
+                </form>
             </div>
-                <br />
-                <button id='backToWelcom1'>Back to the main</button>
-                <button type='submit' id='signedIn'>Sign In</button>
-
-            </div>
-
 
             <!--sign up page-->
             <div id='signUpMoment'>
-                <fieldset>
-
-                    <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" />
+                <form action="">
+                    <input type="text" id="userName" name="name" placeholder="User Name" pattern="[A-Za-z]{2,20}" required="required" title="This will be your user name!" />
                     <br />
 
-                    <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                    <input type="password" id="pwd" name="pwd" placeholder="Password" pattern="[A-Za-z0-9]{8,20}" required="required" title="Password must be 8-20 characters long." />
                     <br />
-                    <input type="password" id="cfpwd" name="pwd" placeholder="Confirm Password" pattern="[A-Za-z0-9]{6,20}" required="required" />
+                    <input type="password" id="cfpwd" name="pwd" placeholder="Confirm Password" pattern="[A-Za-z0-9]{6,20}" required="required" title="Confirm your password." />
                     <br />
-                    <input type="email" id="email" name="email" placeholder="Email" /><br />
-                    <input type="email" id="email" name="email" placeholder="Confirm Email" /><br />
+                    <input type="email" id="email" name="email" placeholder="Email" title="This will be used only when you forget your password." /><br />
+                    <input type="email" id="cfemail" name="email" placeholder="Confirm Email" title="Confirm your email." /><br />
 
-                    <input min="18" max="99" type="number" id="number" name="number" value="number" placeholder="Age" required="required" />
+                    <input min="18" max="99" type="number" id="number" name="number" placeholder="Age" required="required" title="This will be used only for statistical purpose." />
                     <br />
-                    <select size="1" name="gender" id="gender">
+                    <select size="1" name="gender" id="gender" required="required">
                         <option value="" disabled selected>Gender</option>
                         <option value="female">Female</option>
                         <option value="male">Male</option>
                         <option value="prefernottosay">Prefer not to say</option>
                     </select>
                     <br />
+                    <input type="file" name="file" id="uploadPhoto" data-multiple-caption="{count} files selected" />
+                    <label for="file" id="uploadPhoto1">Choose a file</label>
+                    <br />
                     <button id='backToWelcom2'>Back to the main</button>
-                    <button type='submit' id='signedUp'>Sign Up</button>
-                </fieldset>
+                    <button type="submit" id="signedUp" disabled>Sign Up</button>
 
+                </form>
+
+            </div>
+        </div>
+        <div id='aboutUs'>
+            <div class="jumbotron">
+                <h1 class="display-4">Hello, anywear!</h1>
+                <p class="lead">This is anywear.</p>
+                <hr class="my-4">
+                <p>This is anywear.</p>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
             </div>
         </div>
     </main>
@@ -72,6 +86,8 @@
     </footer>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         /*<![CDATA[*/
         $(document).ready(function() {
@@ -81,12 +97,16 @@
             $("#buttonIn").click(function(event) {
                 event.preventDefault();
                 $("#welcomeMoment").hide();
-                $("#signInMoment").show(100);
+                $("#signInMoment").show();
             });
 
             $("#buttonUp").click(function() {
                 $("#welcomeMoment").hide();
-                $("#signUpMoment").show(100);
+                $("#signUpMoment").show();
+            });
+            $("#buttonUp1").click(function() {
+                $("#signInMoment").hide();
+                $("#signUpMoment").show();
             });
 
             $("#backToWelcom1").click(function() {
@@ -98,6 +118,51 @@
                 $("#welcomeMoment").show();
                 $("#signUpMoment").hide();
             });
+
+            var tooltips = $("[title]").tooltip({
+                position: {
+                    my: "left top",
+                    at: "right+5 top-5",
+                    collision: "none"
+                }
+            });
+
+            $("#uploadPhoto1").click(function() {
+                $("#uploadPhoto").click();
+            });
+
+
+            // var pwd = document.getElementById("pwd").value;
+            // var cfpwd = document.getElementById("cfpwd").value;
+            // var signedUp = document.getElementById("signedUp");
+            // $(cfpwd).keyup(function() {
+            //     if (pwd == cfpwd)
+            //         console.log(pwd);
+            //     //signedUp.setAttribute(enabled);
+            //
+            // });
+
+            //    function
+            // var inputs = document.querySelectorAll( '#uploadPhoto' );
+            // Array.prototype.forEach.call( inputs, function( input )
+            // {
+            // 	var label	 = input.nextElementSibling,
+            // 		labelVal = label.innerHTML;
+            //
+            // 	input.addEventListener( 'change', function( e )
+            // 	{
+            // 		var fileName = '';
+            // 		if( this.files && this.files.length > 1 )
+            // 			fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+            // 		else
+            // 			fileName = e.target.value.split( '\\' ).pop();
+            //
+            // 		if( fileName )
+            // 			label.querySelector( 'span' ).innerHTML = fileName;
+            // 		else
+            // 			label.innerHTML = labelVal;
+            // 	});
+            // });
 
         })
     </script>
