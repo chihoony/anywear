@@ -1,12 +1,18 @@
 {
     "name": "node-ejs",
     "main": "server.js",
+    "scripts": {
+        "devstart": "nodemon server.js"
+    },
     "dependencies": {
         "body-parser": "^1.18.3",
         "ejs": ">=2.5.5",
         "express": "^4.6.1",
+        "joi": "^14.0.6",
         "jquery": "*",
         "jsdom": "*",
+        "lodash": "^4.17.11",
+        "mongoose": "^5.3.12",
         "nodemon": "^1.18.6"
     },
     "start": {}

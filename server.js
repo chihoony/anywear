@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var nodemon = require('nodemon');
+var users = require('./src/js/User/users');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
@@ -67,6 +68,9 @@ app.post('/createtrip', urlencodedParser,function(req, res) {
   console.log(req.body.destination);
   res.render('pages/currenttrip', {data: req.body});
 })
+
+// API handlers
+app.use('/api/users', users);
 
 // serving up public files
 app.use('/src', express.static('src'));
