@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 // use res.render to load up an ejs view file
 
 // currenttrip page
-app.get('/', function(req, res) {
+app.get('/current', function(req, res) {
   res.render('pages/currenttrip');
 })
 
@@ -28,7 +28,7 @@ app.get('/about', function(req, res) {
 })
 
 // trips page
-app.get('/trips', function(req, res) {
+app.get('/alltrips', function(req, res) {
   res.render('pages/trips');
 })
 
@@ -43,7 +43,7 @@ app.get('/calendar', function(req, res) {
 })
 
 // welcome page
-app.get('/welcome', function(req, res) {
+app.get('/', function(req, res) {
   res.render('pages/welcome');
 })
 

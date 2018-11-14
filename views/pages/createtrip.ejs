@@ -6,10 +6,11 @@
   <% include ../partials/head %>
   <link href="./src/css/createtrip.css" rel="stylesheet"/>
 </head>
-<body class="container">
+<body id="content" class="container">
   <header>
     <% include ../partials/header %>
   </header>
+  <% include ../partials/loading %>
   <main id="createtrip_main">
     <form id="createTripForm" method="post" action="/createtrip">
       <div id="search_container" class="form-row align-items-center">

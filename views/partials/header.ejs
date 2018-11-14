@@ -6,16 +6,19 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">CurrentTrip<span class="sr-only">(current)</span></a>
+      <li id="new_trip_nav" class="nav-item">
+        <a class="nav-link" href="/createtrip">+NewTrip<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/trips">Trips</a>
+      <li id="current_trip_nav" class="nav-item">
+        <a class="nav-link" href="/current">CurrentTrip<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li id="trips_nav" class="nav-item">
+        <a class="nav-link" href="/alltrips">Trips</a>
+      </li>
+      <!-- <li class="nav-item">
         <a class="nav-link" href="/calendar">Calendar</a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <li id="profile_nav" class="nav-item">
         <a class="nav-link" href="/profile">Profile
           <!-- <img src="https://dummyimage.com/150x150/ffd9ff/fff&text=face" alt="profile-img" id="profileImage"/> -->
         </a>

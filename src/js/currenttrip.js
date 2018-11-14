@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $('#current_trip_nav').addClass('active');
   var outfit_Section = $('#outfitSection');
 
   var outfit_calendar_con = $("<div id='outfit_calendar_pill'></div>");

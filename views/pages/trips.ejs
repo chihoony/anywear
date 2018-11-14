@@ -2,16 +2,22 @@
 <html lang="en">
 <head>
   <% include ../partials/head %>
+  <link rel="stylesheet" href="./src/css/trips.css" />
 </head>
 <body class="container">
-  <header>
+  <header id="header">
     <% include ../partials/header %>
   </header>
   <main>
-
+    <h1 id="page_title" class="h1"></h1>
+    <div id="content">
+      <div id="cardDeck" class="row">
+      </div>
+    </div>
   </main>
   <footer>
     <% include ../partials/footer %>
+    <script src="./src/js/trips.js"></script>
   </footer>
   </body>
 </html>

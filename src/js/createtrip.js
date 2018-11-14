@@ -22,7 +22,18 @@ var bagDescription = ["Small<br/>Daypacks",
                 "Medium<br/>Suitcase",
                 "Large<br/>Suitcase"]
 
+//used to create a loading bar
+// will probably add functionality that checks if the last element was created
+// but for now it only uses time. (which is fine for this scope)
+$(function() {
+  $("#overlay").fadeOut('2000', function() {
+    // $(".content").fadeIn(1000);
+  });
+})
+
+// PAGE IS FULLY LOADED
 $(document).ready(function() {
+  $('#new_trip_nav').addClass('active');
   var bag_container = $('#bag_container');
 
   function setBaglist() {
