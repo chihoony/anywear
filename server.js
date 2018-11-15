@@ -34,7 +34,7 @@ app.use('/api/auth', auth);
 // use res.render to load up an ejs view file
 
 // currenttrip page
-app.get('/', authAccess, function(req, res) {
+app.get('/', function(req, res) {
   res.render('pages/currenttrip');
 })
 
