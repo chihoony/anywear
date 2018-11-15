@@ -1,14 +1,21 @@
 // server.js
 // load the things we need
+var config = require('config');
+var authAccess = require('./middleware/auth');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var nodemon = require('nodemon');
 var users = require('./src/js/User/users');
 var mongoose = require('mongoose');
-const auth = require('./src/js/User/auth')
+const auth = require('./src/js/User/auth');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
+
+if (!config.get('jwtKey')){
+  console.log("FATAL ERROR: jwtKey is not defined");
+  process.exit(1);
+}
 
 // Starting database connection
 mongoose.connect('mongodb://localhost/anywear')
@@ -27,7 +34,7 @@ app.use('/api/auth', auth);
 // use res.render to load up an ejs view file
 
 // currenttrip page
-app.get('/', function(req, res) {
+app.get('/', authAccess, function(req, res) {
   res.render('pages/currenttrip');
 })
 
