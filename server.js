@@ -5,11 +5,24 @@ var app = express();
 var bodyParser = require('body-parser');
 var nodemon = require('nodemon');
 var users = require('./src/js/User/users');
+var mongoose = require('mongoose');
+const auth = require('./src/js/User/auth')
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
+// Starting database connection
+mongoose.connect('mongodb://localhost/anywear')
+  .then(() => console.log("Connected to mongo..."))
+  .catch(err => console.log("Failed connection to mongo ", err));
+
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.json());
+
+// API handlers
+app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 // use res.render to load up an ejs view file
 
@@ -68,9 +81,6 @@ app.post('/createtrip', urlencodedParser,function(req, res) {
   console.log(req.body.destination);
   res.render('pages/currenttrip', {data: req.body});
 })
-
-// API handlers
-app.use('/api/users', users);
 
 // serving up public files
 app.use('/src', express.static('src'));
