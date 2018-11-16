@@ -9,6 +9,7 @@ var nodemon = require('nodemon');
 var users = require('./src/js/User/users');
 var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');
+const trips = require('./src/js/Trip/trips');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
@@ -30,11 +31,12 @@ app.use(bodyParser.json());
 // API handlers
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use('/api/trips', trips);
 
 // use res.render to load up an ejs view file
 
 // currenttrip page
-app.get('/', function(req, res) {
+app.get('/', authAccess, function(req, res) {
   res.render('pages/currenttrip');
 })
 
