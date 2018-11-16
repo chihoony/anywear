@@ -26,30 +26,66 @@ var bagDescription = ["Small<br/>Daypacks",
 // will probably add functionality that checks if the last element was created
 // but for now it only uses time. (which is fine for this scope)
 $(function() {
+  var checkInOptions = {}
   $("#overlay").fadeOut('2000', function() {
     // $(".content").fadeIn(1000);
   });
 })
 
+$("#check_in_input").datepicker({
+  defaultDate: new Date(),
+  minDate: new Date(),
+  onSelect: function(dateStr){
+    $("#check_out_input").datepicker({defaultDate: new Date(dateStr), minDate: new Date(dateStr)})
+  }
+});
+
+
 // PAGE IS FULLY LOADED
 $(document).ready(function() {
+  // Setting the date picker.
+  // $('.datepicker').focus(function() {
+  //   $(this).datepicker();
+  // });
+  $("#check_in_input").datepicker({
+    defaultDate: new Date(),
+    minDate: new Date(),
+    onSelect: function(dateStr){
+      $("#check_out_input").datepicker({defaultDate: new Date(dateStr), setDefaultDate: true, minDate: new Date(dateStr)})
+    }
+  });
+
+  $("#check_out_input").datepicker({
+    defaultDate: new Date(),
+    minDate: new Date(),
+    onSelect: function(dateStr){
+      $("#check_in_input").datepicker({minDate: new Date(), maxDate: new Date(dateStr)})
+    }
+  });
+
+
   $('#new_trip_nav').addClass('active');
   var bag_container = $('#bag_container');
 
   function setBaglist() {
     for (var i = 0; i < bagSizes.length; i++) {
-      var cardcon = $("<div class='card' style='width:10rem;'></div>");
-      var cardbody = $("<div class='card-body'></div>");
-      var cardimg = $('<img class="card-img-top" src="https://dummyimage.com/200x200/444400/fff" alt="Bag image">');
-      var cardtitle = $('<h5 class="card-title"></h5>');
+      var cardcon = $("<div class='card hoverable' style='width:10rem;'></div>");
+
+      var cardimgdiv = $('<div class="card-image"></div>');
+      var cardimg = $('<img src="https://dummyimage.com/200x200/444400/fff" alt="Bag image">');
+      var cardspantitle = $('<span class="card-title"></span>');
+      cardimgdiv.append(cardimg, cardspantitle);
+
+      var cardbody = $("<div class='card-content'></div>");
       var cardtext = $('<p class="card-text"></p>');
+      cardbody.append(cardtext);
 
       cardcon.attr('data-value', bagSizes[i]);
       cardimg.attr('src', bagImages[i]);
-      cardtitle.html(bagSizes[i]);
+      cardspantitle.html(bagSizes[i]);
       cardtext.html(bagDescription[i]);
-      cardbody.append(cardimg, cardtitle, cardtext);
-      cardcon.append(cardbody);
+
+      cardcon.append(cardimgdiv,cardbody);
       bag_container.append(cardcon);
     }
 
@@ -69,6 +105,7 @@ $(document).ready(function() {
 
 })
 
+
 function showBagSelection(x) {
   $('#bag_container').css('visibility', 'visible');
   $('#bag_container').animate({opacity: 1}, 300);
@@ -76,5 +113,12 @@ function showBagSelection(x) {
 };
 
 function hideBagSelection(x) {
-  $('#bag_container').animate({opacity: 0, visibility: 'hidden'}, 300);
+  $('#bag_container').animate({opacity: 0}, 300);
+  function hiddenBag(){
+    $('#bag_container').css('visibility', 'hidden');
+  }
+  $('#bag_container').delay(300).queue(function() {
+    $('#bag_container').css('visibility', 'hidden');
+    $(this).dequeue();
+  })
 }

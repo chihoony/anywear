@@ -1,15 +1,24 @@
-
 #carouselOuterContainer {
-  display: flex;
-  justify-content: center;
-  /* align-content: center; */
-  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+#carouselID {
+  height: 550px;
+}
+.carousel, .carousel-slider{
+  height: 0px;
+}
+.carousel-item {
+  width: 175px !important;
 }
 
+#indicatorContainer {
+  /* position: relative; */
+  /* top: 250px; */
+}
 
 .outfitImageCon {
   width: 200px;
-  margin: 0 auto;
   padding-bottom: 3em;
 }
 
@@ -26,50 +35,58 @@
   margin-top: 2em;
 }
 
-/* PERSONAL STYLING */
-@media (min-width: 800px); {
-
-}
-
-
-
-
-/* BOOTSTRAP EDITS */
-.card-deck {
-  justify-content: center !important;
+.card img {
+  display: block;
+  width: 150px;
+  padding: 5px;
+  margin: 0 auto;
 }
 .card {
-    flex: 0 1 15% !important;
-    /* height: 100px !important; */
+  display: inline-block;
 }
 
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v18/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
 
-@media (max-width: 1200px) {
-  .card-deck .card {
-      flex: 0 1 20% !important;
-      /* height: 100px !important; */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-font-feature-settings: 'liga';
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.middle-indicator{
+   position:relative;
+   top:250px;
+   }
+  .middle-indicator-text{
+   font-size: 4.2rem;
   }
-
-}
-
-@media (max-width: 992px) {
-  .card-deck .card {
-    flex-grow: 1 !important;
-      flex: 0 1 25% !important;
+  a.middle-indicator-text{
+    color: #bdbdbd !important;
   }
-
-}
-
-
-@media (max-width: 768px) {
-  .card-deck .card {
-    flex-grow: 1 !important;
-      flex: 0 1 40% !important;
+.content-indicator{
+    width: 64px;
+    height: 64px;
+    background: none;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
   }
-
-
-}
-
-@media (max-width: 568px) {
-}
+    .indicators{
+  	visibility: hidden;
+  }

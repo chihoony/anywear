@@ -1,7 +1,6 @@
 #destinationimg_con{
   width: 100%;
   height: 30vh;
-  background-image: url("https://dummyimage.com/200x200/444400/fff");
   background-size: cover;
 }
 
@@ -19,85 +18,81 @@
   display: inline-block;
 }
 
-#warddrobe_con {
-}
-
-#trip-img{
-
-}
-
-#top_con_top {
+.cloth_img_con {
+  max-width: 150px;
+  display: block;
+  position: relative;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
 }
 
 .cloth_img {
   max-width: 150px;
-  margin: 0 auto;
   display: block;
-  margin-bottom:10px;
-  margin-top: 10px;
+  margin: 0 auto;
 }
 
 .cloth_figure {
-  width: 16.6%;
   display: inline-block;
-  /* margin: 10px; */
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
-
 
 .clothing_containers {
   display: block;
+
+}
+
+.icon_delete {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  text-shadow: 0 0 5px white;
+  z-index: 11;
+}
+
+.overlay_menu {
+  position: absolute;
+  background-color: lightgrey;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  display: none;
+}
+
+.overlay_top{
+  background-color: blue;
   position: relative;
-  margin: 0 auto;
-  /* display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap; */
-  /* overflow-x: scroll;
-  overflow-y: hidden; */
-
+  width: 100%;
+  height: 50%;
+  text-align: center;
+  bottom: 0;
 }
 
-
-@media (max-width: 1200px) {
+.overlay_top p{
+  /* padding: 0; */
+  position: absolute;
+  margin:0;
+  padding-bottom: 1.3em;
+  width: 100%;
+  bottom: 0;
+}
+.overlay_bottom{
+  background-color: orange;
+  width: 100%;
+  height: 50%;
+  text-align: center;
 }
 
-@media (max-width: 992px) {
-  .cloth_figure {
-    width: 25%;
-  }
+.overlay_bottom p {
+  margin: 0;
+  padding-top: 1em;
 }
-
-
-@media (max-width: 768px) {
-  #tripdetails_con {
-    flex-wrap: wrap;
-  }
-  .details_con {
-    flex-basis: 100%;;
-  }
-  .cloth_figure {
-    width: 33%;
-  }
-
-}
-
-@media (max-width: 568px) {
-  #warddrobe_con {
-    width: 100%;
-  }
-
-  .cloth_figure {
-    width: 33%;
-  }
-
-}
-
-@media (max-width: 500px) {
-  #warddrobe_con {
-    width: 100%;
-  }
-
-  .cloth_figure {
-    width: 50%;
-  }
-
+.overlay_con {
+  width: 100%;
+  height: 100%;
 }

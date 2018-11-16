@@ -6,39 +6,53 @@
   <% include ../partials/head %>
   <link href="./src/css/createtrip.css" rel="stylesheet"/>
 </head>
-<body id="content" class="container">
-  <header>
-    <% include ../partials/header %>
-  </header>
-  <% include ../partials/loading %>
-  <main id="createtrip_main">
-    <form id="createTripForm" method="post" action="/createtrip">
-      <div id="search_container" class="form-row align-items-center">
-        <div class="form-group col-md-4">
-          <input class="form-control" name="destination" id="search_term_input" type="text" placeholder="Enter a destination" required="required" oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
-        </div>
-        <div class="form-group col-md-2">
-          <input class="form-control" name="checkin" id="check_in_input" type="date" placeholder="Check in" required="required" oninvalid="this.setCustomValidity('Please fill in your check in date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
-        </div>
-        <div class="form-group col-md-2">
-          <input class="form-control" name="checkout" id="check_out_input" type="date" placeholder="Check out" required="required" oninvalid="this.setCustomValidity('Please fill in your check out date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
-        </div>
-        <div id="sizeCon" class="form-group col-md-2">
-          <input class="form-control" name="bagsize" id="bag_size_input" type="text" placeholder="Size" required="required" oninvalid="this.setCustomValidity('Please select a bag size.')" oninput="this.setCustomValidity('')" onfocus="showBagSelection(this)" readonly/>
-        </div>
-        <div id="buttonNext" class="form-group col-md-1">
-          <input class="btn btn-primary" id="next_button" type="submit" name="next" value="Next"/>
+<body id="content">
+  <div class="container">
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <% include ../partials/loading %>
+    <main id="createtrip_main">
+      <div>
+        <div class="row">
+          <form class="col s12">
+            <div id= "search_container" class="row">
+              <div class="input-field col l4 m12 s12">
+                <input class="" name="destination" id="search_term_input" type="text" required="required" oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
+                <!-- <label for="search_term_input">Enter a destination</label> -->
+              </div>
+              <div class="input-field col l2 m6 s12">
+                <input class="datepicker" name="checkin" id="check_in_input" type="text" required="required" oninvalid="this.setCustomValidity('Please fill in your check in date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)" placeholder="Check in" readonly/>
+                <!-- <label for="check_in_input">Check in</label> -->
+              </div>
+              <div class="input-field col l2 m6 s12">
+                <input class="datepicker" name="checkout" id="check_out_input" type="text" required="required" oninvalid="this.setCustomValidity('Please fill in your check out date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)" placeholder="Check out" readonly/>
+                <!-- <label for="check_out_input">Check out</label> -->
+              </div>
+              <div class="input-field col l2 m6 s12">
+                <input class="" name="bagsize" id="bag_size_input" type="text" required="required" oninvalid="this.setCustomValidity('Please select a bag size.')" oninput="this.setCustomValidity('')" onfocus="showBagSelection(this)" placeholder="Size" readonly/>
+                <!-- <label for="bagsize">Size</label> -->
+              </div>
+              <div class="input-field col l2 m6 s12 center-align">
+                <button id="buttonNext" class="btn waves-effect waves-light" type="submit" name="action" value="next">Next
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div id="inner">
+            <div id="bag_container" class="col s12">
+            </div>
+          </div>
+
         </div>
       </div>
-    </form>
-    <div id="inner">
-      <div id="bag_container">
-      </div>
-    </div>
-  </main>
-  <footer>
-    <% include ../partials/footer %>
-  </footer>
+
+    </main>
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+  </div>
     <script src="./src/js/createtrip.js"></script>
     <script src="./src/js/mapsapi.js"></script>
   </body>

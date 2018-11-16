@@ -1,30 +1,20 @@
 <!-- views/partials/header.ejs -->
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-  <a class="navbar-brand" href="/">anyWear</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav ml-auto">
-      <li id="new_trip_nav" class="nav-item">
-        <a class="nav-link" href="/createtrip">+NewTrip<span class="sr-only">(current)</span></a>
-      </li>
-      <li id="current_trip_nav" class="nav-item">
-        <a class="nav-link" href="/current">CurrentTrip<span class="sr-only">(current)</span></a>
-      </li>
-      <li id="trips_nav" class="nav-item">
-        <a class="nav-link" href="/alltrips">Trips</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="/calendar">Calendar</a>
-      </li> -->
-      <li id="profile_nav" class="nav-item">
-        <a class="nav-link" href="/profile">Profile
-          <!-- <img src="https://dummyimage.com/150x150/ffd9ff/fff&text=face" alt="profile-img" id="profileImage"/> -->
-        </a>
-
-      </li>
+<nav>
+  <div class="nav-wrapper blue darken-3">
+    <a href="#" class="brand-logo">anyWear</a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="/createtrip">+NewTrip</a></li>
+      <li><a href="/current">CurrentTrip</a></li>
+      <li><a href="/alltrips">Trips</a></li>
+      <li><a href="./profile">Profile</a></li>
     </ul>
   </div>
 </nav>
-  </div>
+
+<ul class="sidenav" id="mobile-demo">
+  <li><a href="/createtrip">NewTrip</a></li>
+  <li><a href="/current">CurrentTrip</a></li>
+  <li><a href="/alltrips">Trips</a></li>
+  <li><a href="./profile">Profile</a></li>
+</ul>

@@ -29,7 +29,6 @@ $(document).ready(function(){
 
   var page_title = $('#page_title');
   page_title.text(nameOfUser + " Trips");
-
   function populatePage(){
     for (var i = 0; i < listOfImgs.length; i++) {
       var cardCon = $('<div class="col-sm-6"></div>');

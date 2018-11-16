@@ -9,59 +9,38 @@
 <body class="container" >
   <header>
     <% include ../partials/header %>
-    </header>
+  </header>
 
-    <main>
-
-      <div id="carouselOuterContainer">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item outfitItem active">
-              <div class="outfitImageCon" alt="First slide">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/444400/fff">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/444400/fff">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/444400/fff">
-              </div>
-            </div>
-            <div class="carousel-item outfitItem">
-              <div class="outfitImageCon" alt="First slide">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/004444/fff">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/004444/fff">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/004444/fff">
-              </div>
-            </div>
-            <div class="carousel-item outfitItem">
-              <div class="outfitImageCon" alt="First slide">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/004400/fff">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/004400/fff">
-                <img class="d-block w-100" src="https://dummyimage.com/200x200/004400/fff">
-              </div>
-            </div>
+  <main>
+    <div id="carouselOuterContainer">
+      <div class="carousel-fixed-item center middle-indicator">
+        <div id="indicatorContainer" class="">
+          <div class="left">
+            <a href="previous" class="movePrevCarousel middle-indicator-text waves-effect waves-light content-indicator">
+              <i class="material-icons left  middle-indicator-text">chevron_left</i></a>
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
+          <div class="right">
+            <a href="after" class=" moveNextCarousel middle-indicator-text waves-effect waves-light content-indicator">
+              <i class="material-icons right middle-indicator-text">chevron_right</i></a>
+          </div>
         </div>
       </div>
-      <section id="outfitSection">
+      <div id="carouselID" class="carousel carousel-slider center-align" data-indicators="true">
+        <a class="carousel-item" href="#one!"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"></a>
+        <a class="carousel-item" href="#two!"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"></a>
+        <a class="carousel-item" href="#three!"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"></a>
+        <a class="carousel-item" href="#four!"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"><img src="https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear"></a>
+      </div>
+    </div>
+    <section id="outfitSection" class="row">
 
-      </section>
-    </main>
+    </section>
+  </main>
     <!-- Possibly a calendar api here -->
-    <footer>
-      <% include ../partials/footer %>
-    </footer>
-    <script src='./src/js/weatherapi.js'></script>
-    <script src="./src/js/currenttrip.js"/></script>
-  </body>
+
+    <% include ../partials/footer %>
+
+  <script src='./src/js/weatherapi.js'></script>
+  <script src="./src/js/currenttrip.js"/></script>
+</body>
 </html>
