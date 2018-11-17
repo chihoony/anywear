@@ -18,19 +18,19 @@
           <form class="col s12">
             <div id= "search_container" class="row">
               <div class="input-field col l4 m12 s12">
-                <input class="" name="destination" id="search_term_input" type="text" required="required" oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
+                <input class="" name="destination" id="search_term_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
                 <!-- <label for="search_term_input">Enter a destination</label> -->
               </div>
               <div class="input-field col l2 m6 s12">
-                <input class="datepicker" name="checkin" id="check_in_input" type="text" required="required" oninvalid="this.setCustomValidity('Please fill in your check in date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)" placeholder="Check in" readonly/>
+                <input class="datepicker" name="checkin" id="check_in_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your check in date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)" placeholder="Check in" onkeypress="return false;" autoComplete="off"/>
                 <!-- <label for="check_in_input">Check in</label> -->
               </div>
               <div class="input-field col l2 m6 s12">
-                <input class="datepicker" name="checkout" id="check_out_input" type="text" required="required" oninvalid="this.setCustomValidity('Please fill in your check out date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)" placeholder="Check out" readonly/>
+                <input class="datepicker" name="checkout" id="check_out_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your check out date.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)" placeholder="Check out" onkeypress="return false;" autoComplete="off"/>
                 <!-- <label for="check_out_input">Check out</label> -->
               </div>
               <div class="input-field col l2 m6 s12">
-                <input class="" name="bagsize" id="bag_size_input" type="text" required="required" oninvalid="this.setCustomValidity('Please select a bag size.')" oninput="this.setCustomValidity('')" onfocus="showBagSelection(this)" placeholder="Size" readonly/>
+                <input class="" name="bagsize" id="bag_size_input" type="text" required oninvalid="this.setCustomValidity('Please select a bag size.')" oninput="this.setCustomValidity('')" onfocus="showBagSelection(this)" placeholder="Size" onkeypress="return false;"  autoComplete="off"/>
                 <!-- <label for="bagsize">Size</label> -->
               </div>
               <div class="input-field col l2 m6 s12 center-align">

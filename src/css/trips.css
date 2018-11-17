@@ -1,28 +1,42 @@
+#content {
+  margin-bottom: 1em;
+}
+
 #page_title {
 }
 
 .flex {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: space-around;
-  justify-content: center;
+
 }
-.testcon{
-  background-color: blue;
-  /* display: inline-block; */
-  /* position: relative; */
-  /* padding: 0.4em; */
-  margin: 0 auto;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+.trip_con{
+  background-size: cover;
+  padding: 1em;
 }
 
-.testcon div {
-  display: relative;
-  height: 100%;
+.trip_con div {
+
 }
 
-.p{
-  display: absolute;
-  bottom: 0;
+.trip_description  {
+  text-shadow: 0px 0px 4px black;
+
+}
+.trip_title {
+
+}
+
+.margin_con {
+
+
+}
+
+.trip_background_con {
+
+}
+
+#trip_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em;
+  grid-auto-rows: minmax(100px, auto);
 }
