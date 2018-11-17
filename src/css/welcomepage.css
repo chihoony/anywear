@@ -29,14 +29,14 @@ button {
     margin: 2em;
 }
 
-input, select {
+/* input, select {
     border: none;
     border-bottom: 2px solid #c3c3c3;
     outline: none;
     background: rgba(255, 255, 255, 0.4);
     width: 15em;
     margin : 0.1em;
-}
+} */
 input:focus {
     border-bottom: 2px solid black;
 }
@@ -55,13 +55,17 @@ a{
 	position: absolute;
 	z-index: -1;
 }
+#uploadPhoto1{
+    border-bottom: 2px solid #c3c3c3;
+    width: 15em;n
+}
 
 #uploadPhoto + label{
 	cursor: pointer;
     color: #7b7b7b;
     display: inline-block;
 }
-#uploadPhoto:focus + label,
+#uploadPhoto :focus + label,
 #uploadPhoto + label:hover {
     color: black;
 }
