@@ -1,17 +1,17 @@
-var listOfClothes = ["https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear1",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear2",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear3",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear4",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear5",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear6",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear7",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear8",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear9",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear10",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear11"];
+var listOfClothes = ["https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear1",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear2",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear3",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear4",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear5",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear6",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear7",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear8",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear9",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear10",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear11"];
 
 $(document).ready(function() {
-  $('#destinationimg_con').css('background-image', 'url(' + 'https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear' + ')');
+  $('#destinationimg_con').css('background-image', 'url(' + 'https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear' + ')');
 
   var topcon = $("#top_con");
   var bottomcon = $("#bottom_con");
@@ -77,13 +77,28 @@ $(document).ready(function() {
   populateBottomWear()
   populateJacketWear();
 
-  $("body").on('click', function() {
-    if ($('.overlay_menu').css('display') == 'block') {
-      $()
+  var submenuOpen = 0;
+  //CLOSING THE ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
+  $(document).mouseup(function (e) {
+     if (!$('.cloth_figure').is(e.target) // if the target of the click isn't the container...
+     && $('.cloth_figure').has(e.target).length === 0
+      && submenuOpen == 1) // ... nor a descendant of the container
+     {
+       $('.overlay_menu').slideUp(200);
+       submenuOpen = 0;
     }
-  })
+   });
+
+
+  //OPENING THE SUBMENU FOR A PIECE OF CLOTH
   $('.icon_delete').on('click', function() {
-    console.log("hit it");
+    console.log("Clicked delete icon");
     $(this).siblings('.overlay_menu').slideToggle(200);
+    submenuOpen = 1;
   });
+
+  //REMOVING A PIECE OF CLOTH
+  $('.overlay_bottom').on('click', function() {
+    $(this).parents('.cloth_figure').remove();
+  })
 });
