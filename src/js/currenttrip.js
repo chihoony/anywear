@@ -27,9 +27,10 @@ $(document).ready(function() {
    });
 
   $('#current_trip_nav').addClass('active');
+
   var outfit_Section = $('#outfitSection');
 
-  var outfit_calendar_con = $("<div id='outfit_calendar_pill'></div>");
+    var outfit_calendar_con = $("<div id='outfit_calendar_pill'></div>");
 
   outfit_Section.append(outfit_calendar_con);
   var cardDeck = $("<div class='card-deck'></div>");
@@ -59,6 +60,39 @@ $(document).ready(function() {
                       "Date 9",
                       "Date 10",
                       "Date 11"];
+
+  function createOutfits(dates, listOfLinks) {
+    for (var i = 0; i < dates.length; i++) {
+      var card = $("<div class='card'></div>");
+
+      var cardBody = $('<div class="card-content"></div>');
+      var cardTitle = $('<span class="card-title activator grey-text text-darken-4"></span>');
+      var cardText = $('<i class="material-icons right">more_vert</i>');
+      cardTitle.append(cardText);
+      var cardDate = $('<p></p>');
+      cardDate.html(listOfDates[i]);
+
+      // Start adding grid tags
+      //
+      //
+      cardBody.append(cardTitle, cardDate);
+
+      var cardFooter = $('<div class="card-reveal"</div>');
+      cardFooter.append(cardExit);
+      // Need to add the remove feature here for each clothing article and swapping
+
+
+      var jacket_img = $("<img class='activator' id='jacket_img' src='' alt-img='' />");
+      jacket_img.attr('src', listOfLinks[i]);
+      var top_img = $("<img class='activator' id='top_img' src='' alt-img='' />");
+      top_img.attr('src', listOfLinks[i]);
+      var bottom_img = $("<img class='activator' id='bottom_img' src='' alt-img='' />");
+      bottom_img.attr('src', listOfLinks[i]);
+
+      card.append(jacket_img, top_img, bottom_img, cardBody, cardFooter);
+      cardDeck.append(card);
+    }
+  }
 
   function createOutfitPill(dates, listOfLinks) {
     for (var i = 0; i < dates.length; i++) {
