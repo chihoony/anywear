@@ -15,8 +15,8 @@
             <div id='welcomeMoment'>
                 any Wear<br />
                 Worry-free Traveling.<br />
-                <button id='buttonIn'>To Sign In</button>
-                <button id='buttonUp'>To Sign Up</button>
+                <button id='buttonIn' class="btn yellow darken-2">To Sign In</button>
+                <button id='buttonUp' class="btn yellow darken-2">To Sign Up</button>
             </div>
 
             <!--sign in page-->
@@ -48,45 +48,70 @@
             <!--sign up page-->
             <div id='signUpMoment'>
                 <form method="post" action="/register">
-                    <div class='input-field'>
-                        <input type="text" id="userName" pattern="[A-Za-z]{2,20}" required="required" title="This will be your user name!" />
-                        <label for="userName">User Name *</label>
+                    <div id='margin' class="row">
+
+                        <div id='margin' class='input-field col s12'>
+                            <input type="text" id="userName" pattern="[A-Za-z]{8,20}" required="required" title="This will be your user name!" />
+                            <label for="userName">User Name *</label>
+                        </div>
+                    </div>
+                    <div id='margin' class='row'>
+
+                        <div id='margin' class='input-field col s6'>
+                            <input type="password" id="pwd" pattern="[A-Za-z0-9]{8,20}" required="required" title="Password must be 8-20 characters long." />
+                            <label for="pwd">Password *</label>
+                        </div>
+
+                        <div id='margin' class='input-field col s6'>
+                            <input type="password" id="cfpwd" pattern="[A-Za-z0-9]{8,20}" required="required" />
+                            <label for="cfpwd">Confirm Password </label>
+                        </div>
+                    </div>
+                    <div id='margin' class='row'>
+
+                        <div id='margin' class='input-field col s6'>
+                            <input type="email" id="email" title="This will be used only when you forget your password." />
+                            <label for="email">Email *</label>
+                        </div>
+                        <div id='margin' class='input-field col s6'>
+                            <input type="email" id="cfemail" />
+                            <label for="cfemail">Confirm Email</label>
+                        </div>
+                    </div>
+                    <div id='margin' class='row'>
+
+                        <div id='margin' class='input-field col s6'>
+                            <input type="number" id="age" min="18" max="100" title="This will be used only for statistical purpose." />
+                            <label for="age">Age</label>
+                        </div>
+                        <div id='margin' class="row">
+
+                            <div id='margin' class='input-field col s6'>
+                                <select>
+                                    <option value="" disabled selected>Gender</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                    <option value="prefernottosay">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class='input-field'>
-                        <input type="password" id="pwd" pattern="[A-Za-z0-9]{8,20}" required="required" title="Password must be 8-20 characters long." />
-                        <label for="pwd">Password *</label>
+                    <div id='margin' class="file-field input-field">
+                        <div class="btn yellow darken-2">
+                            <span>File</span>
+                            <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Your Photo">
+                        </div>
                     </div>
 
-                    <div class='input-field'>
-                        <input type="password" id="cfpwd" pattern="[A-Za-z0-9]{8,20}" required="required" />
-                        <label for="cfpwd">Confirm Password </label>
-                    </div>
-                    <div class='input-field'>
-                        <input type="email" id="email" title="This will be used only when you forget your password." />
-                        <label for="email">Email *</label>
-                    </div>
-                    <div class='input-field'>
-                        <input type="email" id="cfemail" />
-                        <label for="cfemail">Confirm Email</label>
-                    </div>
-                    <div class='input-field'>
-                        <input type="number" id="age" min="18" max="100" title="This will be used only for statistical purpose." />
-                        <label for="age">Age</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <select>
-                            <option value="" disabled selected>Gender</option>
-                            <option value="female">Female</option>
-                            <option value="male">Male</option>
-                            <option value="prefernottosay">Prefer not to say</option>
-                        </select>
-                    </div>
                     <!-- <input type="file" name="file" id="uploadPhoto" />
                     <label for="file" id="uploadPhoto1" title="The clearer, the better :)">Choose a photo :)</label>
                     <br /> -->
-                    <button id='backToWelcom2'>Back to the main</button>
-                    <button type="submit" id="signedUp">Sign Up</button>
+                    <button id='backToWelcom2' class="btn yellow darken-2">Back to the main</button>
+                    <button type="submit" id="signedUp" class="btn yellow darken-2">Sign Up</button>
 
                 </form>
 
@@ -105,71 +130,7 @@
     </script>
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        /*<![CDATA[*/
-        $(document).ready(function() {
-
-            $("#signInMoment").hide();
-            $("#signUpMoment").hide();
-            $("#buttonIn").click(function(event) {
-                event.preventDefault();
-                $("#welcomeMoment").hide();
-                $("#signInMoment").show();
-            });
-
-            $("#buttonUp").click(function() {
-                $("#welcomeMoment").hide();
-                $("#signUpMoment").show();
-            });
-            $("#buttonUp1").click(function() {
-                $("#signInMoment").hide();
-                $("#signUpMoment").show();
-            });
-
-            $("#backToWelcom1").click(function() {
-                $("#welcomeMoment").show();
-                $("#signInMoment").hide();
-            });
-
-            $("#backToWelcom2").click(function() {
-                $("#welcomeMoment").show();
-                $("#signUpMoment").hide();
-            });
-
-            var tooltips = $("[title]").tooltip({
-                position: {
-                    my: "left top",
-                    at: "right+5 top-5",
-                    collision: "none"
-                }
-            });
-
-                $('select').formSelect();
-            $("#uploadPhoto1").click(function() {
-                $("#uploadPhoto").click();
-            });
-
-
-
-            var inputs = document.querySelectorAll('#uploadPhoto');
-            Array.prototype.forEach.call(inputs, function(input) {
-                var label = input.nextElementSibling,
-                    labelVal = label.innerHTML;
-
-                input.addEventListener('change', function(e) {
-                    var fileName = e.target.value.split('\\').pop();
-
-                    if (fileName)
-                        label.innerHTML = fileName;
-                    else
-                        label.innerHTML = labelVal;
-                });
-
-
-            });
-
-        });
-    </script>
+    <script src="./src/js/welcomepage.js"></script>
 </body>
 
 </html>

@@ -1,32 +1,28 @@
-#loginRegisterCon, #aboutUs{
-float: center;
-height:50em;
-}
-
-
 #welcomeMoment, #signInMoment, #signUpMoment {
     width: 30em;
-    height: 20em;
     position: absolute;
     top: 20%;
     left: 15%;
 }
 
-#buttonIn, #buttonUp {
+/* #buttonIn, #buttonUp {
     width: 6em;
     height: 2em;
     margin-left: 3em;
     position: relative;
     top: 20%;
-}
-
-
+} */
 #signInMoment, #signUpMoment {
     text-align: center;
 }
 
+#margin {
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+}
+
 button {
-    margin: 2em;
+    margin: 1em;
 }
 
 /* input, select {
@@ -37,17 +33,20 @@ button {
     width: 15em;
     margin : 0.1em;
 } */
-input:focus {
+/* input:focus {
     border-bottom: 2px solid black;
-}
-a{
+} */
+a {
     margin-left: 1em;
 }
+
 .ui-tooltip {
-  width: 13em;
+    width: 13em;
 }
 
-#uploadPhoto{
+
+
+/* #uploadPhoto{
     width: 0.1px;
 	height: 0.1px;
 	opacity: 0;
@@ -68,4 +67,4 @@ a{
 #uploadPhoto :focus + label,
 #uploadPhoto + label:hover {
     color: black;
-}
+} */

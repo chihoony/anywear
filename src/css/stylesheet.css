@@ -24,3 +24,38 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+
+ /* label focus color */
+ .input-field input:focus + label {
+   color: #E29800 !important;
+ }
+ .input-field select {
+   color: #E29800 !important;
+ }
+ /* label underline focus color */
+ .input-field input:focus {
+   border-bottom: 1px solid #E29800 !important;
+   box-shadow: 0 1px 0 0 #E29800 !important;
+ }
+ /* valid color */
+ .input-field input.valid {
+   border-bottom: 1px solid #E29800 !important;
+   box-shadow: 0 1px 0 0 #E29800 !important;
+ }
+ /* invalid color */
+ .input-field input.invalid {
+   border-bottom: 1px solid #E26000 !important;
+   box-shadow: 0 1px 0 0 #E26000 !important;
+ }
+ /* icon prefix focus color */
+ .input-field .prefix.active {
+   color: #E29800 !important;
+ }
+
+
+
+/* Changing colour for dropdown */
+ .dropdown-content > li > span {
+     color: #E29800;
+ }
