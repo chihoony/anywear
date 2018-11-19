@@ -13,7 +13,7 @@
     </header>
     <% include ../partials/loading %>
     <main id="createtrip_main">
-      <div>
+      <div id="rowcontainer">
         <div class="row">
           <form class="col s12">
             <div id= "search_container" class="row">
@@ -34,16 +34,16 @@
                 <!-- <label for="bagsize">Size</label> -->
               </div>
               <div class="input-field col l2 m6 s12 center-align">
-                <button id="buttonNext" class="btn waves-effect waves-light" type="submit" name="action" value="next">Next
+                <button id="buttonNext" class="btn waves-effect waves-light yellow darken-2" type="submit" name="action" value="next">Next
                   <i class="material-icons right">send</i>
                 </button>
               </div>
+              <div id="inner">
+                <div id="bag_container" class="col s12">
+                </div>
+              </div>
             </div>
           </form>
-          <div id="inner">
-            <div id="bag_container" class="col s12">
-            </div>
-          </div>
 
         </div>
       </div>

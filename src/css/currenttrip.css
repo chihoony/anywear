@@ -1,20 +1,19 @@
 #carouselOuterContainer {
-  padding: 0;
-  margin: 0;
+
 }
 #carouselID {
   height: 550px;
 }
 .carousel, .carousel-slider{
-  height: 0px;
+
 }
 .carousel-item {
   width: 175px !important;
 }
 
+
 #indicatorContainer {
-  /* position: relative; */
-  /* top: 250px; */
+
 }
 
 .outfitImageCon {
@@ -33,6 +32,35 @@
 
 #outfitSection {
   margin-top: 2em;
+}
+
+#outfit_calendar_con {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1em;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+@media screen and (max-width: 1201px) {
+  #outfit_calendar_con {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+  }
+}
+
+
+@media screen and (max-width: 993px) {
+  #outfit_calendar_con {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+  }
+}
+
+@media screen and (max-width: 601px) {
+  #outfit_calendar_con {
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+  }
 }
 
 .card img {
@@ -72,13 +100,13 @@
 .middle-indicator{
    position:relative;
    top:250px;
-   }
-  .middle-indicator-text{
-   font-size: 4.2rem;
-  }
-  a.middle-indicator-text{
-    color: #bdbdbd !important;
-  }
+ }
+.middle-indicator-text{
+ font-size: 4.2rem;
+}
+a.middle-indicator-text{
+  color: #bdbdbd !important;
+}
 .content-indicator{
     width: 64px;
     height: 64px;
@@ -86,7 +114,7 @@
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
     border-radius: 50px;
-  }
-    .indicators{
-  	visibility: hidden;
-  }
+}
+  .indicators{
+	visibility: hidden;
+}

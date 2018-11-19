@@ -56,9 +56,27 @@ $(document).ready(function() {
   function populateBottomWear() {
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
-      var cloth = $('<img class="cloth_img" src="" alt"no image"/>')
+      var clothIconCon = $('<div class="cloth_img_con"></div>');
+      var cloth = $('<img class="cloth_img" src="" alt"no image"/>');
+      var icon = $('<i class="icon_delete grey-text material-icons">more_vert</i>');
+
+      var overlayMenu = $('<div class="overlay_menu"></div>');
+      var overlayCon = $('<div class="overlay_con"></div>');
+      overlayMenu.append(overlayCon);
+
+      var overlayTop = $('<div class="overlay_top"></div>');
+      var overlayPTop = $('<p class="overlay_p_top">Swap</p>');
+      overlayTop.append(overlayPTop);
+
+      var overlayBottom = $('<div class="overlay_bottom"></div>');
+      var overlayPBottom = $('<p class="overlay_p_bottom">Remove</p>');
+      overlayBottom.append(overlayPBottom);
+
+      overlayCon.append(overlayTop, overlayBottom);
+
       cloth.attr('src', listOfClothes[i]);
-      figure.append(cloth);
+      figure.append(clothIconCon);
+      clothIconCon.append(cloth, icon, overlayMenu);
       bottomcon.append(figure);
     }
   }
@@ -66,9 +84,27 @@ $(document).ready(function() {
   function populateJacketWear() {
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
-      var cloth = $('<img class="cloth_img" src="" alt"no image"/>')
+      var clothIconCon = $('<div class="cloth_img_con"></div>');
+      var cloth = $('<img class="cloth_img" src="" alt"no image"/>');
+      var icon = $('<i class="icon_delete grey-text material-icons">more_vert</i>');
+
+      var overlayMenu = $('<div class="overlay_menu"></div>');
+      var overlayCon = $('<div class="overlay_con"></div>');
+      overlayMenu.append(overlayCon);
+
+      var overlayTop = $('<div class="overlay_top"></div>');
+      var overlayPTop = $('<p class="overlay_p_top">Swap</p>');
+      overlayTop.append(overlayPTop);
+
+      var overlayBottom = $('<div class="overlay_bottom"></div>');
+      var overlayPBottom = $('<p class="overlay_p_bottom">Remove</p>');
+      overlayBottom.append(overlayPBottom);
+
+      overlayCon.append(overlayTop, overlayBottom);
+
       cloth.attr('src', listOfClothes[i]);
-      figure.append(cloth);
+      figure.append(clothIconCon);
+      clothIconCon.append(cloth, icon, overlayMenu);
       jacketcon.append(figure);
     }
   }

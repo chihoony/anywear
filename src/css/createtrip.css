@@ -3,6 +3,12 @@ body, html .my-wrapper{
 }
 
 #createtrip_main{
+height: 100vh;
+
+}
+
+#rowcontainer {
+margin-top: 15vh;
 }
 
 #search_container {
@@ -16,9 +22,34 @@ body, html .my-wrapper{
   overflow-x: scroll;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  opacity: 0;
-  visibility: hidden;
-  display: block;
+  /* opacity: 0; */
+  /* visibility: hidden; */
+  display: none;
+}
+
+.input-field {
+  border-right: 0;
+}
+#search_container {
+  border: 1px solid #f4f4f4;
+  box-shadow: 0 2px 5px #e0e0e0;
+  padding-top: 2em;
+  /* padding-bottom: 2em; */
+  border-radius: 5px;
+}
+
+.card-image{
+  background-color: rgb(200,200,200);
+}
+
+.bag-img {
+  filter: opacity(0.8);
+}
+
+.size-text-shadow {
+  text-shadow: 0 0 8px #222222;
+  color:rgb(230,230,230);
+  /* background-color: rgba(50,50,50,0.3); */
 }
 
 .card {
@@ -30,4 +61,22 @@ body, html .my-wrapper{
   overflow: hidden;
   display: inline-block;
 }
-@media only screen and (max-width: 600px) { .row.valign-wrapper { display: inherit; } }
+@media only screen and (max-width: 600px)
+{ .row.valign-wrapper { display: inherit; } }
+
+@media screen and (max-width: 1201px) {
+
+}
+
+
+@media screen and (max-width: 993px) {
+  #rowcontainer {
+  margin-top: 5vh;
+  }
+}
+
+@media screen and (max-width: 601px) {
+  #rowcontainer {
+  margin-top: 2vh;
+  }
+}
