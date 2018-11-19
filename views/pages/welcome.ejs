@@ -3,8 +3,7 @@
 
 <head>
     <% include ../partials/head %>
-    <link rel="stylesheet" href="/src/css/welcomepage.css" />
-
+    <link rel="stylesheet" href="/src/css/welcome.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
@@ -31,17 +30,28 @@
                         <input type="password" id="pwdForSignIn" required="required" />
                         <label for="pwdForSignIn">Password</label>
                     </div>
+                    <a href='#' id='buttonPassword'>Forgot password? </a>
+                    <a href='#' id='buttonUp1'> Register?</a>
+                    <br /><br />
+                    <button id='backToWelcom1' class="btn yellow darken-2">Back to the main</button>
+                    <button type="submit" id="signedIn" class="btn yellow darken-2">Sign In</button>
+                </form>
+            </div>
 
-                    <!-- <input type="checkbox" />
-                    <label class="form-check-label" for="inlineFormCheck">
-                        Remember me
-                    </label> -->
-                    <a href='#'>Forgot password?</a>
-                    <a href='#' id='buttonUp1'>Register?</a>
+            <!--finding password page-->
+            <div id='passwordMoment'>
+                <form method="post" action="/login">
+                    <div class='input-field'>
+                        <input type="text" id="userNameForPassword" class="validate" required="required" title = "The user name you used."/>
+                        <label for="userNameForPassword">User Name</label>
+                    </div>
+                    <div class='input-field'>
+                        <input type="email" id="emailForPassword" required="required" title = "The email address you used." />
+                        <label for="emailForPassword">Email</label>
+                    </div>
+                    <a href='#' id='buttonIn1' class='floatRight'>Oh, I just remember my password</a>
                     <br />
-                    <button id='backToWelcom1'>Back to the main</button>
-                    <button type="submit" id="signedIn">Sign In</button>
-
+                    <button type="submit" id="findingPassword" class="btn yellow darken-2 floatRight">Send me an email</button>
                 </form>
             </div>
 
@@ -70,11 +80,11 @@
                     <div id='margin' class='row'>
 
                         <div id='margin' class='input-field col s6'>
-                            <input type="email" id="email" title="This will be used only when you forget your password." />
+                            <input type="email" id="email" required="required" title="This will be used only when you forget your password." />
                             <label for="email">Email *</label>
                         </div>
                         <div id='margin' class='input-field col s6'>
-                            <input type="email" id="cfemail" />
+                            <input type="email" id="cfemail" required="required" />
                             <label for="cfemail">Confirm Email</label>
                         </div>
                     </div>
@@ -107,9 +117,6 @@
                         </div>
                     </div>
 
-                    <!-- <input type="file" name="file" id="uploadPhoto" />
-                    <label for="file" id="uploadPhoto1" title="The clearer, the better :)">Choose a photo :)</label>
-                    <br /> -->
                     <button id='backToWelcom2' class="btn yellow darken-2">Back to the main</button>
                     <button type="submit" id="signedUp" class="btn yellow darken-2">Sign Up</button>
 
@@ -130,7 +137,7 @@
     </script>
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="./src/js/welcomepage.js"></script>
+    <script src="./src/js/welcome.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,33 @@
+#welcomeMoment, #signInMoment, #signUpMoment, #passwordMoment {
+    width: 30em;
+    position: absolute;
+    top: 20%;
+    left: 15%;
+}
+
+.floatRight{
+    float: right;
+}
+#signInMoment, #signUpMoment, #passwordMoment {
+    text-align: center;
+}
+
+#margin {
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+}
+
+button {
+    margin: 1em;
+}
+#passwordMoment a{
+    margin-right: 1em;
+}
+a {
+    margin-left: 1em;
+    color:#E29800;
+}
+
+.ui-tooltip {
+    width: 13em;
+}
