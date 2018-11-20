@@ -10,6 +10,8 @@ var users = require('./src/js/User/users');
 var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
+const articles = require('./src/js/Clothing/articles');
+const outfits = require('./src/js/Outfit/outfits');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
@@ -32,6 +34,8 @@ app.use(bodyParser.json());
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/trips', trips);
+app.use('/api/articles', articles);
+app.use('/api/outfits', outfits);
 
 // use res.render to load up an ejs view file
 

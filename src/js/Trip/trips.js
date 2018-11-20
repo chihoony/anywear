@@ -1,8 +1,6 @@
 const _ = require('lodash');
 var authAccess = require('../../../middleware/auth');
-const mongoose = require('mongoose');
 const express = require('express');
-const config = require('config');
 const jwt = require('jsonwebtoken');
 const { Trip, validateTrip } = require('./trip');
 
