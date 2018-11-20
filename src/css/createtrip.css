@@ -40,7 +40,13 @@ nav {
 margin-top: 4vh;
 }
 
+input {
+  color: white;
+}
 
+input:focus {
+  color: white;
+}
 
 #inner {
   width: 100%;
