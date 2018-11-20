@@ -1,3 +1,81 @@
+/* Swap overlay goes in here */
+
+
+#edit-overlay {
+  display:none;
+  z-index: 1001;
+}
+#edit-center {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 1001;
+}
+
+#edit-con {
+  padding: 2em;
+  position: fixed;
+
+  height: 550px;
+  background-color: lightgrey;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#edit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em;
+  grid-auto-rows: minmax(150px, 150px);
+}
+#left-grid {
+  grid-row: span 2;
+}
+#mid-grid {
+  grid-row: span 2;
+
+}
+#right-grid {
+  flex-wrap: wrap;
+  overflow: auto;
+  grid-row: span 2;
+}
+#right-grid::-webkit-scrollbar {
+  display: none;
+}
+#right-grid img {
+  display: initial !important;
+  margin: 0.2em;
+}
+
+#button-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+  grid-column: 1 / span 3;
+}
+
+.edit_grid_section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid black; */
+  font-size: 3em;
+  max-width: 200px;
+}
+
+
+/* Outside of swap overlay content is out here */
+
 #content {
   margin-bottom: 1em;
 }

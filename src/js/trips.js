@@ -82,12 +82,45 @@ $(document).ready(function(){
 
       tripContainer.append(tripCon);
 
+    }
   }
-}
 
   populatePage();
 
 
+
+    //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
+    var submenuOpen = 0;
+    $(document).mouseup(function (e) {
+       if (!$('.cloth_figure').is(e.target) // if the target of the click isn't the container...
+       && $('.cloth_figure').has(e.target).length === 0
+        && submenuOpen == 1) // ... nor a descendant of the container
+       {
+         $('.overlay_menu').slideUp(200);
+         submenuOpen = 0;
+      }
+     });
+
+
+    //OPENING THE SUBMENU FOR A PIECE OF CLOTH
+    $('.icon_delete').on('click', function() {
+      if ($(this).siblings('.overlay_menu').css('display') == "none") {
+        $('.icon_delete').siblings('.overlay_menu').slideUp(200);
+      }
+      $(this).siblings('.overlay_menu').slideToggle(200);
+      submenuOpen = 1;
+    });
+
+    //REMOVING A PIECE OF CLOTH
+    $('.overlay_bottom').on('click', function() {
+      // TODO: Provide a warning if you try to remove.
+      $(this).parents('.cloth_figure').fadeOut('200', function() {
+        $(this).parents('.cloth_figure').remove(function() {
+          // TODO : REMOVE FROM DATABASE
+        });
+
+      });;
+    });
 
   //OPENING THE SUBMENU FOR A PIECE OF CLOTH
   $('.icon_delete').on('click', function() {
@@ -98,29 +131,82 @@ $(document).ready(function(){
     submenuOpen = 1;
   });
 
-  //REMOVING A PIECE OF CLOTH
-  $('.overlay_bottom').on('click', function() {
-    // TODO: Provide a warning if you try to remove.
-    $(this).parent().parent().parent().fadeOut('200', function() {
-      $(this).parent().parent().parent().remove(function() {
-        // TODO : REMOVE FROM DATABASE
-      });
-
-    });;
-  });
-
   //SWAPPING A PIECE OF CLOTH
+  //this is the old key for swapping.
+  var selectedArticle = 0;
+  var oldArticleKey = 0;
   $('.overlay_top').on('click', function() {
     // TODO: POP up an overlay of all the clothes in the same vein
     // if a swap does happen, then remove the previous and add the new one.
     // all you have to do is change the src for now with jquery
     // (the database will handle the rest when you reload the page)
     // post remove and post new cloth
-    $(this).parents('.cloth_figure').fadeOut('200', function() {
-      $(this).parents('.cloth_figure').remove(function() {
-        // TODO : REMOVE FROM DATABASE
-      });
+    selectedArticle = $(this).parent().parent().siblings('img');
+    oldArticleKey = $(this).parent().parent().siblings('img').data('key');
+    console.log(oldArticleKey);
+    var imageSrc = $(this).parent().parent().siblings('.cloth_img').attr('src');
 
-    });;
+
+    var rightGrid = $('#right-grid');
+    // TODO REQUEST THE SERVER TO GIVE YOU A LIST OF AVAILABLE CLOTHES AND ADD TO THE RIGHTGRID
+    for (var i = 0; i < listOfDummies.length; i++) {
+      var warddrobeCloth = $('<img class="warddrobe_img cloth_img" src="" alt="no image"/>');
+
+      warddrobeCloth.attr('data-key', i);
+      warddrobeCloth.attr('src', listOfDummies[i]);
+      rightGrid.append(warddrobeCloth);
+    }
+
+    //SWAPPED IMAGE
+    $('#left-img').attr('src', imageSrc);
+    //OPENING SWAP MENU
+    $('#edit-overlay').fadeIn('400', function() {
+    });
+  });
+
+
+  //CLOSE OVERLAYSWAP MENU
+  $(document).mouseup(function(e) {
+      var container = $("#edit-con");
+
+      // if the target of the click isn't the container nor a descendant of the container
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $('#edit-overlay').fadeOut('400', function() {
+        });
+      }
+  });
+
+
+  //HERE YOU DO THE ACTUAL SWAP FOR WHEN THE USER CLICKS AN ITEM TO SWAP AND SAVES
+  var newSelectedArticle = 0;
+  var newArticleSwap = 0;
+  $(document).on('click', 'img.warddrobe_img', function(e) {
+    console.log($(this));
+    newSelectedArticle = $(this);
+    newArticleSwap = $(this).data('key');
+
+    $('img.warddrobe_img').removeClass('border-blue');
+    $(this).addClass('border-blue');
+
+  });
+
+
+  // HANDLING THE SUBMIT SWAP CLOTHES REQUEST
+  $('#buttonNext').on('click', function() {
+    console.log('button pressed');
+    selectedArticle.attr('src', newSelectedArticle.attr('src'));
+    selectedArticle.data('key', newSelectedArticle.data('key'));
+
+    $("#edit-overlay").fadeOut('400', function() {
+
+    })
+
+    //now send the old key and new key to the backend
+    // also send the trip id here too.
+    // oldArticleKey.send
+    // newArticleSwap.send
+    // TODO AJAX CALL
+
+
   });
 })

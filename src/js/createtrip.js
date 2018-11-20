@@ -22,15 +22,6 @@ var bagDescription = ["Small<br/>Daypacks",
                 "Medium<br/>Suitcase",
                 "Large<br/>Suitcase"]
 
-//used to create a loading bar
-// will probably add functionality that checks if the last element was created
-// but for now it only uses time. (which is fine for this scope)
-$(function() {
-  var checkInOptions = {}
-  $("#overlay").fadeOut('2000', function() {
-    // $(".content").fadeIn(1000);
-  });
-})
 
 $("#check_in_input").datepicker({
   defaultDate: new Date(),
@@ -122,7 +113,19 @@ $(document).ready(function() {
   })
 
 
-})
+});
+
+$(window).on('load', function() {
+  //used to create a loading bar
+  // will probably add functionality that checks if the last element was created
+  // but for now it only uses time. (which is fine for this scope)
+  function loading() {
+    $("#overlay").delay(500).fadeOut(400, function() {
+    });
+  };
+
+  loading();
+});
 
 
 

@@ -10,6 +10,18 @@ var listOfClothes = ["https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear1
                       "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear10",
                       "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear11"];
 
+
+var listOfDummies = ["https://dummyimage.com/200x200/123413/ffffff&text=Dummy1",
+                      "https://dummyimage.com/200x200/00F3DA/ffffff&text=Dummy2",
+                      "https://dummyimage.com/200x200/FF00DA/ffffff&text=Dummy3",
+                      "https://dummyimage.com/200x200/FFF300/ffffff&text=Dummy4",
+                      "https://dummyimage.com/200x200/55F3DA/ffffff&text=Dummy5",
+                      "https://dummyimage.com/200x200/FF55DA/ffffff&text=Dummy6",
+                      "https://dummyimage.com/200x200/FFF355/ffffff&text=Dummy7",
+                      "https://dummyimage.com/200x200/AAF3DA/ffffff&text=Dummy8",
+                      "https://dummyimage.com/200x200/FFAADA/ffffff&text=Dummy9",
+                      "https://dummyimage.com/200x200/FFF3AA/ffffff&text=aDummy10",
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=aDummy11"];
 $(document).ready(function() {
   //Setting the background top image. Should be some country image.
   $('#destinationimg_con').css('background-image', 'url(' + 'https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear' + ')');
@@ -42,6 +54,9 @@ $(document).ready(function() {
       overlayCon.append(overlayTop, overlayBottom);
 
       cloth.attr('src', listOfClothes[i]);
+      //TODO ADD KEY VALUE HERE
+      cloth.attr('data-key', "top" + i);
+
       figure.append(clothIconCon);
       clothIconCon.append(cloth, icon, overlayMenu);
       topcon.append(figure);
@@ -72,6 +87,8 @@ $(document).ready(function() {
       overlayCon.append(overlayTop, overlayBottom);
 
       cloth.attr('src', listOfClothes[i]);
+      //TODO ADD KEY VALUE HERE
+      cloth.attr('data-key', "bottom" + i);
       figure.append(clothIconCon);
       clothIconCon.append(cloth, icon, overlayMenu);
       bottomcon.append(figure);
@@ -100,6 +117,9 @@ $(document).ready(function() {
       overlayCon.append(overlayTop, overlayBottom);
 
       cloth.attr('src', listOfClothes[i]);
+      //TODO ADD KEY VALUE HERE
+      cloth.attr('data-key', "jacket" + i);
+
       figure.append(clothIconCon);
       clothIconCon.append(cloth, icon, overlayMenu);
       jacketcon.append(figure);
@@ -143,18 +163,87 @@ $(document).ready(function() {
     });;
   });
 
+
   //SWAPPING A PIECE OF CLOTH
+  //this is the old key for swapping.
+  var selectedArticle = 0;
+  var oldArticleKey = 0;
   $('.overlay_top').on('click', function() {
     // TODO: POP up an overlay of all the clothes in the same vein
     // if a swap does happen, then remove the previous and add the new one.
     // all you have to do is change the src for now with jquery
     // (the database will handle the rest when you reload the page)
     // post remove and post new cloth
-    $(this).parents('.cloth_figure').fadeOut('200', function() {
-      $(this).parents('.cloth_figure').remove(function() {
-        // TODO : REMOVE FROM DATABASE
-      });
+    selectedArticle = $(this).parent().parent().siblings('img');
+    oldArticleKey = $(this).parent().parent().siblings('img').data('key');
+    console.log(oldArticleKey);
+    var imageSrc = $(this).parent().parent().siblings('.cloth_img').attr('src');
 
-    });;
+
+    var rightGrid = $('#right-grid');
+    // TODO REQUEST THE SERVER TO GIVE YOU A LIST OF AVAILABLE CLOTHES AND ADD TO THE RIGHTGRID
+    for (var i = 0; i < listOfDummies.length; i++) {
+      var warddrobeCloth = $('<img class="warddrobe_img cloth_img" src="" alt="no image"/>');
+
+      warddrobeCloth.attr('data-key', i);
+      warddrobeCloth.attr('src', listOfDummies[i]);
+      rightGrid.append(warddrobeCloth);
+    }
+
+    //SWAPPED IMAGE
+    $('#left-img').attr('src', imageSrc);
+    //OPENING SWAP MENU
+    $('#edit-overlay').fadeIn('400', function() {
+    });
   });
+
+
+  //CLOSE OVERLAYSWAP MENU
+  $(document).mouseup(function(e) {
+      var container = $("#edit-con");
+
+      // if the target of the click isn't the container nor a descendant of the container
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $('#edit-overlay').fadeOut('400', function() {
+        });
+      }
+  });
+
+
+  //HERE YOU DO THE ACTUAL SWAP FOR WHEN THE USER CLICKS AN ITEM TO SWAP AND SAVES
+  var newSelectedArticle = 0;
+  var newArticleSwap = 0;
+  $(document).on('click', 'img.warddrobe_img', function(e) {
+    console.log($(this));
+    newSelectedArticle = $(this);
+    newArticleSwap = $(this).data('key');
+
+    $('img.warddrobe_img').removeClass('border-blue');
+    $(this).addClass('border-blue');
+
+  });
+
+
+  // HANDLING THE SUBMIT SWAP CLOTHES REQUEST
+  $('#buttonNext').on('click', function() {
+    console.log('button pressed');
+    selectedArticle.attr('src', newSelectedArticle.attr('src'));
+    selectedArticle.data('key', newSelectedArticle.data('key'));
+
+    $("#edit-overlay").fadeOut('400', function() {
+
+    })
+
+    //now send the old key and new key to the backend
+    // also send the trip id here too.
+    // oldArticleKey.send
+    // newArticleSwap.send
+    // TODO AJAX CALL
+
+
+  });
+
+
+
+
 });

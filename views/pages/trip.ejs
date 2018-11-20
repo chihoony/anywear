@@ -13,24 +13,31 @@
   <main class="container">
     <div id="destinationimg_con">
     </div>
-    <div id="tripdetails_con">
-      <div id="destination_con" class="details_con">
-        <h5>Destination</h5>
-        <p>Location</p>
-      </div>
-      <div id="checkin_con" class="details_con">
-        <h5>Check in</h5>
-        <p>Location</p>
-      </div>
-      <div id="checkout_con" class="details_con">
-        <h5>Check out</h5>
-        <p>Location</p>
-      </div>
-      <div id="bagsize_con" class="details_con">
-        <h5>Bag Size</h5>
-        <p>Location</p>
+    <div class="row">
+      <div id="tripdetails_con" class="s12">
+        <div id="destination_con" class="details_con col m3 s6">
+          <h5>Destination</h5>
+          <p>Location</p>
+        </div>
+        <div id="bagsize_con" class="details_con col m3 s6">
+          <h5>Bag Size</h5>
+          <p>Location</p>
+        </div>
+        <div id="checkin_con" class="details_con col m3 s6">
+          <h5>Check in</h5>
+          <p>Location</p>
+        </div>
+        <div id="checkout_con" class="details_con col m3 s6">
+          <h5>Check out</h5>
+          <p>Location</p>
+        </div>
       </div>
     </div>
+
+
+
+
+
 
 
     <div id="warddrobe_con" class="row">
@@ -39,7 +46,7 @@
         <div id="top_con" class="clothing_containers row s12">
           <figure class="cloth_figure col xl3 m4 s6">
             <div class="cloth_img_con">
-              <img class="cloth_img" src="https://dummyimage.com/200x200/aaaaaa/ffffff&text=test" alt"no image"/>
+              <img class="cloth_img" data-key="123" src="https://dummyimage.com/200x200/aaaaaa/ffffff&text=test" alt"no image"/>
               <i class="icon_delete grey-text material-icons">more_vert</i>
               <div class="overlay_menu">
                 <div class="overlay_con">
@@ -72,6 +79,33 @@
     </div>
 
   </main>
+
+  <div id="edit-overlay">
+    <div id="edit-center">
+      <div id="edit-con">
+        <div id='edit-grid'>
+          <div id= 'left-grid' class="edit_grid_section">
+            <img id="left-img" class="cloth_img" src="https://dummyimage.com/200x200/aaaaaa/ffffff&text=test" alt"no image"/>
+          </div>
+          <div id= 'mid-grid' class="edit_grid_section">
+              <i class="icon_arrow medium grey-text material-icons">arrow_forward</i>
+
+          </div>
+          <div id='right-grid' class="edit_grid_section">
+
+          </div>
+          <div id='button-grid'>
+            <button id="buttonNext" class="btn waves-effect waves-light yellow darken-2" type="submit" name="action" value="next">Next
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
   <footer>
     <% include ../partials/footer %>
     <script src="./src/js/trip.js"></script>
