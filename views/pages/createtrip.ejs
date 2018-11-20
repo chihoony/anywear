@@ -6,16 +6,22 @@
   <% include ../partials/head %>
   <link href="./src/css/createtrip.css" rel="stylesheet"/>
 </head>
-<body id="content">
-  <div class="container">
-    <header>
-      <% include ../partials/header %>
-    </header>
-    <% include ../partials/loading %>
-    <main id="createtrip_main">
+<body>
+  <header>
+    <% include ../partials/header %>
+  </header>
+  <% include ../partials/loading %>
+  <div id="background-back"></div>
+  <main class="container">
+    <div id="createtrip_main">
       <div id="rowcontainer">
         <div class="row">
           <form class="col s12">
+            <div id="header-for-create">
+              <h2 class="white-text">Create a trip</h2>
+              <h5 class="white-text">Beautiful outfits</h5>
+              <h5 class="white-text">For anyone, anywhere, anytime</h5>
+            </div>
             <div id= "search_container" class="row">
               <div class="input-field col l4 m12 s12">
                 <input class="" name="destination" id="search_term_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
@@ -48,12 +54,13 @@
         </div>
       </div>
 
-    </main>
-    <footer>
-      <% include ../partials/footer %>
-    </footer>
+    </div>
+  </main>
   </div>
-    <script src="./src/js/createtrip.js"></script>
-    <script src="./src/js/mapsapi.js"></script>
-  </body>
+  <footer>
+    <% include ../partials/footer %>
+  </footer>
+  <script src="./src/js/createtrip.js"></script>
+  <script src="./src/js/mapsapi.js"></script>
+</body>
 </html>

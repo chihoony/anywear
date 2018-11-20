@@ -11,19 +11,16 @@ var listOfClothes = ["https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear1
                       "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear11"];
 
 $(document).ready(function() {
+  //Setting the background top image. Should be some country image.
   $('#destinationimg_con').css('background-image', 'url(' + 'https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear' + ')');
 
   var topcon = $("#top_con");
   var bottomcon = $("#bottom_con");
   var jacketcon = $("#jacket_con");
 
+
+  //POPULATE THE TOPS
   function populateTopWear() {
-    // <figure class="cloth_figure col xl3 m4 s6">
-    //   <div class="cloth_img_con">
-    //     <img class="cloth_img" src="https://dummyimage.com/200x200/aaaaaa/ffffff&text=test" alt"no image"/>
-    //     <i class="icon_delete material-icons">more_vert</i>
-    //   </div>
-    // </figure>
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
@@ -52,7 +49,7 @@ $(document).ready(function() {
   }
 
 
-
+  //POPULATE THE BOTTOMS
   function populateBottomWear() {
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
@@ -80,7 +77,7 @@ $(document).ready(function() {
       bottomcon.append(figure);
     }
   }
-
+  //POPULATE THE JACKET AREA WHEN NEEDED
   function populateJacketWear() {
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
@@ -113,8 +110,8 @@ $(document).ready(function() {
   populateBottomWear()
   populateJacketWear();
 
+  //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
   var submenuOpen = 0;
-  //CLOSING THE ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
   $(document).mouseup(function (e) {
      if (!$('.cloth_figure').is(e.target) // if the target of the click isn't the container...
      && $('.cloth_figure').has(e.target).length === 0
@@ -128,13 +125,36 @@ $(document).ready(function() {
 
   //OPENING THE SUBMENU FOR A PIECE OF CLOTH
   $('.icon_delete').on('click', function() {
-    console.log("Clicked delete icon");
+    if ($(this).siblings('.overlay_menu').css('display') == "none") {
+      $('.icon_delete').siblings('.overlay_menu').slideUp(200);
+    }
     $(this).siblings('.overlay_menu').slideToggle(200);
     submenuOpen = 1;
   });
 
   //REMOVING A PIECE OF CLOTH
   $('.overlay_bottom').on('click', function() {
-    $(this).parents('.cloth_figure').remove();
-  })
+    // TODO: Provide a warning if you try to remove.
+    $(this).parents('.cloth_figure').fadeOut('200', function() {
+      $(this).parents('.cloth_figure').remove(function() {
+        // TODO : REMOVE FROM DATABASE
+      });
+
+    });;
+  });
+
+  //SWAPPING A PIECE OF CLOTH
+  $('.overlay_top').on('click', function() {
+    // TODO: POP up an overlay of all the clothes in the same vein
+    // if a swap does happen, then remove the previous and add the new one.
+    // all you have to do is change the src for now with jquery
+    // (the database will handle the rest when you reload the page)
+    // post remove and post new cloth
+    $(this).parents('.cloth_figure').fadeOut('200', function() {
+      $(this).parents('.cloth_figure').remove(function() {
+        // TODO : REMOVE FROM DATABASE
+      });
+
+    });;
+  });
 });
