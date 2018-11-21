@@ -19,13 +19,37 @@
     margin-bottom: 1em;
     position: relative;
     top:-5em;
+    left:1em;
 }
 
-#profile p{
+table{
+    padding: 1em;
+    margin : 0 auto;
+    border: 0px !important;
+    border-collapse: unset;
+    position: relative;
+    top:-5em;
+}
+
+.profileTableName{
+    width: 8.5em;
+}
+
+
+#edit {
+    float:right;
+  position: relative;
+  top: 0.5em;
+  right: 0.5em;
+  text-shadow: 0 0 5px white;
+  /* z-index: 11; */
+}
+
+/* #profile p{
     display:block;
     width: 200px;
     margin: 0 auto;
     margin-top: 1.5em;
     position: relative;
     top:-4em;
-}
+} */

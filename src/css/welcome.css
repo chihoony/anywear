@@ -8,6 +8,7 @@
 .floatRight{
     float: right;
 }
+
 #signInMoment, #signUpMoment, #passwordMoment {
     text-align: center;
 }
@@ -20,9 +21,11 @@
 button {
     margin: 1em;
 }
+
 #passwordMoment a{
     margin-right: 1em;
 }
+
 a {
     margin-left: 1em;
     color:#E29800;
