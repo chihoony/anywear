@@ -152,18 +152,6 @@ $('.icon_delete').on('click', function() {
   submenuOpen = 1;
 });
 
-<<<<<<< HEAD
-//REMOVING A PIECE OF CLOTH
-$('.overlay_bottom').on('click', function() {
-  // TODO: Provide a warning if you try to remove.
-  $(this).parents('.cloth_figure').fadeOut('200', function() {
-    $(this).parents('.cloth_figure').remove(function() {
-      // TODO : REMOVE FROM DATABASE
-    });
-
-  });;
-});
-=======
   //REMOVING A PIECE OF CLOTH
   $('.overlay_bottom').on('click', function() {
     // TODO: Provide a warning if you try to remove.
@@ -173,7 +161,6 @@ $('.overlay_bottom').on('click', function() {
       });
     });;
   });
->>>>>>> f9c8e991809427ebb7c68fd74631f9817e4e40c1
 
 
   //SWAPPING A PIECE OF CLOTH
@@ -195,7 +182,7 @@ $('.overlay_bottom').on('click', function() {
     var rightGrid = $('#right-grid');
     // TODO REQUEST THE SERVER TO GIVE YOU A LIST OF AVAILABLE CLOTHES AND ADD TO THE RIGHTGRID
     // TODO SEND OLD KEY TO GET A LIST OF CLOTHES.
-    // TODO SEND TRIP KEY. 
+    // TODO SEND TRIP KEY.
 
     for (var i = 0; i < listOfDummies.length; i++) {
       var warddrobeCloth = $('<img class="warddrobe_img cloth_img" src="" alt="no image"/>');
