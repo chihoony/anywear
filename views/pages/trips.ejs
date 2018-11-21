@@ -15,9 +15,70 @@
       </div>
     </div>
   </main>
+
+
+
+
+
+  <div id="edit-overlay">
+    <div id="edit-center">
+      <div id="edit-con">
+        <div class="row">
+
+
+
+          <form class="col s12" method="" action="">
+            <div id= "search_container" class="row">
+              <div class="input-field col s12">
+                <input class="" name="destination" id="search_term_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')"/>
+                <label for="search_term_input">Enter a destination</label>
+              </div>
+              <div class="input-field col s12">
+                <input class="datepicker" name="checkin" id="check_in_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your check in date.')" oninput="this.setCustomValidity('')" placeholder="Check in" onkeypress="return false;" autoComplete="off"/>
+                <label for="check_in_input">Check in</label>
+              </div>
+              <div class="input-field col s12">
+                <input class="datepicker" name="checkout" id="check_out_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your check out date.')" oninput="this.setCustomValidity('')" placeholder="Check out" onkeypress="return false;" autoComplete="off"/>
+                <label for="check_out_input">Check out</label>
+              </div>
+              <div class='input-field col s12'>
+                <select id="bag_size_input">
+                  <option value="" disabled selected>Bag size</option>
+                  <option value="20-30l" data-icon="./src/img/bag/20-30l.jpg">20-30L Small Daypack</option>
+                  <option value="35-40l" data-icon="./src/img/bag/35-40l.jpg">35-40L Medium Rucksack</option>
+                  <option value="40-45l" data-icon="./src/img/bag/40-45l.jpg">40-45L Cabin Suitcase</option>
+                  <option value="45-50l" data-icon="./src/img/bag/40-45l.jpg">45-50L Large Cabin-Suitcase</option>
+                  <option value="50-65l" data-icon="./src/img/bag/50-65l.jpg">50-65L Large Rucksack</option>
+                  <option value="65-75l" data-icon="./src/img/bag/65-75l.jpg">65-75L Medium Suitcase</option>
+                  <option value="75-120l" data-icon="./src/img/bag/75-120l.jpg">75-120L Large Suitcase</option>
+                </select>
+              </div>
+              <div id='button-con'>
+                <button id="cancelNext" class="btn waves-effect waves-light yellow darken-2" type="submit" name="action" value="next">Back
+                  <i class="material-icons left">cancel</i>
+                </button>
+                <button id="buttonNext" class="btn waves-effect waves-light yellow darken-2" type="submit" name="action" value="next">Next
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
   <footer>
     <% include ../partials/footer %>
     <script src="./src/js/trips.js"></script>
+    <script src="./src/js/mapsapi.js"></script>
   </footer>
   </body>
 </html>

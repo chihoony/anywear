@@ -16,7 +16,7 @@
     <div id="createtrip_main">
       <div id="rowcontainer">
         <div class="row">
-          <form class="col s12">
+          <form class="col s12" method="post" action="/createtrip">
             <div id="header-for-create">
               <h2 class="white-text">Create a trip</h2>
               <h5 class="white-text">Beautiful outfits</h5>
@@ -24,6 +24,7 @@
             </div>
             <div id= "search_container" class="row">
               <div class="input-field col l4 m12 s12">
+                <i class="material-icons prefix white-text">account_circle</i>
                 <input class="" name="destination" id="search_term_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')" onfocus="hideBagSelection(this)"/>
                 <!-- <label for="search_term_input">Enter a destination</label> -->
               </div>

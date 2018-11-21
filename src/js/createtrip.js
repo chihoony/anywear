@@ -103,6 +103,7 @@ $(document).ready(function() {
   }
   setBaglist();
 
+  // HIGHLIGHT SELECTED BAG
   $('.card').on('click', function() {
     var size = $(this).data('value');
     $('#bag_size_input').val(size);

@@ -1,5 +1,7 @@
 /* Swap overlay goes in here */
-
+.pac-container{
+  z-index: 10000;
+}
 
 #edit-overlay {
   display:none;
@@ -21,8 +23,9 @@
 #edit-con {
   padding: 2em;
   position: fixed;
+  max-width: 400px;
 
-  height: 550px;
+  height: 500px;
   background-color: lightgrey;
 
   display: flex;
@@ -30,38 +33,14 @@
   align-items: center;
 }
 
-#edit-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1em;
-  grid-auto-rows: minmax(150px, 150px);
-}
-#left-grid {
-  grid-row: span 2;
-}
-#mid-grid {
-  grid-row: span 2;
 
-}
-#right-grid {
-  flex-wrap: wrap;
-  overflow: auto;
-  grid-row: span 2;
-}
-#right-grid::-webkit-scrollbar {
-  display: none;
-}
-#right-grid img {
-  display: initial !important;
-  margin: 0.2em;
+#button-con {
+  text-align: center;
 }
 
-#button-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* text-align: center; */
-  grid-column: 1 / span 3;
+
+.btn {
+  margin: 10px;
 }
 
 .edit_grid_section {
@@ -90,6 +69,14 @@
   background-size: cover;
   /* padding: 1em; */
   position: relative;
+}
+
+.trip_con:hover {
+  box-shadow: 0 2px 8px rgb(119, 119, 119);
+}
+
+.trip_con:active {
+  box-shadow: 0 2px 8px rgb(64, 169, 255);
 }
 
 .trip_description  {
