@@ -37,6 +37,10 @@ router.get('/', authAccess, async (req, res) => {
     res.send(trip);
 });
 
+router.get('/:trip', authAccess, async (req, res) => {
+    
+});
+
 
 // Switching articles of clothing in a trip
 router.put('/wardrobe/?:oldArticle&:newArticle', authAccess, async (req, res) => {

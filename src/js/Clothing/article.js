@@ -22,15 +22,14 @@ const articleSchema = new mongoose.Schema({
 const Article = mongoose.model('Article', articleSchema);
 
 function validateArticle(article) {
-    // const schema =  {
-    //     category: Joi.string().required(),
-    //     tone: Joi.string().required(),
-    //     color: Joi.string().required()
-    // };
+    const schema =  {
+        category: Joi.string().required(),
+        tone: Joi.string().required(),
+        color: Joi.string().required(),
+        imgLink: Joi.string()
+    };
 
-    // return Joi.validate(article, schema);
-
-    return true;
+    return Joi.validate(article, schema);
 };
 
 exports.Article = Article;

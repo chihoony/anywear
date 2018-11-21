@@ -41,7 +41,7 @@ router.get('/:articleID', authAccess, async (req, res) => {
  * If no trip id is given, it wont filter out articles already contained
  * in a trip
  * 
- * @returns array of articles
+ * @returns array of articles, if no related artiles found returns ""
  */
 router.get('/related/:articleID?&:tripID?', authAccess, async (req, res) => {
     let articleID = req.params.articleID;
@@ -60,8 +60,10 @@ router.get('/related/:articleID?&:tripID?', authAccess, async (req, res) => {
     }
 
     let baseArticle = await Article.findById(articleID);
+        if(!baseArticle) return res.status(400).send("No article exists at that id")
 
     let relatedArticles = await Article.find({ category: baseArticle.category, tone: baseArticle.tone });
+        if(!relatedArticles) return res.status(400).send("")
 
     //-----
     // Logic to check for articles already in the trip
