@@ -32,17 +32,42 @@ router.get('/:articleID', authAccess, async (req, res) => {
     res.send(articleFound);
 });
 
-router.get('/related/?:articleID&:tripID', authAccess, async (req, res) => {
+/**
+ * This endpoint takes an id from a trip and an id from an article,
+ * it then grabs all articles from the database that match that articles
+ * type (category, color, tone, weather), it then filters out articles that
+ * the trip already contains
+ * 
+ * If no trip id is given, it wont filter out articles already contained
+ * in a trip
+ * 
+ * @returns array of articles
+ */
+router.get('/related/:articleID?&:tripID?', authAccess, async (req, res) => {
+    let articleID = req.params.articleID;
+    let tripID = req.params.tripID;
 
     if (!articleID.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid article ID!");
-    if (!tripID.match(/^[0-9a-fA-F]{24}$/))
-        return res.status(400).send("Invalid trip ID!");
     
-    let trip = await Trip.findById(tripID);
-    if (!trip) return res.status(400).send("No trip at that ID!")
+    var filterTrip = false;
+    if (tripID.match(/^[0-9a-fA-F]{24}$/))
+        filterTrip = true;
 
-     
+    if (filterTrip) {
+        let trip = await Trip.findById(tripID);
+        if (!trip) return res.status(400).send("No trip at that ID!")
+    }
+
+    let baseArticle = await Article.findById(articleID);
+
+    let relatedArticles = await Article.find({ category: baseArticle.category, tone: baseArticle.tone });
+
+    //-----
+    // Logic to check for articles already in the trip
+    //-----
+
+    res.send(relatedArticles);
 });
 
 module.exports = router;
