@@ -5,17 +5,32 @@ const articleSchema = new mongoose.Schema({
     category: { // Foreign key to category
         type: String,
         required: true
+    },
+    tone: {
+        type: String,
+        required: true,
+    },
+    color: {
+        type: String,
+        required: true
+    },
+    imgLink: {
+        type: String
     }
 });
 
 const Article = mongoose.model('Article', articleSchema);
 
 function validateArticle(article) {
-    const schema =  {
-        category: Joi.string().required()
-    };
+    // const schema =  {
+    //     category: Joi.string().required(),
+    //     tone: Joi.string().required(),
+    //     color: Joi.string().required()
+    // };
 
-    return Joi.validate(article, schema);
+    // return Joi.validate(article, schema);
+
+    return true;
 };
 
 exports.Article = Article;

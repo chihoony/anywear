@@ -8,16 +8,41 @@ const router = express.Router();
 
 router.post('/', authAccess, async (req, res) => {
     const { error } = validateArticle(req.body);
-    if (error) return res.status(400).send("Invalid Request Body")
+    if (error) return res.status(400).send("Invalid Request Body!")
 
-    // Insert Logic Here
+    let article = new Article(_.pick(req.body, ['category', 'tone', 'color', 'imgLink']));
+    await article.save(function(error){
+        if (error)
+            return res.send("Failed to save article! " + error);
+    });
+
+    res.send(article)
 });
 
-router.get('/', authAccess, async (req, res) => {
-    const articleID = req.params.id;
-    if (!articleID) return res.status(400).send("Invalid Request");
+router.get('/:articleID', authAccess, async (req, res) => {
+    const articleID = req.params.articleID;
+    if (!articleID) return res.status(400).send("Invalid Request!");
 
-    // Insert Logic Here
+    if (!articleID.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+
+    let articleFound = await Article.findById(articleID);
+    if (!articleFound) return res.status(400).send("Unable to find article!");
+
+    res.send(articleFound);
+});
+
+router.get('/related/?:articleID&:tripID', authAccess, async (req, res) => {
+
+    if (!articleID.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid article ID!");
+    if (!tripID.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid trip ID!");
+    
+    let trip = await Trip.findById(tripID);
+    if (!trip) return res.status(400).send("No trip at that ID!")
+
+     
 });
 
 module.exports = router;

@@ -5,7 +5,6 @@ var authAccess = require('./middleware/auth');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var nodemon = require('nodemon');
 var users = require('./src/js/User/users');
 var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');

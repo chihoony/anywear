@@ -1,5 +1,7 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
+const Article = require("../Clothing/article");
+const Schema = mongoose.Schema;
 
 const tripSchema = new mongoose.Schema({
     location: {
@@ -14,10 +16,20 @@ const tripSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    owner: {
+    owner: { // Dont validate for owner
         type: String,
         required: true
-    }
+    },
+    articles: [{type: String}], // Array of ids to articles
+    outfits: [{
+        date: {
+            type: String,
+            required: true
+        },
+        pieces: [{
+            type: String // Array of ids to articles
+        }]
+    }]
 });
 
 const Trip = mongoose.model('Trip', tripSchema);
@@ -29,7 +41,8 @@ function validateTrip(trip) {
         checkOut: Joi.string().required()
     };
 
-    return Joi.validate(trip, schema);
+    // return Joi.validate(trip, schema);
+    return true;
 };
 
 
