@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var nodemon = require('nodemon');
+var path = require('path');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
@@ -15,7 +16,9 @@ app.set('view engine', 'ejs');
 // currenttrip page
 app.get('/current', function(req, res) {
   res.render('pages/currenttrip');
+
 })
+
 
 // profile page
 app.get('/profile', function(req, res) {
@@ -29,7 +32,16 @@ app.get('/about', function(req, res) {
 
 // trips page
 app.get('/alltrips', function(req, res) {
-  res.render('pages/trips');
+  var data = {
+    data: {
+      tripKey: 1234,
+      checkin: "date 1",
+      checkout: "date 1.5",
+      destination: "Japan"
+    }
+  }
+
+  res.render('pages/trips', data);
 })
 
 // trip page

@@ -29,6 +29,7 @@ $(document).ready(function() {
   var topcon = $("#top_con");
   var bottomcon = $("#bottom_con");
   var jacketcon = $("#jacket_con");
+  M.updateTextFields();
 
 
   //POPULATE THE TOPS
@@ -131,7 +132,7 @@ $(document).ready(function() {
   populateJacketWear();
 //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
 var submenuOpen = 0;
-$(document).mouseup(function(e) {
+$(document).mousedown(function(e) {
   if (!$('.cloth_figure').is(e.target) // if the target of the click isn't the container...
     &&
     $('.cloth_figure').has(e.target).length === 0 &&
@@ -156,9 +157,8 @@ $('.icon_delete').on('click', function() {
   $('.overlay_bottom').on('click', function() {
     // TODO: Provide a warning if you try to remove.
     $(this).parents('.cloth_figure').fadeOut('200', function() {
-      $(this).parents('.cloth_figure').remove(function() {
-        // TODO : REMOVE FROM DATABASE
-      });
+      $(this).remove();
+      // TODO REMOVE FROM THE DATABASE
     });;
   });
 

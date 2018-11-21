@@ -3,48 +3,28 @@ var listOfImgs = ["https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+1",
                       "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+3",
                       "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+4",
                       "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+5",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+6",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+7",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+8",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+9",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+10",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+11"];
+                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+6"];
 
 var listOfDestinations = ["Japan",
                           "Canada",
                           "Tokyo, Japan",
                           "Seoul, Korea",
                           "Toronto, Canada",
-                          "Florida, USA",
-                          "Shanghai, China",
-                          "Foz do Iguacu, Brazil",
-                          "Sao Paolo, Brazil",
-                          "I'm going crazy, MyHead",
-                          "Vancouver, Canada"];
+                          "Florida, USA"];
 
 var listOfDates = ["October 21, 2018, November 30, 2018",
                   "October 21, 2018, November 30, 2018",
                   "October 21, 2018, November 30, 2018",
                   "October 21, 2018, November 30, 2018",
                   "October 21, 2018, November 30, 2018",
-                  "October 21, 2018, November 30, 2018",
-                  "October 21, 2018, November 30, 2018",
-                  "October 21, 2018, November 30, 2018",
-                  "October 21, 2018, November 30, 2018",
-                  "October 21, 2018, November 30, 2018",
                   "October 21, 2018, November 30, 2018"];
 
-var listOfBag = ["Bag1",
-                  "Bag2",
-                  "Bag3",
-                  "Bag4",
-                  "Bag5",
-                  "Bag6",
-                  "Bag7",
-                  "Bag8",
-                  "Bag9",
-                  "Bag10",
-                  "Bag11"];
+var listOfBag = ["20-30l",
+                  "35-40l",
+                  "40-45l",
+                  "45-50l",
+                  "50-65l",
+                  "65-75l"  ];
 
 
 
@@ -60,7 +40,12 @@ $("#check_in_input").datepicker({
   }
 });
 
+
 $(document).ready(function(){
+
+
+
+
   $('#trips_nav').addClass('active');
   var tripContainer = $('#trip_container');
 
@@ -100,7 +85,16 @@ $(document).ready(function(){
 
       tripBackgroundCon.append(icon, tripTitle, tripDate, tripBag);
       tripCon.append(tripBackgroundCon, overlayMenu);
-      tripCon.attr("data-key", i);
+
+      //setting each trip con with it's relevant details.
+      tripCon.attr("data-key", `key ${i}`);
+      tripCon.attr("data-destination", `destination ${i}`);
+      tripCon.attr("data-checkin", `checkin ${i}`);
+      tripCon.attr("data-checkout", `checkOut ${i}`);
+      tripCon.attr("data-bagsize", listOfBag[i]);
+
+
+
       tripTitle.html(listOfDestinations[i]);
       tripDate.html(listOfDates[i]);
       tripBag.html(listOfBag[i]);
@@ -118,7 +112,11 @@ $(document).ready(function(){
 
   // OPENING A TRIP SO I NEED TO GO TO A DIFFERENT PAGE
   $('.trip_con').on('click', function(e) {
-    if($(e.target).hasClass('icon_delete')) {
+    if($(e.target).hasClass('icon_delete')
+        || $(e.target).hasClass('overlay_top')
+        || $(e.target).hasClass('overlay_p_bottom')
+        || $(e.target).hasClass('overlay_bottom')
+        || $(e.target).hasClass('overlay_p_top')) {
 
     } else {
       //GO TO THE SPECIFIED PAGE USING KEY VALUE
@@ -134,9 +132,9 @@ $(document).ready(function(){
       // });
       // return false;
 
+      // window.location='/trip';
+
       window.location='/trip';
-
-
     }
   });
 
@@ -175,13 +173,15 @@ $(document).ready(function(){
     }
    });
 
+   var selectedTrip = 0;
    var selectedTripKey = 0;
   //OPENING THE SUBMENU FOR A TRIP
   $('.icon_delete').on('click', function() {
-    if ($(this).parent().parent().children('.overlay_menu').css('display') == "none") {
+    selectedTrip = $(this).parent().parent();
+    if (selectedTrip.children('.overlay_menu').css('display') == "none") {
       $('.overlay_menu').slideUp(200);
     }
-    $(this).parent().parent().children('.overlay_menu').slideToggle(200);
+    selectedTrip.children('.overlay_menu').slideToggle(200);
     submenuOpen = 1;
   });
 
@@ -191,21 +191,64 @@ $(document).ready(function(){
   $('.overlay_bottom').on('click', function() {
     // TODO: Provide a warning if you try to remove.
     $(this).parent().parent().parent().fadeOut('200', function() {
-      $(this).parent().parent().parent().remove(function() {
-        // TODO : REMOVE FROM DATABASE
-      });
+      $(this).remove();
+      //TODO REMOVE FROM THE DATABASE
     });;
   });
 
 
   //OPENING OVERLAYMENU TO EDIT TRIP
-  //this is the old key for swapping.
   $('.overlay_top').on('click', function() {
-    // TODO: POP up an overlay of all the clothes in the same vein
-    // if a swap does happen, then remove the previous and add the new one.
-    // all you have to do is change the src for now with jquery
-    // (the database will handle the rest when you reload the page)
-    // post remove and post new cloth
+
+    //OPENING Edit MENU extracting key value to place into value of edit fields
+    // Setting the edit menu to the trips params
+    selectedTrip.data('key');
+    $('#search_term_input').attr('value', selectedTrip.data('destination'));
+    $('#check_in_input').attr('value', selectedTrip.data('checkin'));
+    $('#check_out_input').attr('value', selectedTrip.data('checkout'));
+    $('#bag_size_input').attr('value', selectedTrip.data('bagsize'));
+    $(`option[value="${selectedTrip.data('bagsize')}"]`).attr('selected', "");
+
+    // reinitializing the dropdown
+    $('select').formSelect();
+    M.updateTextFields();
+
+
+    $('#edit-overlay').fadeIn('400', function() {
+    });
+  });
+
+
+  //CLOSE OVERLAYSWAP MENU
+  $(document).mousedown(function(e) {
+      var container = $("#edit-con");
+
+      // if the target of the click isn't the container nor a descendant of the container
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $('#edit-overlay').fadeOut('400', function() {
+        });
+      }
+  });
+
+  // HANDLING THE PUT EDIT TRIP
+  $('#buttonNext').on('click', function() {
+    console.log('button pressed');
+    console.log($('#bag_size_input').val());
+
+    $("#edit-overlay").fadeOut('400', function() {
+
+    });
+
+    //now send the trip key with all the new info to the backend
+    // key into the URL
+    // Everything else in the body data
+    // also send the trip id here too.
+    // TODO AJAX CALL
+    selectedTrip.data('key');
+    selectedTrip.data('destination');
+    selectedTrip.data('checkin');
+    selectedTrip.data('checkout');
+    selectedTrip.data('bagsize');
 
     // // TODO post the url with key of trip.
     // var tripKey = $(this).data('key');
@@ -219,40 +262,42 @@ $(document).ready(function(){
     // });
     // return false;
 
-    //SWAPPED IMAGE
-    //OPENING SWAP MENU
-    $('#edit-overlay').fadeIn('400', function() {
-    });
+    // $.ajax({
+    //   url: "/post-form",
+    //   dataType: "json",
+    //   type: "POST",
+    //   data: formData,
+    //   success: function(data) {
+    //       console.log("SUCCESS JSON:", data);
+    //       // how do we know what we are getting?
+    //       $("#p2").html(data[0] + " " + data[1]['firstName']
+    //                     + " " + data[1]['lastName']
+    //                     + " " + data[1]['email']
+    //                    );
+    //
+    //   },
+    //   error: function(jqXHR, textStatus, errorThrown) {
+    //       $("#p2").text(jqXHR.statusText);
+    //       console.log("ERROR:", jqXHR, textStatus, errorThrown);
+    //   }
+    //  });
+    // })
+
+    $.ajax({
+      type: 'POST',
+      url: `somewhere with the variables`,
+
+
+    })
+
   });
 
 
-  //CLOSE OVERLAYSWAP MENU
-  $(document).mouseup(function(e) {
-      var container = $("#edit-con");
-
-      // if the target of the click isn't the container nor a descendant of the container
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
-        $('#edit-overlay').fadeOut('400', function() {
-        });
-      }
-  });
-
-
-  //HERE YOU DO THE ACTUAL SWAP FOR WHEN THE USER CLICKS AN ITEM TO SWAP AND SAVES
-  var newSelectedArticle = 0;
-  var newArticleSwap = 0;
-  $(document).on('click', 'img.warddrobe_img', function(e) {
-    console.log($(this));
-
-
-  });
-
-
-  // HANDLING THE PUT EDIT TRIP
-  $('#buttonNext').on('click', function() {
+  // HANDLING THE CANCEL BUTTON WHEN EDIT TRIP OVERLAY IS OPEN
+  $('#cancelNext').on('click', function(e) {
     console.log('button pressed');
     console.log($('#bag_size_input').val());
-
+    e.preventDefault();
     $("#edit-overlay").fadeOut('400', function() {
 
     });

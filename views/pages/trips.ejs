@@ -5,6 +5,13 @@
   <link rel="stylesheet" href="./src/css/trips.css" />
 </head>
 <body>
+  <script type="text/javascript">
+
+    var data1 = <%- JSON.stringify(data) %>;
+    console.log(data1);
+    // var data = 1;
+
+  </script>
   <header id="header">
     <% include ../partials/header %>
   </header>
@@ -30,8 +37,8 @@
           <form class="col s12" method="" action="">
             <div id= "search_container" class="row">
               <div class="input-field col s12">
-                <input class="" name="destination" id="search_term_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')"/>
-                <label for="search_term_input">Enter a destination</label>
+                <input class="active" name="destination" id="search_term_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your destination.')" oninput="this.setCustomValidity('')"/>
+                <label class="active" for="search_term_input">Enter a destination</label>
               </div>
               <div class="input-field col s12">
                 <input class="datepicker" name="checkin" id="check_in_input" type="text" required oninvalid="this.setCustomValidity('Please fill in your check in date.')" oninput="this.setCustomValidity('')" placeholder="Check in" onkeypress="return false;" autoComplete="off"/>
@@ -43,7 +50,7 @@
               </div>
               <div class='input-field col s12'>
                 <select id="bag_size_input">
-                  <option value="" disabled selected>Bag size</option>
+                  <option value="" disabled>Bag size</option>
                   <option value="20-30l" data-icon="./src/img/bag/20-30l.jpg">20-30L Small Daypack</option>
                   <option value="35-40l" data-icon="./src/img/bag/35-40l.jpg">35-40L Medium Rucksack</option>
                   <option value="40-45l" data-icon="./src/img/bag/40-45l.jpg">40-45L Cabin Suitcase</option>
@@ -52,9 +59,10 @@
                   <option value="65-75l" data-icon="./src/img/bag/65-75l.jpg">65-75L Medium Suitcase</option>
                   <option value="75-120l" data-icon="./src/img/bag/75-120l.jpg">75-120L Large Suitcase</option>
                 </select>
+                <label>Size</label>
               </div>
               <div id='button-con'>
-                <button id="cancelNext" class="btn waves-effect waves-light yellow darken-2" type="submit" name="action" value="next">Back
+                <button id="cancelNext" class="btn waves-effect waves-light yellow darken-2" name="action" value="cancel">Back
                   <i class="material-icons left">cancel</i>
                 </button>
                 <button id="buttonNext" class="btn waves-effect waves-light yellow darken-2" type="submit" name="action" value="next">Next

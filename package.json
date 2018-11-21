@@ -3,7 +3,7 @@
     "main": "server.js",
     "dependencies": {
         "body-parser": "^1.18.3",
-        "ejs": ">=2.5.5",
+        "ejs": "^2.6.1",
         "express": "^4.6.1",
         "jquery": "*",
         "jsdom": "*",
