@@ -152,6 +152,7 @@ $('.icon_delete').on('click', function() {
   submenuOpen = 1;
 });
 
+<<<<<<< HEAD
 //REMOVING A PIECE OF CLOTH
 $('.overlay_bottom').on('click', function() {
   // TODO: Provide a warning if you try to remove.
@@ -162,6 +163,17 @@ $('.overlay_bottom').on('click', function() {
 
   });;
 });
+=======
+  //REMOVING A PIECE OF CLOTH
+  $('.overlay_bottom').on('click', function() {
+    // TODO: Provide a warning if you try to remove.
+    $(this).parents('.cloth_figure').fadeOut('200', function() {
+      $(this).parents('.cloth_figure').remove(function() {
+        // TODO : REMOVE FROM DATABASE
+      });
+    });;
+  });
+>>>>>>> f9c8e991809427ebb7c68fd74631f9817e4e40c1
 
 
   //SWAPPING A PIECE OF CLOTH
