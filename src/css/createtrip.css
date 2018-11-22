@@ -18,7 +18,7 @@ nav {
 
 #background-back {
   background-image: url(../img/background/bgd00.jpeg), url(../img/background/bgd01.jpeg), url(../img/background/bgd02.jpeg), url(../img/background/bgd03.jpeg);
-  animation: backgroundAnim 50s infinite;
+  animation: backgroundAnim 100s infinite;
 
 }
 

@@ -32,7 +32,7 @@ app.get('/about', function(req, res) {
 
 // trips page
 app.get('/alltrips', function(req, res) {
-  var data = {
+  var data1 = {
     data: {
       tripKey: 1234,
       checkin: "date 1",
@@ -41,7 +41,7 @@ app.get('/alltrips', function(req, res) {
     }
   }
 
-  res.render('pages/trips', data);
+  res.render('pages/trips', data1);
 })
 
 // trip page
