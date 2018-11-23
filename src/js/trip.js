@@ -29,6 +29,7 @@ $(document).ready(function() {
   var topcon = $("#top_con");
   var bottomcon = $("#bottom_con");
   var jacketcon = $("#jacket_con");
+  M.updateTextFields();
 
 
   //POPULATE THE TOPS
@@ -129,37 +130,42 @@ $(document).ready(function() {
   populateTopWear();
   populateBottomWear()
   populateJacketWear();
+//CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
+var submenuOpen = 0;
+$(document).mousedown(function(e) {
+  if (!$('.cloth_figure').is(e.target) // if the target of the click isn't the container...
+    &&
+    $('.cloth_figure').has(e.target).length === 0 &&
+    submenuOpen == 1) // ... nor a descendant of the container
+  {
+    $('.overlay_menu').slideUp(200);
+    submenuOpen = 0;
+  }
+});
 
-  //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
-  var submenuOpen = 0;
-  $(document).mouseup(function (e) {
-     if (!$('.cloth_figure').is(e.target) // if the target of the click isn't the container...
-     && $('.cloth_figure').has(e.target).length === 0
-      && submenuOpen == 1) // ... nor a descendant of the container
-     {
-       $('.overlay_menu').slideUp(200);
-       submenuOpen = 0;
-    }
-   });
 
-
-  //OPENING THE SUBMENU FOR A PIECE OF CLOTH
-  $('.icon_delete').on('click', function() {
-    if ($(this).siblings('.overlay_menu').css('display') == "none") {
-      $('.icon_delete').siblings('.overlay_menu').slideUp(200);
-    }
-    $(this).siblings('.overlay_menu').slideToggle(200);
-    submenuOpen = 1;
-  });
+//OPENING THE SUBMENU FOR A PIECE OF CLOTH
+$('.icon_delete').on('click', function() {
+  if ($(this).siblings('.overlay_menu').css('display') == "none") {
+    $('.icon_delete').siblings('.overlay_menu').slideUp(200);
+  }
+  $(this).siblings('.overlay_menu').slideToggle(200);
+  submenuOpen = 1;
+});
 
   //REMOVING A PIECE OF CLOTH
   $('.overlay_bottom').on('click', function() {
     // TODO: Provide a warning if you try to remove.
     $(this).parents('.cloth_figure').fadeOut('200', function() {
+<<<<<<< HEAD
       $(this).parents('.cloth_figure').remove(function() {
         // TODO : REMOVE FROM DATABASE
       });
 
+=======
+      $(this).remove();
+      // TODO REMOVE FROM THE DATABASE
+>>>>>>> 02f46f87ffea455306c4d65eb5c2aa05c32d1977
     });;
   });
 
@@ -182,6 +188,9 @@ $(document).ready(function() {
 
     var rightGrid = $('#right-grid');
     // TODO REQUEST THE SERVER TO GIVE YOU A LIST OF AVAILABLE CLOTHES AND ADD TO THE RIGHTGRID
+    // TODO SEND OLD KEY TO GET A LIST OF CLOTHES.
+    // TODO SEND TRIP KEY.
+
     for (var i = 0; i < listOfDummies.length; i++) {
       var warddrobeCloth = $('<img class="warddrobe_img cloth_img" src="" alt="no image"/>');
 

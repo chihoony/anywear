@@ -1,14 +1,40 @@
 // server.js
 // load the things we need
+var config = require('config');
+var authAccess = require('./middleware/auth');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var nodemon = require('nodemon');
+var path = require('path');
+var users = require('./src/js/User/users');
+var mongoose = require('mongoose');
+const auth = require('./src/js/User/auth');
+const trips = require('./src/js/Trip/trips');
+const articles = require('./src/js/Clothing/articles');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
+if (!config.get('jwtKey')){
+  console.log("FATAL ERROR: jwtKey is not defined");
+  process.exit(1);
+}
+
+// Starting database connection
+mongoose.connect('mongodb://localhost/anywear')
+  .then(() => console.log("Connected to mongo..."))
+  .catch(err => console.log("Failed connection to mongo ", err));
+
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.json());
+
+// API handlers
+app.use('/api/users', users);
+app.use('/api/auth', auth);
+app.use('/api/trips', trips);
+app.use('/api/articles', articles);
 
 // use res.render to load up an ejs view file
 
@@ -16,6 +42,7 @@ app.set('view engine', 'ejs');
 app.get('/current', function(req, res) {
   res.render('pages/currenttrip');
 })
+
 
 // profile page
 app.get('/profile', function(req, res) {
@@ -29,7 +56,16 @@ app.get('/about', function(req, res) {
 
 // trips page
 app.get('/alltrips', function(req, res) {
-  res.render('pages/trips');
+  var data1 = {
+    data: {
+      tripKey: 1234,
+      checkin: "date 1",
+      checkout: "date 1.5",
+      destination: "Japan"
+    }
+  }
+
+  res.render('pages/trips', data1);
 })
 
 // trip page
