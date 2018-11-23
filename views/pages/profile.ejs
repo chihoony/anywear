@@ -2,66 +2,63 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <% include ../partials/head %>
     <link rel="stylesheet" href="/src/css/profile.css" />
 </head>
+
 <body>
     <header>
         <% include ../partials/header %>
     </header>
     <main class="container">
         <div id='profilePage'>
-            <div id='profile' class="yellow lighten-5 ">
+            <div id='profile' class="yellow lighten-5">
                 <a href="/" id='edit'>ed!t</a>
                 <img id='profilePhoto' src='https://dummyimage.com/400x400/f5c57d/ffffff.png&text=profile' alt='profile' />
-                <table class="yellow-text text-darken-3">
-                    <tr>
-                        <td class='profileTableName'>
-                            User Name
-                        </td>
-                        <td>
-                            <span id="userName" class="yellow-text">
-                                User Name</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='profileTableName'>
-                            Email
-                        </td>
-                        <td>
-                            <span id="email" class="yellow-text">
-                                Email</span>
-                        </td>
-                    </tr><tr>
-                        <td class='profileTableName'>
-                            Gender
-                        </td>
-                        <td>
-                            <span id="gender" class="yellow-text">
-                                Gender</span>
-                        </td>
-                    </tr><tr>
-                        <td>
-                            Age
-                        </td>
-                        <td>
-                            <span id="age" class="yellow-text">
-                                Age</span>
-                        </td>
-                    </tr><tr>
-                        <td class='profileTableName'>
-                            Recent Trip?
-                        </td>
-                        <td>
-                            <span id="recentTrip" class="yellow-text">
-                                Recet Trip?</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                <div id='profileSection' class="yellow-text text-darken-3">
+                    <p>
+                        User Name
+                    </p>
+                    <p>
+                        Email
+                    </p>
+                    <p>
+                        Age
+                    </p>
+                    <p>
+                        Gender
+                    </p>
+                </div>
+                <div id="profileEditSection" class="yellow-text">
+                    <p id="userName">
+                        User Name</p>
+                    <p id="email">
+                        Email</p>
+                    <p id="age">
+                        Age</p>
+                    <p id="gender">
+                        Gender</p>
+                </div>
 
-            <div id='profile' class="yellow darken-4">
+
+            </div>
+            <div id='profileEdit'>
+                <form method="post" action="/edit">
+                    <div class='input-field'>
+                        <input type="number" id="age" min="18" max="100" />
+                        <label for="age">Age</label>
+                    </div>
+                    <div class='input-field'>
+                        <select>
+                            <option value="" disabled selected>Gender</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                            <option value="prefernottosay">Prefer not to say</option>
+                        </select>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -69,6 +66,7 @@
     <footer>
         <% include ../partials/footer %>
 
+        <script src="./src/js/profile.js"></script>
     </footer>
 </body>
 

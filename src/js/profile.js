@@ -1,14 +1,12 @@
-//OPENING THE SUBMENU FOR A PIECE OF CLOTH
-$('.icon_delete').on('click', function() {
+$(document).ready(function() {
 
+$('#gender').on('click', function() {
+    // console.log('hi');
+    $('#profile').css('cssText','background-color : lightgrey !important');
+    $('#gender').innerHTML="YOU CLICKED ME!";
+    alert("Do you want to change your information?");
 });
 
 //REMOVING A PIECE OF CLOTH
-$('.overlay_bottom').on('click', function() {
-  // TODO: Provide a warning if you try to remove.
-  $(this).parents('.cloth_figure').fadeOut('200', function() {
-    $(this).parents('.cloth_figure').remove(function() {
-      // TODO : REMOVE FROM DATABASE
-    });
-  });;
+
 });

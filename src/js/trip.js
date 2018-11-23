@@ -159,6 +159,7 @@ $(document).ready(function() {
       $(this).parents('.cloth_figure').remove(function() {
         // TODO : REMOVE FROM DATABASE
       });
+
     });;
   });
 
