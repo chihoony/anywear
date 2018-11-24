@@ -157,8 +157,15 @@ $('.icon_delete').on('click', function() {
   $('.overlay_bottom').on('click', function() {
     // TODO: Provide a warning if you try to remove.
     $(this).parents('.cloth_figure').fadeOut('200', function() {
+<<<<<<< HEAD
+      $(this).parents('.cloth_figure').remove(function() {
+        // TODO : REMOVE FROM DATABASE
+      });
+
+=======
       $(this).remove();
       // TODO REMOVE FROM THE DATABASE
+>>>>>>> 02f46f87ffea455306c4d65eb5c2aa05c32d1977
     });;
   });
 

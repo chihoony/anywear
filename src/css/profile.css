@@ -4,6 +4,7 @@
 }
 #profile{
     width: 340px;
+    height: 18.5em;
     display: block;
     margin: 0 auto;
     margin-top: 5em;
@@ -11,6 +12,7 @@
     box-shadow: 1px 1px 5px 1px rgba(180,180,180,0.25);
     border-radius: 10%;
 }
+
 #profilePhoto{
     display: block;
     width: 150px;
@@ -21,18 +23,27 @@
     top:-5em;
     left:1em;
 }
+#profileEdit{
+    margin: 0 auto;
+
+    width: 340px;
+}
 
 table{
     padding: 1em;
     margin : 0 auto;
-    border: 0px !important;
+    border: 1px solid grey !important;
     border-collapse: unset;
     position: relative;
     top:-5em;
 }
 
-.profileTableName{
-    width: 8.5em;
+#profileSection, #profileEditSection{
+    padding: 1em;
+    float: left;
+    position: relative;
+    top: -6.5em;
+    left:1em;
 }
 
 
@@ -40,7 +51,7 @@ table{
     float:right;
   position: relative;
   top: 0.5em;
-  right: 0.5em;
+  right: 1em;
   text-shadow: 0 0 5px white;
   /* z-index: 11; */
 }
