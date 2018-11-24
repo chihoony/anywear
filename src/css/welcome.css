@@ -34,3 +34,15 @@ a {
 .ui-tooltip {
     width: 13em;
 }
+
+
+/* How to change first item in drop down menu */
+/* li:nth-child(1) {
+  min-height: 0px !important;
+  height: 25px;
+  padding: 0 !important;
+}
+
+li:nth-child(1) span {
+  line-height: 100px !important;
+} */
