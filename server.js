@@ -56,16 +56,8 @@ app.get('/about', function(req, res) {
 
 // trips page
 app.get('/alltrips', function(req, res) {
-  var data1 = {
-    data: {
-      tripKey: 1234,
-      checkin: "date 1",
-      checkout: "date 1.5",
-      destination: "Japan"
-    }
-  }
 
-  res.render('pages/trips', data1);
+  res.render('pages/trips');
 })
 
 // trip page
@@ -75,11 +67,14 @@ app.get('/trip', function(req, res) {
 
 // calendar page
 app.get('/calendar', function(req, res) {
+
+
   res.render('pages/calendar');
 })
 
 // welcome page
 app.get('/', function(req, res) {
+
   res.render('pages/welcome');
 })
 
@@ -88,8 +83,9 @@ app.get('/register', function(req, res) {
   res.render('pages/register');
 })
 
-// login page
+// login page TODO FOR TESTING
 app.get('/login', function(req, res) {
+
   res.render('pages/login');
 })
 

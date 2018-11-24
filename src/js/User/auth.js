@@ -4,13 +4,20 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const express = require('express');
 const { User } = require('./user');
+var bodyParser = require('body-parser');
+
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+var urlencodedParser = bodyParser.urlencoded({ extended: false});
+var jsonParser = bodyParser.json();
+
+router.post('/', urlencodedParser, async (req, res) => {
+    console.log(JSON.stringify(req.body));
+
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    
+
     let user = await User.findOne( { email: req.body.email });
     if (!user) return res.status(400).send("Invalid email or password.");
 
@@ -22,7 +29,7 @@ router.post('/', async (req, res) => {
 });
 
 function validate(req) {
-    const schema = { 
+    const schema = {
         email: Joi.string().max(50).required().email(),
         password: Joi.string().min(8).max(20).required()
     };
