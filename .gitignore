@@ -1,13 +1,18 @@
 # macbook ignores
+
 .DS_Store
 
 
+
 # api ignores
+
 weatherapi.js
 mapsapi.js
 
+
 # helpful resources ignore
+
 resources.txt
 
-node_modules
 
+node_modules/
