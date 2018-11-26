@@ -32,14 +32,6 @@ var nameOfUser = "Group 33"
 
 
 
-$("#check_in_input").datepicker({
-  defaultDate: new Date(),
-  minDate: new Date(),
-  onSelect: function(dateStr){
-    $("#check_out_input").datepicker({defaultDate: new Date(dateStr), minDate: new Date(dateStr)})
-  }
-});
-
 
 $(document).ready(function(){
 
@@ -160,23 +152,6 @@ $(document).ready(function(){
 
 
 
-  $("#check_in_input").datepicker({
-    defaultDate: new Date(),
-    minDate: new Date(),
-    onSelect: function(dateStr){
-      $("#check_out_input").datepicker({defaultDate: new Date(dateStr), setDefaultDate: true, minDate: new Date(dateStr)})
-    }
-  });
-
-  $("#check_out_input").datepicker({
-    defaultDate: new Date(),
-    minDate: new Date(),
-    onSelect: function(dateStr){
-      $("#check_in_input").datepicker({minDate: new Date(), maxDate: new Date(dateStr)})
-    }
-  });
-
-
 
   //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
   var submenuOpen = 0;
@@ -214,6 +189,60 @@ $(document).ready(function(){
   });
 
 
+  //OPENING CALENDAR WITH RESTRICTIONS:
+  //WHEN CHECKIN CALENDAR IS OPENED, THEN CHECKOUT CANNOT BE LESS THAT CHECKIN
+  //CHECKIN MUST ALSO START ON TODAY
+  //WHEN CHECKOUT IS SELECTED FIRST, THEN CHECK IN CANNOT EXCEED CHECKIN
+  var date = new Date();
+  var checkInDate = 0;
+  var maxDate = 0;
+  $("#check_in_input").datepicker({
+      startDate: date,
+      defaultDate: date,
+      minDate: date,
+      minYear: '2018',
+      onClose: function() {
+        date = new Date($('#check_in_input').val());
+        console.log(date);
+        $('#check_out_input').datepicker({
+            startDate: date,
+            minYear: '2018',
+            minDate: date,
+            defaultDate: date
+        });
+      }
+  });
+
+  $("#check_out_input").datepicker({
+      startDate: date,
+      defaultDate: date,
+      minDate: date,
+      minYear: '2018',
+      onClose: function() {
+        date = new Date($('#check_out_input').val());
+        console.log(date);
+        $('#check_in_input').datepicker({
+            startDate: new Date(),
+            minYear: '2018',
+            minDate: new Date(),
+            maxDate: date,
+            defaultDate: new Date()
+        });
+      }
+  });
+  // .on("onClose", function(e) {
+  //   var checkInDate = e.date;
+  //   console.log(checkInDate);
+  //   var $checkOut = $('#check_out_input');
+  //   $checkOut.datepicker("setStartDate", checkInDate);
+  //   $checkOut.datepicker("setDate", checkInDate);
+  //   $checkOut.datepicker("minDate", checkInDate);
+  //
+  // });
+
+
+
+
   //OPENING OVERLAYMENU TO EDIT TRIP
   $('.overlay_top').on('click', function() {
 
@@ -236,7 +265,7 @@ $(document).ready(function(){
   });
 
 
-  //CLOSE OVERLAYSWAP MENU
+  //CLOSE OVERLAYMENU
   $(document).mousedown(function(e) {
       var container = $("#edit-con");
 

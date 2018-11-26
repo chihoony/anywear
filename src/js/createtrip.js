@@ -22,17 +22,6 @@ var bagDescription = ["Small<br/>Daypacks",
                 "Medium<br/>Suitcase",
                 "Large<br/>Suitcase"]
 
-
-$("#check_in_input").datepicker({
-  defaultDate: new Date(),
-  minDate: new Date(),
-  onSelect: function(dateStr){
-    $("#check_out_input").datepicker({defaultDate: new Date(dateStr), minDate: new Date(dateStr)})
-  }
-});
-
-
-
 // PAGE IS FULLY LOADED
 $(document).ready(function() {
 
@@ -57,21 +46,46 @@ $(document).ready(function() {
   // backgroundCon.css('background-image', backgrounds[0]);
 
   // runBackground();
+
+
+
   // initiating calendar overlay
+  var date = new Date();
+  var checkInDate = 0;
+  var maxDate = 0;
   $("#check_in_input").datepicker({
-    defaultDate: new Date(),
-    minDate: new Date(),
-    onSelect: function(dateStr){
-      $("#check_out_input").datepicker({defaultDate: new Date(dateStr), setDefaultDate: true, minDate: new Date(dateStr)})
-    }
+      startDate: date,
+      defaultDate: date,
+      minDate: date,
+      minYear: '2018',
+      onClose: function() {
+        date = new Date($('#check_in_input').val());
+        console.log(date);
+        $('#check_out_input').datepicker({
+            startDate: date,
+            minYear: '2018',
+            minDate: date,
+            defaultDate: date
+        });
+      }
   });
 
   $("#check_out_input").datepicker({
-    defaultDate: new Date(),
-    minDate: new Date(),
-    onSelect: function(dateStr){
-      $("#check_in_input").datepicker({minDate: new Date(), maxDate: new Date(dateStr)})
-    }
+      startDate: date,
+      defaultDate: date,
+      minDate: date,
+      minYear: '2018',
+      onClose: function() {
+        date = new Date($('#check_out_input').val());
+        console.log(date);
+        $('#check_in_input').datepicker({
+            startDate: new Date(),
+            minYear: '2018',
+            minDate: new Date(),
+            maxDate: date,
+            defaultDate: new Date()
+        });
+      }
   });
 
 

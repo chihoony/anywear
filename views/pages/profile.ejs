@@ -15,8 +15,14 @@
     <main class="container">
         <div id='profilePage'>
             <div id='profile' class="yellow lighten-5">
-                <a href="/" id='edit'>ed!t</a>
-                <img id='profilePhoto' src='https://dummyimage.com/400x400/f5c57d/ffffff.png&text=profile' alt='profile' />
+                <div id='profile_edit'>
+                    <img id='profilePhoto' src='https://dummyimage.com/400x400/f5c57d/ffffff.png&text=profile' alt='profile' />
+                    <div id='profilePhotoEditCon'>
+                        <div id='profilePhotoEdit'>
+                            You want to ed!t?
+                        </div>
+                    </div>
+            </div>
                 <div id='profileSection' class="yellow-text text-darken-3">
                     <p>
                         User Name
@@ -31,41 +37,43 @@
                         Gender
                     </p>
                 </div>
-                <div id="profileEditSection" class="yellow-text">
-                    <p id="userName">
+                <div id="profileDisplay" class="yellow-text">
+                    <p id="userNameDisplay">
                         User Name</p>
-                    <p id="email">
+                    <p id="emailDisplay">
                         Email</p>
-                    <p id="age">
+                    <p id="ageDisplay">
                         Age</p>
-                    <p id="gender">
+                    <form id='age_form' method="post" action="">
+                        <div id='age_con' class='input-field profileEditInputField row'>
+                            <input type="number" id="age" min="18" max="100" class="yellow-text col s6" />
+                            <div class="col s6 right-align">
+                                <button type="submit" id="ageEditButton" class="btn-small right btn yellow darken-2 floatRight">Edit</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <p id="genderDisplay">
                         Gender</p>
+                    <form id='gender_form' method="post" action="">
+                        <div id='gender_con' class='input-field profileEditInputField row'>
+                            <select clßass="yellow-text col s6">
+                                <option value="" disabled selected class="yellow-text">Gender</option>
+                                <option value="f" class="yellow-text">Female</option>
+                                <option value="m" class="yellow-text">Male</option>
+                            </select>
+                            <div class="col s6 right-align">
+                                <button type="submit" id="genderEditButton" class="btn-small right btn yellow darken-2 floatRight">Edit</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-
-            </div>
-            <div id='profileEdit'>
-                <form method="post" action="/edit">
-                    <div class='input-field'>
-                        <input type="number" id="age" min="18" max="100" />
-                        <label for="age">Age</label>
-                    </div>
-                    <div class='input-field'>
-                        <select>
-                            <option value="" disabled selected>Gender</option>
-                            <option value="female">Female</option>
-                            <option value="male">Male</option>
-                            <option value="prefernottosay">Prefer not to say</option>
-                        </select>
-                    </div>
-                </form>
             </div>
         </div>
-
     </main>
     <footer>
         <% include ../partials/footer %>
-
         <script src="./src/js/profile.js"></script>
     </footer>
 </body>
