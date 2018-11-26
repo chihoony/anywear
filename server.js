@@ -14,16 +14,14 @@ const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
 const printToConsole = require('./middleware/printToConsole')
 
-<<<<<<< HEAD
 var urlencodedParser = bodyParser.urlencoded({ extended: true});
-=======
+
 require('console-stamp')(console,
   {
     colors: {
       stamp: 'yellow'
     }
   });
->>>>>>> 29a59df1a3f8ab1ec4b73de3de7a20ec40f05ae3
 
 if (!config.get('jwtKey')){
   console.log("FATAL ERROR: jwtKey is not defined");
