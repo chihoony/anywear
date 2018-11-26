@@ -35,8 +35,23 @@ var nameOfUser = "Group 33"
 
 $(document).ready(function(){
 
+  console.log(localStorage.getItem('token'));
 
+  $.ajaxSetup({
+      headers: { 'x-auth-token': localStorage.getItem('token') }
+    });
 
+  var getTrips = $.ajax({
+        type: 'get',
+        url: '/api/trips',
+        dataType: 'json',
+        success: function(data){
+          console.log(data.trips);
+        },
+        error: function(e){
+            console.log(e.responseText);
+        }
+    });
 
   $('#trips_nav').addClass('active');
   var tripContainer = $('#trip_container');
@@ -52,6 +67,8 @@ $(document).ready(function(){
 //   </div>
 // </div>
   function populatePage(){
+    getTrips;
+
     for (var i = 0; i < listOfImgs.length; i++) {
       var tripCon = $('<div class="trip_con"></div>');
       var tripBackgroundCon = $('<div class="trip_background_con"></div>');

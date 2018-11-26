@@ -1,7 +1,5 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
-const Article = require("../Clothing/article");
-const Schema = mongoose.Schema;
 
 const tripSchema = new mongoose.Schema({
     location: {

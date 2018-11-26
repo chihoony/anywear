@@ -12,10 +12,9 @@ var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
-const printToConsole = require('./middleware/printToConsole')
+const printToConsole = require('./middleware/printToConsole');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: true});
-
 require('console-stamp')(console,
   {
     colors: {
@@ -88,7 +87,6 @@ app.get('/alltrips', function(req, res) {
   };
   res.render('pages/trips', data);
 })
-
 // trip page
 app.get('/trip', function(req, res) {
   res.render('pages/trip');
