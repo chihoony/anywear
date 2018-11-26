@@ -12,8 +12,18 @@ var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
+const printToConsole = require('./middleware/printToConsole')
 
+<<<<<<< HEAD
 var urlencodedParser = bodyParser.urlencoded({ extended: true});
+=======
+require('console-stamp')(console,
+  {
+    colors: {
+      stamp: 'yellow'
+    }
+  });
+>>>>>>> 29a59df1a3f8ab1ec4b73de3de7a20ec40f05ae3
 
 if (!config.get('jwtKey')){
   console.log("FATAL ERROR: jwtKey is not defined");
@@ -22,17 +32,18 @@ if (!config.get('jwtKey')){
 
 // Starting database connection
 mongoose.connect('mongodb://localhost/anywear')
-  .then(() => console.log("Connected to mongo..."))
+  .then(() => console.log("Connected to mongo...\n"))
   .catch(err => console.log("Failed connection to mongo ", err));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // API handlers
 app.use('/api/users', users);
-app.use('/api/auth', auth);
+app.use('/api/auth', printToConsole, auth);
 app.use('/api/trips', trips);
 app.use('/api/articles', articles);
 
