@@ -32,7 +32,7 @@ router.get('/', authAccess, async (req, res) => {
 
     console.log(_.pick(trips[0], ['location']));
 
-    res.send(trips);
+    res.send({ trips: trips });
 });
 
 router.get('/:trip', authAccess, async (req, res) => {

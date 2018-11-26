@@ -1,4 +1,8 @@
-$(document).ready(function() {
+$(document).ready(function() {  
+    $.ajaxSetup({
+      headers: { 'x-auth-token': localStorage.getItem('token') }
+    });
+    
     //When user clicks 'age'
     $('#ageDisplay').on('click', function() {
         $("#age_form").show();

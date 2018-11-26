@@ -23,7 +23,10 @@ var bagDescription = ["Small<br/>Daypacks",
                 "Large<br/>Suitcase"]
 
 // PAGE IS FULLY LOADED
-$(document).ready(function() {
+$(document).ready(function() { 
+   $.ajaxSetup({
+      headers: { 'x-auth-token': localStorage.getItem('token') }
+    });
 
   //removing yellow nav bar class to make transparent
   $('nav').first().removeClass('yellow');

@@ -67,7 +67,7 @@ $(document).ready(function(){
 //   </div>
 // </div>
   function populatePage(){
-    getTrips;
+    // getTrips;
 
     for (var i = 0; i < listOfImgs.length; i++) {
       var tripCon = $('<div class="trip_con"></div>');

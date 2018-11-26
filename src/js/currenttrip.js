@@ -28,7 +28,11 @@ var elems = document.querySelectorAll('.carousel');
 var instances = M.Carousel.init(elems);
 });
 
-$(document).ready(function() {
+$(document).ready(function() { 
+   $.ajaxSetup({
+      headers: { 'x-auth-token': localStorage.getItem('token') }
+    });
+
   M.AutoInit();
   // start carrousel
    $('.carousel.carousel-slider').carousel({
