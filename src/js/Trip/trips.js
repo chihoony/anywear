@@ -69,6 +69,25 @@ router.put('/wardrobe/?:oldArticle&:newArticle', authAccess, async (req, res) =>
     res.send(trip.articles);
 });
 
+router.delete('/:id', authAccess, async (req, res) => {
+    const token = jwt.decode(req.get('x-auth-token'));
+
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+
+        let trip = await Trip.find( { owner: token._id, _id: req.params.id }).remove(removeCallback);
+
+        function removeCallback(err, product) {
+            if (err) return res.status(400).send("Failed to remove trip");
+
+            if (product.n === 0) res.status(400).send("Failed to remove trip");
+            else{
+                console.log(`User: ${token._id} removed trip: ${req.params.id}`);
+                res.send("Removed trip");
+            }
+        }
+});
+
 
 
 module.exports = router;
