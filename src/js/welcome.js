@@ -49,5 +49,42 @@ $(document).ready(function() {
     });
     M.AutoInit();
 
+      $("#signIn").on("click", function(e){
+        e.preventDefault();
+        $.ajax(
+            {
+                type: 'post',
+                url: '/api/auth',
+                dataType: 'json',
+                data: { password: $("#pwdForSignIn").val(), email: $("#emailForSignIn").val() },
+                success: function(data){
+                    console.log(data.token);
+                    localStorage.setItem('token', data.token);
+                },
+                error: function(e){
+                    console.log(e.responseText);
+                    $("#login-form").append($("<p>" + e.responseText + "</p>")); // Handle this properly haha
+                }
+            }
+      )});
+
+      $("#signedUp").on("click", function(e){
+        e.preventDefault();
+        $.ajax(
+            {
+                type: 'post',
+                url: '/api/users',
+                dataType: 'json',
+                data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), gender: $("#gender").val() },
+                success: function(data){
+                    console.log(`Created user at Username: ${data.username} Email: ${data.email}`);
+                },
+                error: function(e){
+                    console.log(e.responseText);
+                    $("#login-form").append($("<p>" + e.responseText + "</p>")); // Handle this properly haha
+                }
+            }
+      )});
+     
 
 });

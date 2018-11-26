@@ -12,8 +12,14 @@ var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
+const printToConsole = require('./middleware/printToConsole')
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false});
+require('console-stamp')(console,  
+  {
+    colors: {
+      stamp: 'yellow'
+    }
+  });
 
 if (!config.get('jwtKey')){
   console.log("FATAL ERROR: jwtKey is not defined");
@@ -22,17 +28,18 @@ if (!config.get('jwtKey')){
 
 // Starting database connection
 mongoose.connect('mongodb://localhost/anywear')
-  .then(() => console.log("Connected to mongo..."))
+  .then(() => console.log("Connected to mongo...\n"))
   .catch(err => console.log("Failed connection to mongo ", err));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // API handlers
 app.use('/api/users', users);
-app.use('/api/auth', auth);
+app.use('/api/auth', printToConsole, auth);
 app.use('/api/trips', trips);
 app.use('/api/articles', articles);
 
@@ -56,16 +63,8 @@ app.get('/about', function(req, res) {
 
 // trips page
 app.get('/alltrips', function(req, res) {
-  var data1 = {
-    data: {
-      tripKey: 1234,
-      checkin: "date 1",
-      checkout: "date 1.5",
-      destination: "Japan"
-    }
-  }
 
-  res.render('pages/trips', data1);
+  res.render('pages/trips');
 })
 
 // trip page
@@ -75,11 +74,14 @@ app.get('/trip', function(req, res) {
 
 // calendar page
 app.get('/calendar', function(req, res) {
+
+
   res.render('pages/calendar');
 })
 
 // welcome page
 app.get('/', function(req, res) {
+
   res.render('pages/welcome');
 })
 
@@ -88,8 +90,9 @@ app.get('/register', function(req, res) {
   res.render('pages/register');
 })
 
-// login page
+// login page TODO FOR TESTING
 app.get('/login', function(req, res) {
+
   res.render('pages/login');
 })
 
@@ -98,7 +101,7 @@ app.get('/createtrip', function(req, res) {
   res.render('pages/createtrip');
 })
 
-app.post('/createtrip', urlencodedParser,function(req, res) {
+app.post('/createtrip', function(req, res) {
   console.log(req.body);
   console.log(req.body.destination);
   res.render('pages/currenttrip', {data: req.body});

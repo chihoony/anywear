@@ -285,7 +285,7 @@ $(document).ready(function(){
 
     $.ajax({
       type: 'POST',
-      url: `somewhere with the variables`,
+
 
 
     })
