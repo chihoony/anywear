@@ -30,8 +30,7 @@ router.get('/', authAccess, async (req, res) => {
     let trips = await Trip.find( { owner: token._id });
     if (!trips) return res.status(400).send("You have no trips! Go on a trip!");
 
-    console.log(_.pick(trips[0], ['location']));
-
+    console.log(`Returning ${trips.length} trips to ${token._id} at ${req.connection.remoteAddress}`);
     res.send({ trips: trips });
 });
 

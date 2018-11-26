@@ -34,24 +34,25 @@ var nameOfUser = "Group 33"
 
 
 $(document).ready(function(){
-
-  console.log(localStorage.getItem('token'));
-
+  
   $.ajaxSetup({
       headers: { 'x-auth-token': localStorage.getItem('token') }
     });
 
-  var getTrips = $.ajax({
+  function getTrips(callback){
+    $.ajax({
         type: 'get',
         url: '/api/trips',
         dataType: 'json',
         success: function(data){
           console.log(data.trips);
+          callback(data.trips);
         },
         error: function(e){
             console.log(e.responseText);
         }
     });
+  }
 
   $('#trips_nav').addClass('active');
   var tripContainer = $('#trip_container');
@@ -66,9 +67,7 @@ $(document).ready(function(){
 //     <p class="white-text trip_description"></p>
 //   </div>
 // </div>
-  function populatePage(){
-    // getTrips;
-
+  function populatePage(trips){
     for (var i = 0; i < listOfImgs.length; i++) {
       var tripCon = $('<div class="trip_con"></div>');
       var tripBackgroundCon = $('<div class="trip_background_con"></div>');
@@ -116,7 +115,9 @@ $(document).ready(function(){
     }
   }
 
-  populatePage();
+  // getTrips will grab all related trips to the user,
+  // populatePage will be called as a callback once all the trips are found
+  getTrips(populatePage);
 
 
   // OPENING A TRIP SO I NEED TO GO TO A DIFFERENT PAGE
