@@ -12,7 +12,8 @@ var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
-const printToConsole = require('./middleware/printToConsole')
+const printToConsole = require('./middleware/printToConsole');
+const populateAllTrips = require('./middleware/populateAllTrips');
 
 require('console-stamp')(console,  
   {
@@ -63,10 +64,8 @@ app.get('/about', function(req, res) {
 
 // trips page
 app.get('/alltrips', function(req, res) {
-
   res.render('pages/trips');
 })
-
 // trip page
 app.get('/trip', function(req, res) {
   res.render('pages/trip');

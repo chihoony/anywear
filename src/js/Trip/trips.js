@@ -26,15 +26,13 @@ router.get('/', authAccess, async (req, res) => {
     if (!token) return res.status(401).send("Invalid token! No trip for you!");
 
     token = jwt.decode(token);
-    console.log(token._id);
 
-    let trip = await Trip.find( { owner: token._id });
-    if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
+    let trips = await Trip.find( { owner: token._id });
+    if (!trips) return res.status(400).send("You have no trips! Go on a trip!");
 
-    console.log(_.pick(trip[0], ['location']));
-    console.log(trip.location);
+    console.log(_.pick(trips[0], ['location']));
 
-    res.send(trip);
+    res.send(trips);
 });
 
 router.get('/:trip', authAccess, async (req, res) => {
