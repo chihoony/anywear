@@ -1,8 +1,21 @@
-$(document).ready(function() {  
+$(document).ready(function() {
     $.ajaxSetup({
       headers: { 'x-auth-token': localStorage.getItem('token') }
     });
-    
+
+    //When user wants to change photo
+    $('#profilePhoto').mouseover(function() {
+        $("#profilePhotoEdit").show();
+        $("#profilePhotoEdit").css("display","flex");
+    });
+    $('#profilePhotoEdit').mouseout(function() {
+        $("#profilePhotoEdit").hide();
+    });
+
+    $('#profilePhotoEdit').click( function() {
+        $('#photoUploader').click();
+    });
+
     //When user clicks 'age'
     $('#ageDisplay').on('click', function() {
         $("#age_form").show();
@@ -24,15 +37,6 @@ $(document).ready(function() {
         $("#genderDisplay").show();
     });
 
-    $('#profilePhoto').mouseover(function() {
-        $("#profilePhotoEdit").show();
-        $("#profilePhotoEdit").css("display","flex");
-    });
-    $('#profilePhotoEdit').mouseout(function() {
-        $("#profilePhotoEdit").hide();
-    });
-    $('#profilePhotoEdit').on('click', function() {
-        alert("upload new photo");
-    });
+
 
 });

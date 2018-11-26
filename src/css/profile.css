@@ -39,11 +39,23 @@
     position: absolute;
     align-items: center;
     justify-content: center;
+    cursor:pointer;
 }
+
+#photoUploader{
+    display: none;
+}
+#photoUploaderLabeel {
+    color: black;
+  display: inline-block;
+  cursor:pointer;
+}
+
 #profile_edit {
     text-align: center;
     position: relative;
 }
+
 
 #profileSection, #profileDisplay{
     padding: 1em;
@@ -73,6 +85,15 @@
 #gender_con{
     width: 200px;
 }
+
+#ageDisplay, #genderDisplay{
+    cursor : pointer;
+}
+
+form select{
+
+
+}
 form button {
     height : 24px !important;
     line-height: 24px !important;
@@ -88,6 +109,8 @@ form input, form li, form li span{
 }
 div .select-wrapper{
     width : 100px !important;
+    display: inline-block;
+    float:left;
 }
 
 input{

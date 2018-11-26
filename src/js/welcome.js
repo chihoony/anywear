@@ -77,7 +77,7 @@ $(document).ready(function() {
                 dataType: 'json',
                 data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), gender: $("#gender").val() },
                 success: function(data){
-                    console.log(`Created user at Username: ${data.username} Email: ${data.email}`);
+                    console.log('Created user at Username: ${data.username} Email: ${data.email}');
                 },
                 error: function(e){
                     console.log(e.responseText);
@@ -85,6 +85,6 @@ $(document).ready(function() {
                 }
             }
       )});
-     
+
 
 });

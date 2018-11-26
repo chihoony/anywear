@@ -19,10 +19,18 @@
                     <img id='profilePhoto' src='https://dummyimage.com/400x400/f5c57d/ffffff.png&text=profile' alt='profile' />
                     <div id='profilePhotoEditCon'>
                         <div id='profilePhotoEdit'>
-                            You want to ed!t?
+                            <form id='photo_form' method="post" action="">
+                                <div class="file-field input-field">
+                                    <div class="btn yellow darken-2">
+                                        <span>Ed!t</span>
+                                        <input type="file" accept="image/*">
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
-            </div>
+                </div>
                 <div id='profileSection' class="yellow-text text-darken-3">
                     <p>
                         User Name
@@ -58,7 +66,7 @@
                         Gender</p>
                     <form id='gender_form' method="post" action="">
                         <div id='gender_con' class='input-field profileEditInputField row'>
-                            <select clßass="yellow-text col s6">
+                            <select class="yellow-text col s6">
                                 <option value="" disabled selected class="yellow-text">Gender</option>
                                 <option value="f" class="yellow-text">Female</option>
                                 <option value="m" class="yellow-text">Male</option>
