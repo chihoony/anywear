@@ -54,20 +54,33 @@ $(document).ready(function(){
     });
   }
 
-  function getUser(callback) {
+  function getUserInfo(callback) {
     $.ajax({
       type: 'get',
-      url: '/api/users/me'
-
+      url: '/api/users/me',
+      success: function(data){
+        console.log(data.user);
+        callback(data.user)
+      },
+      error: function(e){
+        console.log(e.responseText); 
+        callback("Unknown");
+        }
     })
   }
+
+  // NAMING THE TRIPS WITH THE USERS NAME
+  function setPageTitle(user){
+    let page_title = $('#page_title');
+    page_title.text(user.username + "\'s Trips");
+  }
+
+ // Setting page title to the username of the current user
+ getUserInfo(setPageTitle);
 
   $('#trips_nav').addClass('active');
   var tripContainer = $('#trip_container');
 
-  // NAMING THE TRIPS WITH THE USERS NAME
-  var page_title = $('#page_title');
-  page_title.text(nameOfUser + " Trips");
 
 // <div class="trip_con">
 //   <div class="trip_background_con">

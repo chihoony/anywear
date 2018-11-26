@@ -17,7 +17,7 @@ router.get('/me', auth, async (req, res) => {
     
     const user = await User.findById(token._id).select('-password');
     if (!user) return res.status(400).send("Uh Oh! You dont exist!");
-    res.send(user);
+    res.send({user});
 });
 
 router.post('/', async (req, res) => {
