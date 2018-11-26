@@ -14,7 +14,6 @@ const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
 const printToConsole = require('./middleware/printToConsole');
 
-var urlencodedParser = bodyParser.urlencoded({ extended: true});
 require('console-stamp')(console,
   {
     colors: {
@@ -98,10 +97,8 @@ app.get('/createtrip', function(req, res) {
   res.render('pages/createtrip');
 })
 
-app.post('/createtrip', urlencodedParser, function(req, res) {
-  var data = {data: req.body};
-  console.log(data);
-  res.render('pages/currenttrip', data);
+app.post('/createtrip', function(req, res) {
+  res.render('pages/currenttrip');
 })
 
 // serving up public files
