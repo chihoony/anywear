@@ -49,13 +49,8 @@ $(document).ready(function() {
     });
     M.AutoInit();
 
-    // var emailForSignIn = $('#emailForSignIn')[0];
-
       $("#signIn").on("click", function(e){
         e.preventDefault();
-
-
-
         $.ajax(
             {
                 type: 'post',

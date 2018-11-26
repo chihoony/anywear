@@ -129,7 +129,7 @@ $(document).ready(function(){
       tripCon.append(tripBackgroundCon, overlayMenu);
 
       //setting each trip con with it's relevant details.
-      tripCon.attr("data-key", `5bfbb589d5a95e43048f80f0`);
+      tripCon.attr("data-key", `5bfc3da63ed2793ba8953394`);
       tripCon.attr("data-destination", `destination ${i}`);
       tripCon.attr("data-checkin", `checkin ${i}`);
       tripCon.attr("data-checkout", `checkOut ${i}`);
@@ -217,6 +217,7 @@ $(document).ready(function(){
         // TODO: Provide a warning if you try to remove.
         $(this).parent().parent().parent().fadeOut('200', function() {
           removeTrip($(this).attr('data-key'));
+          console.log($(this).attr('data-key'));
           $(this).remove();
         });;
       });

@@ -76,6 +76,7 @@ router.delete('/:id', authAccess, function (req, res) {
         return res.status(400).send("Invalid object ID");
 
         Trip.find( { owner: token._id, _id: req.params.id }).remove(removeCallback);
+        console.log(token._id);
 
         function removeCallback(err, product) {
             if (err) return res.status(400).send("Failed to remove trip");
