@@ -14,7 +14,6 @@ const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
 const printToConsole = require('./middleware/printToConsole');
 
-var urlencodedParser = bodyParser.urlencoded({ extended: true});
 require('console-stamp')(console,
   {
     colors: {
@@ -64,28 +63,7 @@ app.get('/about', function(req, res) {
 
 // trips page
 app.get('/alltrips', function(req, res) {
-  var data = {
-    location: ['Vancouver', 'Canada', 'CA'],
-    articles: [
-            "idkeyofarticle",
-            "bar"
-        ],
-        _id: "5bf87698b8bc9432bde4313c",
-    checkIn: "today",
-    checkOut: "tomorrow",
-    outfits: [
-      {
-        pieces: [
-            "whattatt"
-        ],
-        "_id": "5bf87698b8bc9432bde4313d",
-        "date": "something"
-      }
-    ],
-    owner: "5bee0c9ac6e3f63d7c0cbb1d",
-    __v: 0
-  };
-  res.render('pages/trips', data);
+  res.render('pages/trips');
 })
 // trip page
 app.get('/trip', function(req, res) {
@@ -94,8 +72,6 @@ app.get('/trip', function(req, res) {
 
 // calendar page
 app.get('/calendar', function(req, res) {
-
-
   res.render('pages/calendar');
 })
 
@@ -121,10 +97,8 @@ app.get('/createtrip', function(req, res) {
   res.render('pages/createtrip');
 })
 
-app.post('/createtrip', urlencodedParser, function(req, res) {
-  var data = {data: req.body};
-  console.log(data);
-  res.render('pages/currenttrip', data);
+app.post('/createtrip', function(req, res) {
+  res.render('pages/currenttrip');
 })
 
 // serving up public files

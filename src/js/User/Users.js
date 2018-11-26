@@ -10,8 +10,14 @@ const { User, validate } = require('./user');
 const router = express.Router();
 
 router.get('/me', auth, async (req, res) => {
-    const user = await User.findById(req.user._id).select('-password');
-    res.send(user);
+    var token = req.get('x-auth-token');
+    if (!token) return res.status(400).send("Uh Oh! You dont have a token!");
+
+    token = jwt.decode(token);
+    
+    const user = await User.findById(token._id).select('-password');
+    if (!user) return res.status(400).send("Uh Oh! You dont exist!");
+    res.send({user});
 });
 
 router.post('/', async (req, res) => {

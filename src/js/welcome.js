@@ -49,8 +49,13 @@ $(document).ready(function() {
     });
     M.AutoInit();
 
+    // var emailForSignIn = $('#emailForSignIn')[0];
+
       $("#signIn").on("click", function(e){
         e.preventDefault();
+
+
+
         $.ajax(
             {
                 type: 'post',
@@ -60,13 +65,16 @@ $(document).ready(function() {
                 success: function(data){
                     console.log(data.token);
                     localStorage.setItem('token', data.token);
+                    location.href = '/alltrips';
                 },
                 error: function(e){
                     console.log(e.responseText);
-                    $("#login-form").append($("<p>" + e.responseText + "</p>")); // Handle this properly haha
+                    alert(e.responseText);
                 }
             }
-      )});
+      )}
+
+    );
 
       $("#signedUp").on("click", function(e){
         e.preventDefault();
@@ -81,7 +89,7 @@ $(document).ready(function() {
                 },
                 error: function(e){
                     console.log(e.responseText);
-                    $("#login-form").append($("<p>" + e.responseText + "</p>")); // Handle this properly haha
+                    alert(e.responseText);
                 }
             }
       )});
