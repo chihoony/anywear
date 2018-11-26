@@ -74,6 +74,12 @@ $(document).ready(function(){
     $.ajax({
       type: 'delete',
       url: `/api/trips/${id}`,
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(e){
+        console.log(e.responseText);
+      }
     })
   }  
 ////////////////////////////////////////////////////////////////////////////////
@@ -123,7 +129,7 @@ $(document).ready(function(){
       tripCon.append(tripBackgroundCon, overlayMenu);
 
       //setting each trip con with it's relevant details.
-      tripCon.attr("data-key", `key ${i}`);
+      tripCon.attr("data-key", `5bfbb589d5a95e43048f80f0`);
       tripCon.attr("data-destination", `destination ${i}`);
       tripCon.attr("data-checkin", `checkin ${i}`);
       tripCon.attr("data-checkout", `checkOut ${i}`);
@@ -136,7 +142,6 @@ $(document).ready(function(){
       tripBag.html(listOfBag[i]);
       var backgroundStyle = {'background-image': 'url(' + '\"' + listOfImgs[i] + '\"'+ ')'}
       tripCon.css(backgroundStyle);
-      tripCon.attr('data-key', i);
 
       tripContainer.append(tripCon);
 
@@ -211,9 +216,8 @@ $(document).ready(function(){
       $('#trip_container').on('click', '.overlay_bottom', function() {
         // TODO: Provide a warning if you try to remove.
         $(this).parent().parent().parent().fadeOut('200', function() {
-          // console.log($(this).attr('data-key'));
+          removeTrip($(this).attr('data-key'));
           $(this).remove();
-          
         });;
       });
       
