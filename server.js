@@ -13,7 +13,7 @@ const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false});
+var urlencodedParser = bodyParser.urlencoded({ extended: true});
 
 if (!config.get('jwtKey')){
   console.log("FATAL ERROR: jwtKey is not defined");
@@ -56,8 +56,28 @@ app.get('/about', function(req, res) {
 
 // trips page
 app.get('/alltrips', function(req, res) {
-
-  res.render('pages/trips');
+  var data = {
+    location: ['Vancouver', 'Canada', 'CA'],
+    articles: [
+            "idkeyofarticle",
+            "bar"
+        ],
+        _id: "5bf87698b8bc9432bde4313c",
+    checkIn: "today",
+    checkOut: "tomorrow",
+    outfits: [
+      {
+        pieces: [
+            "whattatt"
+        ],
+        "_id": "5bf87698b8bc9432bde4313d",
+        "date": "something"
+      }
+    ],
+    owner: "5bee0c9ac6e3f63d7c0cbb1d",
+    __v: 0
+  };
+  res.render('pages/trips', data);
 })
 
 // trip page
@@ -94,10 +114,10 @@ app.get('/createtrip', function(req, res) {
   res.render('pages/createtrip');
 })
 
-app.post('/createtrip', urlencodedParser,function(req, res) {
-  console.log(req.body);
-  console.log(req.body.destination);
-  res.render('pages/currenttrip', {data: req.body});
+app.post('/createtrip', urlencodedParser, function(req, res) {
+  var data = {data: req.body};
+  console.log(data);
+  res.render('pages/currenttrip', data);
 })
 
 // serving up public files

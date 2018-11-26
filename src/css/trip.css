@@ -2,6 +2,7 @@
   width: 100%;
   height: 30vh;
   background-size: cover;
+  position: relative;
 }
 
 .border-blue {
@@ -17,6 +18,22 @@
   margin-top: 1em;
   margin-bottom: 1em; */
 }
+
+#trip_row {
+  position: relative;
+}
+#edit_trip_button {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: rgb(20, 153, 249);
+}
+
+#edit_trip_button:hover {
+  color: rgb(1, 100, 163);
+}
+
 
 .details_con {
   /* display: inline-block; */

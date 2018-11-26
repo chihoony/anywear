@@ -82,3 +82,21 @@ footer {
  .dropdown-content > li > span {
      color: #E29800;
  }
+
+
+/* Changing Calendar color */
+.datepicker-date-display {
+  background-color: #E29800;
+}
+.is-selected {
+  background-color: #E29800;
+}
+
+.datepicker-controls .select-month input {
+  width: 80px;
+}
+
+
+.icon_delete:hover {
+  cursor: pointer;
+}

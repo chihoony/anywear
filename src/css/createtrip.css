@@ -48,6 +48,11 @@ input:focus {
   color: white;
 }
 
+.selects-container input {
+  color: black;
+}
+
+
 #inner {
   width: 100%;
 }
