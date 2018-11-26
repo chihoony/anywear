@@ -43,7 +43,6 @@ $(document).ready(function(){
     $.ajax({
         type: 'get',
         url: '/api/trips',
-        dataType: 'json',
         success: function(data){
           console.log(data.trips);
           callback(data.trips);
@@ -53,6 +52,14 @@ $(document).ready(function(){
             // TODO: Display error to user
         }
     });
+  }
+
+  function getUser(callback) {
+    $.ajax({
+      type: 'get',
+      url: '/api/users/me'
+
+    })
   }
 
   $('#trips_nav').addClass('active');

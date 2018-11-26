@@ -73,8 +73,6 @@ app.get('/trip', function(req, res) {
 
 // calendar page
 app.get('/calendar', function(req, res) {
-
-
   res.render('pages/calendar');
 })
 
