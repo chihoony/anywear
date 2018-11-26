@@ -23,11 +23,11 @@
                 <form id="login-form">
 
                     <div class='input-field'>
-                        <input type="text" id="emailForSignIn" class="validate" required="required" />
+                        <input type="text" id="emailForSignIn" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please fill in your destination.')" class="validate" />
                         <label for="emailForSignIn">Email</label>
                     </div>
                     <div class='input-field'>
-                        <input type="password" id="pwdForSignIn" required="required" />
+                        <input type="password" id="pwdForSignIn" required />
                         <label for="pwdForSignIn">Password</label>
                     </div>
                     <a href='#' id='buttonPassword'>Forgot password? </a>
