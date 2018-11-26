@@ -26,6 +26,8 @@ router.post('/', async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt)
     await user.save();
 
+    console.log(`Created user: ${JSON.stringify(_.pick(user, ['username', 'email', 'gender' ]))} From: ${req.connection.remoteAddress}`);
+
     const token = user.generateAuthToken();
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'username', 'email']));
 });

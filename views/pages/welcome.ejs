@@ -57,12 +57,12 @@
 
             <!--sign up page-->
             <div id='signUpMoment'>
-                <form method="post" action="/register">
+                <form>
                     <div id='margin' class="row">
 
                         <div id='margin' class='input-field col s12'>
-                            <input type="text" id="userName" pattern="[A-Za-z]{8,20}" required="required" title="This will be your user name!" />
-                            <label for="userName">User Name *</label>
+                            <input type="text" id="username" pattern="[A-Za-z]{8,20}" required="required" title="This will be your username!" />
+                            <label for="username">Username *</label>
                         </div>
                     </div>
                     <div id='margin' class='row'>
@@ -77,7 +77,7 @@
                     </div>
                     <div id='margin' class='row'>
                         <div id='margin' class='input-field col s6'>
-                            <input type="email" id="email" required="required" title="This will be used only when you forget your password." />
+                            <input type="email" id="email" required="required" title="This will be used to login." />
                             <label for="email">Email *</label>
                         </div>
                         <div id='margin' class='input-field col s6'>
@@ -93,10 +93,10 @@
                         <div id='margin' class="row">
 
                             <div id='margin' class='input-field col s6'>
-                                <select>
+                                <select id='gender'>
                                     <option value="" disabled selected>Gender</option>
-                                    <option value="female">Female</option>
-                                    <option value="male">Male</option>
+                                    <option value="f">Female</option>
+                                    <option value="m">Male</option>
                                 </select>
                             </div>
                         </div>

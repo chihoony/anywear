@@ -68,4 +68,23 @@ $(document).ready(function() {
             }
       )});
 
+      $("#signedUp").on("click", function(e){
+        e.preventDefault();
+        $.ajax(
+            {
+                type: 'post',
+                url: '/api/users',
+                dataType: 'json',
+                data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), gender: $("#gender").val() },
+                success: function(data){
+                    console.log(data.token);
+                },
+                error: function(e){
+                    console.log(e.responseText);
+                    $("#login-form").append($("<p>" + e.responseText + "</p>")); // Handle this properly haha
+                }
+            }
+      )});
+     
+
 });
