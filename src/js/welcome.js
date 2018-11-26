@@ -49,27 +49,22 @@ $(document).ready(function() {
     });
     M.AutoInit();
 
-
-
-    // SAMPLE AJAX
-    // TODO: add post for creating a user, and another one logging in.
-    var user = { password: "something", email: "a@gmail.com"};
-    console.log(JSON.stringify(user));
-    $.ajax( {
-        type: "POST",
-        // beforeSend: function(request) {
-        //   request.setRequestHeader("x-auth-token", 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmVlMGM5YWM2ZTNmNjNkN2MwY2JiMWQiLCJpYXQiOjE1NDIzMjc1MTd9.J9M-QaTWFmk-yJR2C6kAFi6k06exgQS7l6OEoQj7BpE');
-        // },
-        processData: 'false',
-        url: window.location + "api/auth",
-        data: { password: "something", email: "a@gmail.com"},
-        success: function() {
-          console.log("properly authenticated");
-        },
-        failure: function() {
-          console.log("I didn't work");
-        }
-      });
-
+      $("#signIn").on("click", function(e){
+        e.preventDefault();
+        $.ajax(
+            {
+                type: 'post',
+                url: '/api/auth',
+                dataType: 'json',
+                data: { password: 'something', email: 'foobar@gmail.com' },
+                success: function(data){
+                    console.log(data.token);
+                    localStorage.setItem('token', data.token);
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            }
+      )});
 
 });

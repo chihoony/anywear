@@ -22,8 +22,14 @@ router.post('/', urlencodedParser, async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send("Invalid email or password.");
 
+    // req.connection.remoteAddress will return ::1 if logging in from localhost
+    console.log(`Valid login from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
+
     const token = user.generateAuthToken();
-    res.send(token);
+    res.send({
+        "success": true,
+        "token": token,
+    });
 });
 
 function validate(req) {

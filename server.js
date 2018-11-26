@@ -16,12 +16,10 @@ const printToConsole = require('./middleware/printToConsole')
 
 require('console-stamp')(console,  
   {
-    metadata: 'HH:MM:ss',
     colors: {
       stamp: 'yellow'
     }
-  },
-  {});
+  });
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
 if (!config.get('jwtKey')){
