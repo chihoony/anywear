@@ -8,6 +8,7 @@
         "bcrypt": "^3.0.2",
         "body-parser": "^1.18.3",
         "config": "^2.0.1",
+        "console-stamp": "^0.2.7",
         "ejs": "^2.6.1",
         "express": "^4.6.1",
         "joi": "^14.0.6",

@@ -13,8 +13,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false});
 var jsonParser = bodyParser.json();
 
 router.post('/', urlencodedParser, async (req, res) => {
-    console.log(JSON.stringify(req.body));
-
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 

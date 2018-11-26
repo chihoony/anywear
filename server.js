@@ -12,7 +12,16 @@ var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
+const printToConsole = require('./middleware/printToConsole')
 
+require('console-stamp')(console,  
+  {
+    metadata: 'HH:MM:ss',
+    colors: {
+      stamp: 'yellow'
+    }
+  },
+  {});
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
 if (!config.get('jwtKey')){
@@ -22,7 +31,7 @@ if (!config.get('jwtKey')){
 
 // Starting database connection
 mongoose.connect('mongodb://localhost/anywear')
-  .then(() => console.log("Connected to mongo..."))
+  .then(() => console.log("Connected to mongo...\n"))
   .catch(err => console.log("Failed connection to mongo ", err));
 
 // set the view engine to ejs
@@ -32,7 +41,7 @@ app.use(bodyParser.json());
 
 // API handlers
 app.use('/api/users', users);
-app.use('/api/auth', auth);
+app.use('/api/auth', printToConsole, auth);
 app.use('/api/trips', trips);
 app.use('/api/articles', articles);
 
