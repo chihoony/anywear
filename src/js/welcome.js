@@ -56,13 +56,14 @@ $(document).ready(function() {
                 type: 'post',
                 url: '/api/auth',
                 dataType: 'json',
-                data: { password: 'something', email: 'foobar@gmail.com' },
+                data: { password: $("#pwdForSignIn").val(), email: $("#emailForSignIn").val() },
                 success: function(data){
                     console.log(data.token);
                     localStorage.setItem('token', data.token);
                 },
                 error: function(e){
-                    console.log(e);
+                    console.log(e.responseText);
+                    $("#login-form").append($("<p>" + e.responseText + "</p>")); // Handle this properly haha
                 }
             }
       )});
