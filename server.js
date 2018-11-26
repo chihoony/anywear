@@ -20,7 +20,6 @@ require('console-stamp')(console,
       stamp: 'yellow'
     }
   });
-var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
 if (!config.get('jwtKey')){
   console.log("FATAL ERROR: jwtKey is not defined");
@@ -35,7 +34,8 @@ mongoose.connect('mongodb://localhost/anywear')
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // API handlers
 app.use('/api/users', users);
@@ -101,7 +101,7 @@ app.get('/createtrip', function(req, res) {
   res.render('pages/createtrip');
 })
 
-app.post('/createtrip', urlencodedParser,function(req, res) {
+app.post('/createtrip', function(req, res) {
   console.log(req.body);
   console.log(req.body.destination);
   res.render('pages/currenttrip', {data: req.body});

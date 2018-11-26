@@ -4,15 +4,10 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const express = require('express');
 const { User } = require('./user');
-var bodyParser = require('body-parser');
-
 
 const router = express.Router();
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false});
-var jsonParser = bodyParser.json();
-
-router.post('/', urlencodedParser, async (req, res) => {
+router.post('/', async (req, res) => {
 console.log(req.body);
 
     const { error } = validate(req.body);
@@ -20,11 +15,15 @@ console.log(req.body);
 
     let user = await User.findOne( { email: req.body.email });
     if (!user) {
-       console.log(`Invalid login from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
-       return res.status(400).send("Invalid email or password.");
+        console.log(`Invalid login from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
+        return res.status(400).send("Invalid email or password.");
     }
+
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) return res.status(400).send("Invalid email or password.");
+    if (!validPassword){
+        console.log(`Invalid login from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
+        return res.status(400).send("Invalid email or password.");
+    }
 
     // req.connection.remoteAddress will return ::1 if logging in from localhost
     console.log(`Valid login from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
