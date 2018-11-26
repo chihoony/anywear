@@ -34,7 +34,7 @@ var nameOfUser = "Group 33"
 
 
 $(document).ready(function(){
-  
+
   $.ajaxSetup({
       headers: { 'x-auth-token': localStorage.getItem('token') }
     });
@@ -49,7 +49,8 @@ $(document).ready(function(){
           callback(data.trips);
         },
         error: function(e){
-            console.log(e.responseText);
+            console.log(e.responseText); 
+            // TODO: Display error to user
         }
     });
   }
