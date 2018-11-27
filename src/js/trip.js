@@ -38,13 +38,13 @@ $(document).ready(function() {
 
 console.log(localStorage.getItem('tripID'));
 
-  function getTrips(callback){
+  function getTrip(callback){
     $.ajax({
         type: 'get',
-        url: '/api/trips',
+        url: `/api/trips/${localStorage.getItem('tripID')}`,
         success: function(data){
-          console.log(data.trips);
-          callback(data.trips);
+          console.log(data.trip);
+          callback(data.trip);
         },
         error: function(e){
             console.log(e.responseText); 
@@ -55,14 +55,10 @@ console.log(localStorage.getItem('tripID'));
   
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-
-  //Setting trip for the page
-  function setTrip(trip){
+  function setTripData(trip) {
     console.log(trip);
-    return JSON.parse(trip)[0];
+    // TODO: set trip data, Destination, Bag Size, Check in, Check out
   }
-  var trip = getTrips(setTrip);
-  console.log(trip);
 
   //POPULATE THE TOPS
   function populateTopWear() {
