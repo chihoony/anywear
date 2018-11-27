@@ -5,6 +5,9 @@
 <head>
   <% include ../partials/head %>
   <link rel="stylesheet" href="./src/css/trip.css" />
+  <script type="text/javascript">
+    localStorage.setItem('tripID', data);
+  </script>
 </head>
 <body>
   <header>
@@ -113,8 +116,15 @@
 
 
   <footer>
+
     <% include ../partials/footer %>
     <script src="./src/js/trip.js"></script>
+    <script type="text/javascript">
+      var data = <%- JSON.stringify(tripID) %>;
+      localStorage.setItem('tripID', data);
+      console.log(localStorage.getItem('tripID'));
+    </script>
+
   </footer>
   </body>
 </html>

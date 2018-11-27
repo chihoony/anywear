@@ -31,6 +31,35 @@ $(document).ready(function() {
   var jacketcon = $("#jacket_con");
   M.updateTextFields();
 
+//////////////////////////////////////// ajax functions ////////////////////////////////////////
+
+console.log(localStorage.getItem('tripID'));
+
+  function getTrips(callback){
+    $.ajax({
+        type: 'get',
+        url: '/api/trips',
+        success: function(data){
+          console.log(data.trips);
+          callback(data.trips);
+        },
+        error: function(e){
+            console.log(e.responseText); 
+            // TODO: Display error to user
+        }
+    });
+  }
+  
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  //Setting trip for the page
+  function setTrip(trip){
+    console.log(trip);
+    return trip[0];
+  }
+  const trip = getTrips(setTrip);
+  console.log(trip);
 
   //POPULATE THE TOPS
   function populateTopWear() {

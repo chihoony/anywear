@@ -66,8 +66,9 @@ app.get('/alltrips', function(req, res) {
   res.render('pages/trips');
 })
 // trip page
-app.get('/trip', function(req, res) {
-  res.render('pages/trip');
+app.get('/trip/:id', function(req, res) {
+  console.log(req.params.id);
+  res.render('pages/trip', { tripID: req.params.id });
 })
 
 // calendar page

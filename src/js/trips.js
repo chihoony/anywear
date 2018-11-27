@@ -175,16 +175,11 @@ $(document).ready(function(){
           // return false;
           
           // window.location='/trip';
-          
-          window.location='/trip';
+          let tripID = $(this).attr('data-key');
+          window.location=`/trip/${tripID}`;
+          console.log(`/trip/${tripID}`);
         }
       });
-      
-      
-      
-      
-      
-      
       
       //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
       var submenuOpen = 0;
