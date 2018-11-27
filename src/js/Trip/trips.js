@@ -3,6 +3,7 @@ var authAccess = require('../../../middleware/auth');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { Trip, validateTrip } = require('./trip');
+const { Article } = require('../Clothing/article');
 
 const router = express.Router();
 
@@ -50,9 +51,52 @@ router.get('/:id', authAccess, async (req, res) => {
     res.send({ trip: trip });  
 });
 
+// Get all articles on a trip, include category=[category] to get articles of that category attached to the trip
+router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
+    if (!req.params.tripID.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+
+    let token = req.get('x-auth-token');
+    token = jwt.decode(token);
+
+    let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
+    if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
+
+    trip = trip[0];
+
+    let filterByCategory;
+    if (req.query.category)
+        filterByCategory = true;
+
+    console.log(trip);
+    var articles = [];
+
+    await trip.articles.forEach( async articleID => {
+        if (filterByCategory){
+            var article = await Article.find({ _id: articleID, category: req.query.category }, {lean: true}, function(err, result){
+                if (err) return res.status(400).send("Unable to get articles");
+            });
+        }
+        else
+        {
+            var article = await Article.findById(articleID);
+        }
+
+    //https://stackoverflow.com/questions/41212249/node-wait-for-loop-to-finish
+
+        articles.push(article);
+        console.log("push: " + article);
+        console.log(articles);
+        res.contentType('application/json');
+        console.log(articles);
+        res.send(JSON.stringify(articles));
+    });
+
+});
+
 
 // Switching articles of clothing in a trip
-router.put('/wardrobe/?:oldArticle&:newArticle', authAccess, async (req, res) => {
+router.put('/wardrobe/swap/?:oldArticle&:newArticle', authAccess, async (req, res) => {
     const error = validateTrip(req.body);
     // if (error) return res.status(400).send("Invalid trip body");
     
@@ -80,6 +124,7 @@ router.put('/wardrobe/?:oldArticle&:newArticle', authAccess, async (req, res) =>
 
     res.send(trip.articles);
 });
+
 
 router.delete('/:id', authAccess, function (req, res) {
     const token = jwt.decode(req.get('x-auth-token'));
