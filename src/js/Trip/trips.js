@@ -34,8 +34,20 @@ router.get('/', authAccess, async (req, res) => {
     res.send({ trips: trips });
 });
 
-router.get('/:trip', authAccess, async (req, res) => {
-    
+router.get('/:id', authAccess, async (req, res) => {
+    let token = req.get('x-auth-token');
+    if (!token) return res.status(401).send("Invalid token! No trip for you!");
+
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+
+    token = jwt.decode(token);
+
+    let trip = await Trip.find( { owner: token._id, _id: req.params.id });
+    if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
+
+    console.log(`Returning trip ${trip._id} to ${token._id} at ${req.connection.remoteAddress}`);
+    res.send({ trip: trip });  
 });
 
 

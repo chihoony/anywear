@@ -32,6 +32,9 @@ $(document).ready(function() {
   M.updateTextFields();
 
 //////////////////////////////////////// ajax functions ////////////////////////////////////////
+  $.ajaxSetup({
+      headers: { 'x-auth-token': localStorage.getItem('token') }
+    });
 
 console.log(localStorage.getItem('tripID'));
 
@@ -56,9 +59,9 @@ console.log(localStorage.getItem('tripID'));
   //Setting trip for the page
   function setTrip(trip){
     console.log(trip);
-    return trip[0];
+    return JSON.parse(trip)[0];
   }
-  const trip = getTrips(setTrip);
+  var trip = getTrips(setTrip);
   console.log(trip);
 
   //POPULATE THE TOPS
@@ -274,8 +277,5 @@ $('.icon_delete').on('click', function() {
 
 
   });
-
-
-
 
 });
