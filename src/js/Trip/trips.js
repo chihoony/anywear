@@ -60,7 +60,8 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
     token = jwt.decode(token);
 
     let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
-    if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
+    if (!trip || trip.length() <= 0) return res.status(400).send("You have no trips! Go on a trip!");
+    console.log(!trip || trip.length() <= 0);
 
     console.log(trip);
 
@@ -90,7 +91,7 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
         console.log("push: " + article);
         console.log(articles);
         counter++;
-        if (articles.length == counter){
+        if (articles.length === counter){
             finished(artiles);
         }
     });
