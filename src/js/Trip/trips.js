@@ -13,7 +13,8 @@ router.post('/', authAccess, async (req, res) => {
     let token = req.header('x-auth-token');
     token = jwt.decode(token);
 
-    let trip = new Trip(_.pick(req.body, ['location', 'checkIn', 'checkOut', 'outfits', 'articles']));
+    let trip = new Trip(_.pick(req.body, ['city', 'countryCode', 'countryName',
+                                 'checkIn', 'checkOut', 'outfits', 'articles']));
     trip.owner = token._id;
 
     await trip.save();
