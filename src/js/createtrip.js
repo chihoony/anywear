@@ -272,6 +272,7 @@ var countryCodes = [
 
 // PAGE IS FULLY LOADED
 $(document).ready(function() {
+
    $.ajaxSetup({
       headers: { 'x-auth-token': localStorage.getItem('token') }
     });
@@ -368,31 +369,47 @@ $(document).ready(function() {
   })
 
 
-  // Creates the country code fo the object.
-  var countryCode = 0;
-  function getCountryCode() {
-    var countryFullName = siftForCountry($('#search_term_input').val()).trim();
-    countryCodes.forEach(country => {
-      if (countryFullName == country.name) {
-        countryCode = country.code;
-        // REFER TO data-countrycode to set the country code in the database.
-        // Better yet, you can use just the countryCode var if need be.
-        // But setting the country code in the Options is nice too.
-        $('#search_term_input').attr('data-countrycode', countryCode);
-
-      };
-    })
-  }
-
   // Purely a TEST:
   // Tester to get country code.
   $('h2').on('click', function() {
-    var countryFullName = siftForCountry($('#search_term_input').val()).trim();
-    countryCodes.forEach(country => {
-      if (countryFullName == country.name) {
-        console.log(country.code);
-      };
-    })
+    var countryFullName = siftForCountry($('#search_term_input').val());
+
+    console.log("This is the found one" + findCountryCode(countryFullName));
+    console.log("country code: " + countryCodeHolder);
+    console.log("country name: " + countryFullName);
+    console.log("city    name: " + siftForCity($('#search_term_input').val()));
+  });
+
+
+
+  // Posting a new trip to the database.
+   $('#buttonNext').on('click', function(e){
+    var cName = siftForCountry($('#search_term_input').val());
+    var cCity = siftForCity($('#search_term_input').val());
+    var cCode = findCountryCode(cName);
+    console.log("button press working");
+    e.preventDefault();
+    $.ajax(
+      {
+        type: 'post',
+        url: '/api/trips',
+        dataType: 'json',
+        data: { city: `${cName}`,
+                countryCode: `${cCode}`,
+                countryName: `${cCity}`,
+                checkIn: "",
+                checkOut: "",
+                outfits: "[]",
+                articles: "[]"
+              },
+        success: function(data) {
+          location.href('/trips');
+        },
+        error: function(e) {
+          alert("Message from the server " + e);
+
+      }
+    });
   });
 
 });
@@ -423,14 +440,43 @@ function hideBagSelection(x) {
   });
 };
 
-// HELPER FUNCTION
+// HELPER function
 // Sifts through a string to parse for a country name.
 // @return a Country
 function siftForCountry(unparsedCountry) {
   var countryParsed = unparsedCountry.split(',');
   if (countryParsed.length == 3) {
-    return countryParsed[2];
+    return countryParsed[2].trim();
   } else {
-    return countryParsed[1];
+    return countryParsed[1].trim();
   }
 };
+
+
+// HELPER functions
+// Takes a city and returns it's corresponding country code.
+// @return country code of the country
+function findCountryCode(parsedCountry) {
+  // The countryCodeHolder is used because for some reason
+  // the for each won't return anything but the value is being printed.
+  for (var i = 0; i < countryCodes.length; i++) {
+
+    if (parsedCountry == countryCodes[i].name) {
+      console.log("found it");
+      console.log("index value :" + i);
+      return countryCodes[i].code;
+    }
+  }
+};
+
+
+
+
+
+// HELPER function
+// Sifts through a string to parse for a city name.
+// @return a city
+function siftForCity(unparsedCity) {
+  var cityParsed = unparsedCity.split(',');
+  return cityParsed[0].trim();
+}

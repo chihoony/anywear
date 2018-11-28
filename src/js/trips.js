@@ -146,7 +146,7 @@ $(document).ready(function() {
       //setting each trip con with it's relevant details.
       tripCon.attr("data-key", trip._id);
       tripCon.attr("data-city", trip.city);
-      tripCon.attr("data-city", trip.country);
+      tripCon.attr("data-city", trip.countryName);
       tripCon.attr("data-countryCode", trip.countryCode);
       tripCon.attr("data-checkIn", trip.checkIn);
       tripCon.attr("data-checkOut", trip.checkOut);
@@ -154,16 +154,21 @@ $(document).ready(function() {
       //TODO: NEED To set to trip bag size. Template used for now
       tripCon.attr("data-bagSize", listOfBag[i]);
 
-      tripTitle.html(`${trip.city}, ${trip.country}`);
+      tripTitle.html(`${trip.city}, ${trip.countryName}`);
+      tripTitle.css('background-color', ' rgba(255, 255, 255, 0.6)');
+      tripTitle.css('padding', '5px');
 
       //TODO: Parse the date so it display full month
       // Nov 26, 2018 convert November, 26, 2018.
       // For now it'll just display it as mmm dd, yyyy
       tripDate.html(`${trip.checkIn} - ${trip.checkOut}`);
+      tripDate.css('padding-left', '5px');
       //TODO: NEED To set to trip bag size. Template used for now
       tripBag.html(listOfBag[i]);
+      tripBag.css('padding-left', '5px');
+
       var backgroundStyle = {
-        'background-image': 'url(' + '\"' + listOfImgs[i] + '\"' + ')'
+        'background-image': `url(/img/city/${trip.city}.jpeg)`
       }
       tripCon.css(backgroundStyle);
 

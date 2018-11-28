@@ -104,6 +104,7 @@ app.post('/createtrip', function(req, res) {
 
 // serving up public files
 app.use('/src', express.static('src'));
+app.use('/img', express.static('src/img'));
 
 // start the server
 app.listen(8000);
