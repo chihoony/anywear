@@ -66,38 +66,44 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
     
     console.log(`request for articles on trip ${trip._id} from ${req.connection.remoteAddress}`);
 
-    let filterByCategory;
+    var filterByCategory = false;
     if (req.query.category)
         filterByCategory = true;
 
+    console.log(req.query.category);
+    console.log(filterByCategory);
+
     var articles = [];
+    var findPromises = [];
 
-    var something = new Promise((resolve, reject) => {
-        trip.articles.forEach( async (articleID, index, array) => {
-            if (filterByCategory){
-                var article = await Article.find({ _id: articleID, category: req.query.category });
-            }
-            else
-            {
-                var article = await Article.find({ _id: articleID });
-            }
+    trip.articles.forEach( async (articleID, index, array) => {
+        findPromises.push(new Promise( async (resolve) => {
+         if (filterByCategory){
+            var article = await Article.find({ _id: articleID, category: req.query.category });
+         } else {
+            var article = await Article.find({ _id: articleID });
+         }
 
-            if (article !== null)
-                articles.push(article[0]);
+         console.log("Pushing " + JSON.stringify(article[0]));
 
-            if (array.length === index + 1){
-                resolve();
-            }
-    })});
+         articles.push(JSON.stringify(article[0]));
+         resolve();
+        }));
+    });
 
-    something.then(() => {
-        console.log(`Sending ${articles.length} articles to ${req.connection.remoteAddress}`);
+    Promise.all(findPromises).then(function(articles) {
+        console.log(articles);
+        console.log(`Sending ${articles.length} articles to ${req.connection.remoteAddress}\n`);
         res.send(articles);
     });
 
-    something.catch(() => {
-        console.log("Error sending articles to " + req.connection.remoteAddress);
-    }); 
+    // something.then(() => {
+    //     res.send(articles);
+    // });
+
+    // something.catch(() => {
+    //     console.log(`Error sending articles to ${req.connection.remoteAddress}\n`);
+    // }); 
 });
 
 
