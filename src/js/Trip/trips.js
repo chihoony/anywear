@@ -62,6 +62,8 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
     let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
     if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
 
+    console.log(trip);
+
     trip = trip[0];
 
     let filterByCategory;
@@ -71,27 +73,31 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
     console.log(trip);
     var articles = [];
 
-    await trip.articles.forEach( async articleID => {
+    console.log(trip);
+
+    var counter = 0;
+    trip.articles.forEach((articleId, index, array) => {
         if (filterByCategory){
-            var article = await Article.find({ _id: articleID, category: req.query.category }, {lean: true}, function(err, result){
+            var article = Article.find({ _id: articleID, category: req.query.category }, {lean: true}, function(err, result){
                 if (err) return res.status(400).send("Unable to get articles");
             });
         }
         else
         {
-            var article = await Article.findById(articleID);
+            var article = Article.findById(articleID);
         }
-
-    //https://stackoverflow.com/questions/41212249/node-wait-for-loop-to-finish
-
         articles.push(article);
         console.log("push: " + article);
         console.log(articles);
-        res.contentType('application/json');
-        console.log(articles);
-        res.send(JSON.stringify(articles));
+        counter++;
+        if (articles.length == counter){
+            finished(artiles);
+        }
     });
 
+    function finished(articles){
+        res.send(JSON.stringify(articles));
+    }
 });
 
 
