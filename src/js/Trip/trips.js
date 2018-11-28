@@ -13,7 +13,8 @@ router.post('/', authAccess, async (req, res) => {
     let token = req.header('x-auth-token');
     token = jwt.decode(token);
 
-    let trip = new Trip(_.pick(req.body, ['location', 'checkIn', 'checkOut', 'outfits', 'articles']));
+    let trip = new Trip(_.pick(req.body, ['city', 'countryCode', 'countryName',
+                                 'checkIn', 'checkOut', 'outfits', 'articles']));
     trip.owner = token._id;
 
     await trip.save();
@@ -35,7 +36,7 @@ router.get('/', authAccess, async (req, res) => {
 });
 
 router.get('/:trip', authAccess, async (req, res) => {
-    
+
 });
 
 
@@ -43,14 +44,14 @@ router.get('/:trip', authAccess, async (req, res) => {
 router.put('/wardrobe/?:oldArticle&:newArticle', authAccess, async (req, res) => {
     const error = validateTrip(req.body);
     // if (error) return res.status(400).send("Invalid trip body");
-    
+
     const { _id } = _.pick(req.body, ['_id']);
 
     let trip = await Trip.findById( { _id } );
     if (!trip) return res.status(400).send("Invalid trip id");
 
-    let oldArticle = req.params.oldArticle; 
-    let newArticle = req.params.newArticle; 
+    let oldArticle = req.params.oldArticle;
+    let newArticle = req.params.newArticle;
 
     var articleIndex = -1;
     await trip.articles.find(function(articleHolder, index) {

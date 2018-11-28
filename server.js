@@ -15,10 +15,11 @@ const articles = require('./src/js/Clothing/articles');
 const printToConsole = require('./middleware/printToConsole');
 
 require('console-stamp')(console,
-  {
+  { pattern: 'ddd mmm dd HH:MM:ss',
     colors: {
       stamp: 'yellow'
     }
+
   });
 
 if (!config.get('jwtKey')){
@@ -103,6 +104,7 @@ app.post('/createtrip', function(req, res) {
 
 // serving up public files
 app.use('/src', express.static('src'));
+app.use('/img', express.static('src/img'));
 
 // start the server
 app.listen(8000);

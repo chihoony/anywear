@@ -1,8 +1,16 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
+const _ = require('lodash');
 
 const tripSchema = new mongoose.Schema({
-    location: {
+    city: {
+        type: String,
+        required: true
+    },
+    countryCode: {
+        type: String,
+    },
+    countryName: {
         type: String,
         required: true
     },
@@ -13,6 +21,10 @@ const tripSchema = new mongoose.Schema({
     checkOut: {
         type: String,
         required: true
+    },
+    bagSize: {
+        type: String,
+        require: true
     },
     owner: { // Dont validate for owner
         type: String,
@@ -33,14 +45,17 @@ const tripSchema = new mongoose.Schema({
 const Trip = mongoose.model('Trip', tripSchema);
 
 function validateTrip(trip) {
+console.log(trip);
+
     const schema = {
-        location: Joi.string().required(),
+        city: Joi.string().required(),
+        countryName: Joi.string().required(),
         checkIn: Joi.string().required(),
-        checkOut: Joi.string().required()
+        checkOut: Joi.string().required(),
+        bagSize: Joi.string().required()
     };
 
-    // return Joi.validate(trip, schema);
-    return true;
+    return Joi.validate(_.pick(trip, ['city', 'countryName', 'checkIn', 'checkOut', 'bagSize']), schema);
 };
 
 
