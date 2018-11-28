@@ -140,6 +140,7 @@ var countryCodes = [
   {name: 'Kiribati', code: 'KI'},
   {name: 'Korea, Democratic People\'S Republic of', code: 'KP'},
   {name: 'Korea, Republic of', code: 'KR'},
+  {name: 'South Korea', code: 'KR'},
   {name: 'Kuwait', code: 'KW'},
   {name: 'Kyrgyzstan', code: 'KG'},
   {name: 'Lao People\'S Democratic Republic', code: 'LA'},
@@ -253,6 +254,7 @@ var countryCodes = [
   {name: 'United Arab Emirates', code: 'AE'},
   {name: 'United Kingdom', code: 'GB'},
   {name: 'United States', code: 'US'},
+  {name: 'USA', code: 'US'},
   {name: 'United States Minor Outlying Islands', code: 'UM'},
   {name: 'Uruguay', code: 'UY'},
   {name: 'Uzbekistan', code: 'UZ'},
@@ -283,6 +285,7 @@ $(document).ready(function() {
 
 
   // initiating calendar overlay
+  // Creating the checkin calendar plus it's restrictions
   var date = new Date();
   var checkInDate = 0;
   var maxDate = 0;
@@ -303,6 +306,7 @@ $(document).ready(function() {
     }
   });
 
+  // Creating the checkout calendar plus it's restrictions
   $("#check_out_input").datepicker({
     startDate: date,
     defaultDate: date,
@@ -322,6 +326,8 @@ $(document).ready(function() {
   });
 
 
+  // Setting the bag pane screen.
+  // Only appears when the bagSize input is clicked.
   $('#new_trip_nav').addClass('active');
   var bag_container = $('#bag_container');
 
@@ -350,7 +356,8 @@ $(document).ready(function() {
   }
   setBaglist();
 
-  // HIGHLIGHT SELECTED BAG
+  // Highlighting the clicked bag when selected.
+  // Also de highlights the rest of the bags when a new bag is clicked.
   $('.card').on('click', function() {
     var size = $(this).data('value');
     $('#bag_size_input').val(size);
@@ -361,17 +368,39 @@ $(document).ready(function() {
   })
 
 
-  // ON SUBMIT POST asd;lfjka;dfjk
+  // Creates the country code fo the object.
+  var countryCode = 0;
+  function getCountryCode() {
+    var countryFullName = siftForCountry($('#search_term_input').val()).trim();
+    countryCodes.forEach(country => {
+      if (countryFullName == country.name) {
+        countryCode = country.code;
+        // REFER TO data-countrycode to set the country code in the database.
+        // Better yet, you can use just the countryCode var if need be.
+        // But setting the country code in the Options is nice too.
+        $('#search_term_input').attr('data-countrycode', countryCode);
+
+      };
+    })
+  }
+
+  // Purely a TEST:
+  // Tester to get country code.
   $('h2').on('click', function() {
-    console.log(siftForCountry($('#search_term_input').val()));
-  })
+    var countryFullName = siftForCountry($('#search_term_input').val()).trim();
+    countryCodes.forEach(country => {
+      if (countryFullName == country.name) {
+        console.log(country.code);
+      };
+    })
+  });
 
 });
 
 
 
 
-
+// Loading bar for the page.
 $(window).on('load', function() {
   //used to create a loading bar
   // will probably add functionality that checks if the last element was created
@@ -392,17 +421,16 @@ function showBagSelection(x) {
 function hideBagSelection(x) {
   $('#bag_container').fadeOut('400', function() {
   });
-}
+};
 
-
-// sift through a string to parse for country name
+// HELPER FUNCTION
+// Sifts through a string to parse for a country name.
+// @return a Country
 function siftForCountry(unparsedCountry) {
-  var countryParsed = unparsedCountry.trim().split(',');
-  console.log(countryParsed);
+  var countryParsed = unparsedCountry.split(',');
   if (countryParsed.length == 3) {
     return countryParsed[2];
   } else {
     return countryParsed[1];
   }
-
-}
+};
