@@ -59,9 +59,9 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
     let token = req.get('x-auth-token');
     token = jwt.decode(token);
 
+    console.log({ owner: token._id, _id: req.params.tripID });
     let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
-    if (!trip || trip.length() <= 0) return res.status(400).send("You have no trips! Go on a trip!");
-    console.log(!trip || trip.length() <= 0);
+    if (!trip || trip.length <= 0) return res.status(400).send("You have no trips! Go on a trip!");
 
     console.log(trip);
 
@@ -71,29 +71,36 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
     if (req.query.category)
         filterByCategory = true;
 
-    console.log(trip);
     var articles = [];
 
-    console.log(trip);
-
     var counter = 0;
-    trip.articles.forEach((articleId, index, array) => {
-        if (filterByCategory){
-            var article = Article.find({ _id: articleID, category: req.query.category }, {lean: true}, function(err, result){
-                if (err) return res.status(400).send("Unable to get articles");
-            });
-        }
-        else
-        {
-            var article = Article.findById(articleID);
-        }
-        articles.push(article);
-        console.log("push: " + article);
-        console.log(articles);
-        counter++;
-        if (articles.length === counter){
-            finished(artiles);
-        }
+    var something = new Promise((resolve, reject) => {
+        trip.articles.forEach( async (articleID, index, array) => {
+            if (filterByCategory){
+                var article = await Article.find({ _id: articleID, category: req.query.category }, {lean: true}, function(err, result){
+                    if (err) return res.status(400).send("Unable to get articles");
+                });
+            }
+            else
+            {
+                var article = await Article.find({ _id: articleID }, function(err, result){
+                    if (err) return res.status(400).send("Unable to get articles");
+                });
+                console.log(article[0]);
+            }
+
+            if (article !== null)
+                articles.push(article[0]);
+            console.log("push: " + article[0]);
+            console.log(articles);
+            counter++;
+            if (articles.length === counter){
+                // finished(articles);
+            }
+    })});
+
+    something.then( () => {
+        res.send(articles);
     });
 
     function finished(articles){
