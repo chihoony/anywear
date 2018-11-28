@@ -58,14 +58,13 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
 
     let token = req.get('x-auth-token');
     token = jwt.decode(token);
-
-    console.log({ owner: token._id, _id: req.params.tripID });
+    
     let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
     if (!trip || trip.length <= 0) return res.status(400).send("You have no trips! Go on a trip!");
-
-    console.log(trip);
-
+    
     trip = trip[0];
+    
+    console.log(`request for articles on trip ${trip._id} from ${req.connection.remoteAddress}`);
 
     let filterByCategory;
     if (req.query.category)
@@ -73,39 +72,32 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
 
     var articles = [];
 
-    var counter = 0;
     var something = new Promise((resolve, reject) => {
         trip.articles.forEach( async (articleID, index, array) => {
             if (filterByCategory){
-                var article = await Article.find({ _id: articleID, category: req.query.category }, {lean: true}, function(err, result){
-                    if (err) return res.status(400).send("Unable to get articles");
-                });
+                var article = await Article.find({ _id: articleID, category: req.query.category });
             }
             else
             {
-                var article = await Article.find({ _id: articleID }, function(err, result){
-                    if (err) return res.status(400).send("Unable to get articles");
-                });
-                console.log(article[0]);
+                var article = await Article.find({ _id: articleID });
             }
 
             if (article !== null)
                 articles.push(article[0]);
-            console.log("push: " + article[0]);
-            console.log(articles);
-            counter++;
-            if (articles.length === counter){
-                // finished(articles);
+
+            if (array.length === index + 1){
+                resolve();
             }
     })});
 
-    something.then( () => {
+    something.then(() => {
+        console.log(`Sending ${articles.length} articles to ${req.connection.remoteAddress}`);
         res.send(articles);
     });
 
-    function finished(articles){
-        res.send(JSON.stringify(articles));
-    }
+    something.catch(() => {
+        console.log("Error sending articles to " + req.connection.remoteAddress);
+    }); 
 });
 
 
