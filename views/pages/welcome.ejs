@@ -9,114 +9,124 @@
 
 <body>
     <main class="container">
-        <div id="loginRegisterCon">
-            <!--welcome page-->
-            <div id='welcomeMoment'>
-                any Wear<br />
-                Worry-free Traveling.<br />
-                <button id='buttonIn' class="btn yellow darken-2">To Sign In</button>
-                <button id='buttonUp' class="btn yellow darken-2">To Sign Up</button>
-            </div>
+        <div class="parallax-container">
+    <div class="parallax"><img src="../../src/img/background/welcomebg1.jpg"></div>
+  </div>
+  <div class="section white">
 
-            <!--sign in page-->
-            <div id='signInMoment'>
-                <form id="login-form">
 
-                    <div class='input-field'>
-                        <input type="text" id="emailForSignIn" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please fill in your destination.')" class="validate" />
-                        <label for="emailForSignIn">Email</label>
-                    </div>
-                    <div class='input-field'>
-                        <input type="password" id="pwdForSignIn" required />
-                        <label for="pwdForSignIn">Password</label>
-                    </div>
-                    <a href='#' id='buttonPassword'>Forgot password? </a>
-                    <a href='#' id='buttonUp1'> Register?</a>
-                    <br /><br />
-                    <button type="submit" id="signIn" class="btn yellow darken-2 floatRight">Sign In</button>
-                </form>
-                <button id='backToWelcom1' class="btn yellow darken-2 floatRight">Back to the main</button>
-            </div>
+          <!--welcome page-->
+          <div id='welcomeMoment'>
+              any Wear<br />
+              Worry-free Traveling.<br />
+              <button id='buttonIn' class="btn yellow darken-2">To Sign In</button>
+              <button id='buttonUp' class="btn yellow darken-2">To Sign Up</button>
+          </div>
 
-            <!--finding password page-->
-            <div id='passwordMoment'>
-                <form method="post" action="/login">
-                    <div class='input-field'>
-                        <input type="text" id="userNameForPassword" class="validate" required="required" title = "The user name you used."/>
-                        <label for="userNameForPassword">User Name</label>
-                    </div>
-                    <div class='input-field'>
-                        <input type="email" id="emailForPassword" required="required" title = "The email address you used." />
-                        <label for="emailForPassword">Email</label>
-                    </div>
-                    <a href='#' id='buttonIn1' class='floatRight'>Oh, I just remember my password</a>
-                    <br />
-                    <button type="submit" id="findingPassword" class="btn yellow darken-2 floatRight">Send me an email</button>
-                </form>
-            </div>
+          <!--sign in page-->
+          <div id='signInMoment'>
+              <form id="login-form">
 
-            <!--sign up page-->
-            <div id='signUpMoment'>
-                <form>
-                    <div id='margin' class="row">
+                  <div class='input-field'>
+                      <input type="text" id="emailForSignIn" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please fill in your destination.')" class="validate" />
+                      <label for="emailForSignIn">Email</label>
+                  </div>
+                  <div class='input-field'>
+                      <input type="password" id="pwdForSignIn" required />
+                      <label for="pwdForSignIn">Password</label>
+                  </div>
+                  <a href='#' id='buttonPassword'>Forgot password? </a>
+                  <a href='#' id='buttonUp1'> Register?</a>
+                  <br /><br />
+                  <button type="submit" id="signIn" class="btn yellow darken-2 floatRight">Sign In</button>
+              </form>
+              <button id='backToWelcom1' class="btn yellow darken-2 floatRight">Back to the main</button>
+          </div>
 
-                        <div id='margin' class='input-field col s12'>
-                            <input type="text" id="username" pattern="[A-Za-z]{8,20}" required="required" title="This will be your username!" />
-                            <label for="username">Username *</label>
-                        </div>
-                    </div>
-                    <div id='margin' class='row'>
-                        <div id='margin' class='input-field col s6'>
-                            <input type="password" id="pwd" pattern="[A-Za-z0-9]{8,20}" required="required" title="Password must be 8-20 characters long." />
-                            <label for="pwd">Password *</label>
-                        </div>
-                        <div id='margin' class='input-field col s6'>
-                            <input type="password" id="cfpwd" pattern="[A-Za-z0-9]{8,20}" required="required" />
-                            <label for="cfpwd">Confirm Password </label>
-                        </div>
-                    </div>
-                    <div id='margin' class='row'>
-                        <div id='margin' class='input-field col s6'>
-                            <input type="email" id="email" required="required" title="This will be used to login." />
-                            <label for="email">Email *</label>
-                        </div>
-                        <div id='margin' class='input-field col s6'>
-                            <input type="email" id="cfemail" required="required" />
-                            <label for="cfemail">Confirm Email</label>
-                        </div>
-                    </div>
-                    <div id='margin' class='row'>
-                        <div id='margin' class='input-field col s6'>
-                            <input type="number" id="age" min="18" max="100" title="This will be used only for statistical purpose." />
-                            <label for="age">Age</label>
-                        </div>
-                        <div id='margin' class="row">
+          <!--finding password page-->
+          <div id='passwordMoment'>
+              <form method="post" action="/login">
+                  <div class='input-field'>
+                      <input type="text" id="userNameForPassword" class="validate" required="required" title = "The user name you used."/>
+                      <label for="userNameForPassword">User Name</label>
+                  </div>
+                  <div class='input-field'>
+                      <input type="email" id="emailForPassword" required="required" title = "The email address you used." />
+                      <label for="emailForPassword">Email</label>
+                  </div>
+                  <a href='#' id='buttonIn1' class='floatRight'>Oh, I just remember my password</a>
+                  <br />
+                  <button type="submit" id="findingPassword" class="btn yellow darken-2 floatRight">Send me an email</button>
+              </form>
+          </div>
 
-                            <div id='margin' class='input-field col s6'>
-                                <select id='gender'>
-                                    <option value="" disabled selected>Gender</option>
-                                    <option value="f">Female</option>
-                                    <option value="m">Male</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+          <!--sign up page-->
+          <div id='signUpMoment'>
+              <form>
+                  <div id='margin' class='row'>
+                      <div id='margin' class='input-field col s6'>
+                          <input type="email" id="email" required="required" title="This will be used to login." />
+                          <label for="email">Email *</label>
+                      </div>
+                      <div id='margin' class='input-field col s6'>
+                          <input type="email" id="cfemail" required="required" />
+                          <label for="cfemail">Confirm Email</label>
+                      </div>
+                  </div>
+                  <div id='margin' class='row'>
+                      <div id='margin' class='input-field col s6'>
+                          <input type="password" id="pwd" pattern="[A-Za-z0-9]{8,20}" required="required" title="Password must be 8-20 characters long." />
+                          <label for="pwd">Password *</label>
+                      </div>
+                      <div id='margin' class='input-field col s6'>
+                          <input type="password" id="cfpwd" pattern="[A-Za-z0-9]{8,20}" required="required" />
+                          <label for="cfpwd">Confirm Password </label>
+                      </div>
+                  </div>
 
-                    <div id='margin' class="file-field input-field">
-                        <div class="btn yellow darken-2">
-                            <span>File</span>
-                            <input type="file">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Your Photo">
-                        </div>
-                    </div>
-                    <button type="submit" id="signedUp" class="btn yellow darken-2 floatRight">Sign Up</button>
-                </form>
-                <button id='backToWelcom2' class="btn yellow darken-2 floatRight">Back to the main</button>
+                  <div id='margin' class="row">
 
-            </div>
-        </div>
+                      <div id='margin' class='input-field col s12'>
+                          <input type="text" id="username" pattern="[A-Za-z]{8,20}" required="required" title="This will be your username!" />
+                          <label for="username">Username *</label>
+                      </div>
+                  </div>
+                  <div id='margin' class='row'>
+                      <div id='margin' class='input-field col s6'>
+                          <input type="number" id="age" min="18" max="100" title="This will be used only for statistical purpose." />
+                          <label for="age">Age</label>
+                      </div>
+                      <div id='margin' class="row">
+
+                          <div id='margin' class='input-field col s6'>
+                              <select id='gender'>
+                                  <option value="" disabled selected>Gender</option>
+                                  <option value="f">Female</option>
+                                  <option value="m">Male</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div id='margin' class="file-field input-field">
+                      <div class="btn yellow darken-2">
+                          <span>File</span>
+                          <input type="file">
+                      </div>
+                      <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text" placeholder="Your Photo">
+                      </div>
+                  </div>
+                  <button type="submit" id="signedUp" class="btn yellow darken-2 floatRight">Sign Up</button>
+              </form>
+              <button id='backToWelcom2' class="btn yellow darken-2 floatRight">Back to the main</button>
+
+          </div>
+  </div>
+  <div class="parallax-container">
+    <div class="parallax"><img src="../../src/img/background/welcomebg2.jpg"></div>
+  </div>
+
 
     </main>
 
