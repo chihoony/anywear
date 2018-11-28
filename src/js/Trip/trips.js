@@ -14,7 +14,7 @@ router.post('/', authAccess, async (req, res) => {
     token = jwt.decode(token);
 
     let trip = new Trip(_.pick(req.body, ['city', 'countryCode', 'countryName',
-                                 'checkIn', 'checkOut', 'outfits', 'articles']));
+                                 'checkIn', 'checkOut', 'outfits', 'articles', 'bagSize']));
     trip.owner = token._id;
 
     await trip.save();

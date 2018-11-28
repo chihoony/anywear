@@ -22,6 +22,10 @@ const tripSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    bagSize: {
+        type: String,
+        require: true
+    },
     owner: { // Dont validate for owner
         type: String,
         required: true
@@ -47,10 +51,11 @@ console.log(trip);
         city: Joi.string().required(),
         countryName: Joi.string().required(),
         checkIn: Joi.string().required(),
-        checkOut: Joi.string().required()
+        checkOut: Joi.string().required(),
+        bagSize: Joi.string().required()
     };
 
-    return Joi.validate(_.pick(trip, ['city', 'countryName', 'checkIn', 'checkOut']), schema);
+    return Joi.validate(_.pick(trip, ['city', 'countryName', 'checkIn', 'checkOut', 'bagSize']), schema);
 };
 
 
