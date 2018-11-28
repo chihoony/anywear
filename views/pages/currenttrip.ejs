@@ -5,17 +5,12 @@
 <head>
   <% include ../partials/head %>
   <link href="./src/css/currenttrip.css" rel="stylesheet"/>
-  <script>
-    var data = <%= JSON.stringify(data) %>;
-    console.log(data.destination);
-  </script>
 </head>
 <body>
   <header>
 
     <% include ../partials/header %>
   </header>
-  <h1><%= data.destination %></h1>
   <main class="container">
     <div id="carouselOuterContainer">
       <div class="carousel-fixed-item center middle-indicator">

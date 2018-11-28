@@ -49,7 +49,7 @@ $(document).ready(function(){
           callback(data.trips);
         },
         error: function(e){
-            console.log(e.responseText); 
+            console.log(e.responseText);
             // TODO: Display error to user
         }
     });
@@ -64,7 +64,7 @@ $(document).ready(function(){
         callback(data.user)
       },
       error: function(e){
-        console.log(e.responseText); 
+        console.log(e.responseText);
         callback("Unknown");
         }
     })
@@ -81,7 +81,7 @@ $(document).ready(function(){
         console.log(e.responseText);
       }
     })
-  }  
+  }
 ////////////////////////////////////////////////////////////////////////////////
 
   // NAMING THE TRIPS WITH THE USERS NAME
@@ -151,7 +151,7 @@ $(document).ready(function(){
   // getTrips will grab all related trips to the user,
   // populatePage will be called as a callback once all the trips are found.
   getTrips(populatePage);
-  
+
   // OPENING A TRIP SO I NEED TO GO TO A DIFFERENT PAGE
   $('#trip_container').on('click', '.trip_con', function(e) {
     if($(e.target).hasClass('icon_delete')
@@ -159,7 +159,7 @@ $(document).ready(function(){
     || $(e.target).hasClass('overlay_p_bottom')
     || $(e.target).hasClass('overlay_bottom')
     || $(e.target).hasClass('overlay_p_top')) {
-      
+
     } else {
       //GO TO THE SPECIFIED PAGE USING KEY VALUE
       // // TODO post the url with key of trip.
@@ -173,19 +173,19 @@ $(document).ready(function(){
           //   }
           // });
           // return false;
-          
+
           // window.location='/trip';
-          
+
           window.location='/trip';
         }
       });
-      
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
+
       //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
       var submenuOpen = 0;
       $(document).mouseup(function (e) {
@@ -197,7 +197,7 @@ $(document).ready(function(){
           submenuOpen = 0;
         }
       });
-      
+
       var selectedTrip = 0;
       var selectedTripKey = 0;
       //OPENING THE SUBMENU FOR A TRIP
@@ -209,9 +209,9 @@ $(document).ready(function(){
         selectedTrip.children('.overlay_menu').slideToggle(200);
         submenuOpen = 1;
       });
-      
-      
-      
+
+
+
       //REMOVING A TRIP
       $('#trip_container').on('click', '.overlay_bottom', function() {
         // TODO: Provide a warning if you try to remove.
@@ -221,8 +221,8 @@ $(document).ready(function(){
           $(this).remove();
         });;
       });
-      
-      
+
+
       //OPENING CALENDAR WITH RESTRICTIONS:
       //WHEN CHECKIN CALENDAR IS OPENED, THEN CHECKOUT CANNOT BE LESS THAT CHECKIN
       //CHECKIN MUST ALSO START ON TODAY
@@ -246,7 +246,7 @@ $(document).ready(function(){
           });
         }
       });
-      
+
       $("#check_out_input").datepicker({
         startDate: date,
         defaultDate: date,
@@ -264,22 +264,13 @@ $(document).ready(function(){
           });
         }
       });
-      // .on("onClose", function(e) {
-        //   var checkInDate = e.date;
-        //   console.log(checkInDate);
-        //   var $checkOut = $('#check_out_input');
-        //   $checkOut.datepicker("setStartDate", checkInDate);
-        //   $checkOut.datepicker("setDate", checkInDate);
-        //   $checkOut.datepicker("minDate", checkInDate);
-        //
-        // });
-        
-        
-        
-        
+
+
+
+
         //OPENING OVERLAYMENU TO EDIT TRIP
         $('#trip_container').on('click', '.overlay_top', function() {
-          
+
           //OPENING Edit MENU extracting key value to place into value of edit fields
           // Setting the edit menu to the trips params
           selectedTrip.data('key');
@@ -288,37 +279,37 @@ $(document).ready(function(){
           $('#check_out_input').attr('value', selectedTrip.data('checkout'));
           $('#bag_size_input').attr('value', selectedTrip.data('bagsize'));
           $(`option[value="${selectedTrip.data('bagsize')}"]`).attr('selected', "");
-          
+
           // reinitializing the dropdown
           $('select').formSelect();
           M.updateTextFields();
-          
-          
+
+
           $('#edit-overlay').fadeIn('400', function() {
           });
         });
-        
-        
+
+
         //CLOSE OVERLAYMENU
         $(document).mousedown(function(e) {
           var container = $("#edit-con");
-          
+
           // if the target of the click isn't the container nor a descendant of the container
           if (!container.is(e.target) && container.has(e.target).length === 0) {
             $('#edit-overlay').fadeOut('400', function() {
             });
           }
         });
-        
+
         // HANDLING THE PUT EDIT TRIP
         $('#buttonNext').on('click', function() {
           console.log('button pressed');
           console.log($('#bag_size_input').val());
-          
+
           $("#edit-overlay").fadeOut('400', function() {
-            
+
           });
-          
+
           //now send the trip key with all the new info to the backend
           // key into the URL
           // Everything else in the body data
@@ -329,7 +320,7 @@ $(document).ready(function(){
           selectedTrip.data('checkin');
           selectedTrip.data('checkout');
           selectedTrip.data('bagsize');
-          
+
           // // TODO post the url with key of trip.
           // var tripKey = $(this).data('key');
           // $.ajax({
@@ -341,7 +332,7 @@ $(document).ready(function(){
               //   }
               // });
               // return false;
-              
+
               // $.ajax({
                 //   url: "/post-form",
                 //   dataType: "json",
@@ -362,33 +353,32 @@ $(document).ready(function(){
                     //   }
                     //  });
                     // })
-                    
+
                     $.ajax({
                       type: 'POST',
-                      
-                      
-                      
+
+
+
                     })
-                    
+
                   });
-                  
-                  
+
+
                   // HANDLING THE CANCEL BUTTON WHEN EDIT TRIP OVERLAY IS OPEN
                   $('#cancelNext').on('click', function(e) {
                     console.log('button pressed');
                     console.log($('#bag_size_input').val());
                     e.preventDefault();
                     $("#edit-overlay").fadeOut('400', function() {
-                      
+
                     });
-                    
+
                     //now send the old key and new key to the backend
                     // also send the trip id here too.
                     // oldArticleKey.send
                     // newArticleSwap.send
                     // TODO AJAX CALL
-                    
-                    
+
+
                   });
                 });
-                

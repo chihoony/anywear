@@ -15,10 +15,11 @@ const articles = require('./src/js/Clothing/articles');
 const printToConsole = require('./middleware/printToConsole');
 
 require('console-stamp')(console,
-  {
+  { pattern: 'ddd mmm dd HH:MM:ss',
     colors: {
       stamp: 'yellow'
     }
+
   });
 
 if (!config.get('jwtKey')){
