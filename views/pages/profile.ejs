@@ -27,7 +27,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -48,13 +47,23 @@
                 <div id="profileDisplay" class="yellow-text">
                     <p id="userNameDisplay">
                         User Name</p>
+                        <form id='userName_form' method="post" action="">
+                            <div id='userName_con' class='input-field profileEditInputField row'>
+                                <input type="text" id="userName" class="yellow-text col s6"/>
+                                <div class="col s6 right-align">
+                                    <button type="submit" id="userNameEditButton" class="btn-small right btn yellow darken-2 floatRight">Edit</button>
+                                </div>
+
+                            </div>
+                        </form>
+
                     <p id="emailDisplay">
                         Email</p>
                     <p id="ageDisplay">
                         Age</p>
                     <form id='age_form' method="post" action="">
                         <div id='age_con' class='input-field profileEditInputField row'>
-                            <input type="number" id="age" min="18" max="100" class="yellow-text col s6" placeholder="20"/>
+                            <input type="number" id="age" min="18" max="100" class="yellow-text col s6" />
                             <div class="col s6 right-align">
                                 <button type="submit" id="ageEditButton" class="btn-small right btn yellow darken-2 floatRight">Edit</button>
                             </div>
@@ -66,8 +75,8 @@
                         Gender</p>
                     <form id='gender_form' method="post" action="">
                         <div id='gender_con' class='input-field profileEditInputField row'>
-                            <select class="yellow-text col s6">
-                                <option value="" disabled selected class="yellow-text">Gender</option>
+                            <select id="genderSelect" class="yellow-text col s6">
+                                <option value="0" disabled  class="yellow-text">Gender</option>
                                 <option value="f" class="yellow-text">Female</option>
                                 <option value="m" class="yellow-text">Male</option>
                             </select>

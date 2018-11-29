@@ -67,7 +67,7 @@
 }
 
 /*  FOOOOOORRRRRRRMMMMMMMMMMMM */
-#age_form, #gender_form {
+#userName_form, #age_form, #gender_form {
     position: relative;
     width: 150px;
     height: 1.5em;
@@ -78,11 +78,11 @@
     margin-bottom: 0;
     width: 200px;
 }
-#gender_con{
+#userName_con, #gender_con{
     width: 200px;
 }
 
-#ageDisplay, #genderDisplay{
+#userNameDisplay, #ageDisplay, #genderDisplay{
     cursor : pointer;
 }
 

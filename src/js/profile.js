@@ -19,6 +19,16 @@ $(document).ready(function() {
     //     $('#photoUploader').click();
     // });
 
+    //When user clicks 'userName'
+    $('#userNameDisplay').on('click', function() {
+        $("#userName_form").show();
+        $("#userNameDisplay").hide();
+    });
+    $('#userNameEditButton').on('click', function() {
+        $("#userName_form").hide();
+        $("#userNameDisplay").show();
+    })
+
     //When user clicks 'age'
     $('#ageDisplay').on('click', function() {
         $("#age_form").show();
@@ -62,23 +72,26 @@ $(document).ready(function() {
     function setProfileInfo(user) {
         let userNameDisplay = $('#userNameDisplay');
         userNameDisplay.text(user.username);
+        userName.value = user.username;
 
         let emailDisplay = $('#emailDisplay');
         emailDisplay.text(user.email);
 
         let ageDisplay = $('#ageDisplay');
         ageDisplay.text(user.age);
+        age.value = user.age;
 
-                let age= $('#age');
-                ageDisplay.text(user.age);
         let genderDisplay = $('#genderDisplay');
 
         if (user.gender == 'f') {
             genderDisplay.text('Female');
+                $(".dropdown-content").children()[1].className += " selected";
         } else if (user.gender == 'm') {
-            genderDisplay.text('Male')
+            genderDisplay.text('Male');
+                $(".dropdown-content").children()[2].className += " selected";
         }
-
+        $(document).ready(function(){$('select').formSelect();});
+$("#genderSelect").val(user.gender);
 
     }
     getUserInfo(setProfileInfo);
