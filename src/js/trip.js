@@ -56,9 +56,9 @@ console.log(localStorage.getItem('tripID'));
   function getArticles(articleCategory, callback) {
     var url;
     if (articleCategory)
-      url = `/api/wardrobe/${localStorage.getItem('tripID')}?category=${articleCategory}`
+      url = `/api/trips/wardrobe/${localStorage.getItem('tripID')}?category=${articleCategory}`
     else
-      url = `/api/wardrobe/${localStorage.getItem('tripID')}`
+      url = `/api/trips/wardrobe/${localStorage.getItem('tripID')}`
 
     $.ajax({
       type: 'get',
@@ -76,13 +76,15 @@ console.log(localStorage.getItem('tripID'));
   
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-  function setTripData(trip) {
+  function populateTripInfo(trip) {
     console.log(trip);
     // TODO: set trip data, Destination, Bag Size, Check in, Check out
   }
+  getTrip(populateTripInfo);
 
   //POPULATE THE TOPS
-  function populateTopWear() {
+  function populateTopWear(articles) {
+    console.log(articles);
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
@@ -115,7 +117,8 @@ console.log(localStorage.getItem('tripID'));
 
 
   //POPULATE THE BOTTOMS
-  function populateBottomWear() {
+  function populateBottomWear(articles) {
+    console.log(articles);
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
@@ -145,7 +148,8 @@ console.log(localStorage.getItem('tripID'));
     }
   }
   //POPULATE THE JACKET AREA WHEN NEEDED
-  function populateJacketWear() {
+  function populateJacketWear(articles) {
+    console.log(articles);
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
@@ -177,9 +181,9 @@ console.log(localStorage.getItem('tripID'));
   }
 
   
-  populateTopWear();
-  populateBottomWear()
-  populateJacketWear();
+  getArticles('shirts', populateTopWear);
+  getArticles('pants', populateBottomWear);
+  getArticles('jacket', populateJacketWear);;
 
 //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
 var submenuOpen = 0;
