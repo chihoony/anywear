@@ -71,27 +71,47 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
         filterByCategory = true;
 
     console.log(req.query.category);
-    console.log(filterByCategory);
 
     var articles = [];
-    var findPromises = [];
 
-    trip.articles.forEach( async (articleID, index, array) => {
-        findPromises.push(new Promise( async (resolve) => {
-         if (filterByCategory){
-            var article = await Article.find({ _id: articleID, category: req.query.category });
-         } else {
-            var article = await Article.find({ _id: articleID });
-         }
+    var findPromises = function 
 
-         console.log("Pushing " + JSON.stringify(article[0]));
+    // var searchForArticles = new Promise((resolve) => {
+    //     trip.articles.forEach( async (articleID, index, array) => {
+    //         if (filterByCategory){
+    //             var article = await Article.find({ _id: articleID, category: req.query.category });
+    //             console.log("found " + article);
+    //         } else {
+    //             var article = await Article.find({ _id: articleID });
+    //         }
 
-         articles.push(JSON.stringify(article[0]));
-         resolve();
-        }));
-    });
+    //         console.log("Pushing " + JSON.stringify(article[0]));
+    //         articles.push(JSON.stringify(article[0]));
 
-    Promise.all(findPromises).then(function(articles) {
+    //         if (array.length === index + 1) {
+    //             console.log("here");
+    //             resolve()
+    //         }
+    //     });
+    // });
+
+    // trip.articles.forEach( async (articleID, index, array) => {
+    //     findPromises.push(new Promise( async (resolve) => {
+    //      if (filterByCategory){
+    //         var article = await Article.find({ _id: articleID, category: req.query.category });
+    //      } else {
+    //         var article = await Article.find({ _id: articleID });
+    //      }
+
+    //      console.log("Pushing " + JSON.stringify(article[0]));
+
+    //      articles.push(JSON.stringify(article[0]));
+    //      console.log(articles);
+    //      resolve();
+    //     }));
+    // });
+
+    searchForArticles.then(function() {
         console.log(articles);
         console.log(`Sending ${articles.length} articles to ${req.connection.remoteAddress}\n`);
         res.send(articles);
