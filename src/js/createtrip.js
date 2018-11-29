@@ -273,6 +273,8 @@ var countryCodes = [
 // PAGE IS FULLY LOADED
 $(document).ready(function() {
 
+  $('input').attr('value', '');
+
    $.ajaxSetup({
       headers: { 'x-auth-token': localStorage.getItem('token') }
     });
@@ -384,33 +386,47 @@ $(document).ready(function() {
 
   // Posting a new trip to the database.
    $('#buttonNext').on('click', function(e){
-    var cName = siftForCountry($('#search_term_input').val());
-    var cCity = siftForCity($('#search_term_input').val());
-    var cCode = findCountryCode(cName);
-    console.log("button press working");
-    e.preventDefault();
-    $.ajax(
-      {
-        type: 'post',
-        url: '/api/trips',
-        dataType: 'json',
-        data: { city: `${cName}`,
-                countryCode: `${cCode}`,
-                countryName: `${cCity}`,
-                checkIn: "",
-                checkOut: "",
-                outfits: "[]",
-                articles: "[]"
-              },
-        success: function(data) {
-          location.href('/trips');
-        },
-        error: function(e) {
-          alert("Message from the server " + e);
-
-      }
+     $(document).ready(function() {
+      M.updateTextFields();
     });
-  });
+     var form0 = document.getElementById('search_term_input');
+     var form1 = document.getElementById('check_in_input');
+     var form2 = document.getElementById('check_out_input');
+     var form3 = document.getElementById('bag_size_input');
+
+     console.log("1" + form0);
+
+     if (form0.checkValidity() && form1.checkValidity()
+          && form2.checkValidity() && form3.checkValidity()) {
+       var cName = siftForCountry($('#search_term_input').val());
+       var cCity = siftForCity($('#search_term_input').val());
+       var cCode = findCountryCode(cName);
+       var cIn = $('#check_in_input').val();
+       var cOut = $('#check_out_input').val();
+       e.preventDefault();
+       $.ajax(
+         {
+           type: 'post',
+           url: '/api/trips',
+           dataType: 'json',
+           data: { city: cCity,
+                   countryCode: cCode,
+                   countryName: cName,
+                   checkIn: $('#check_in_input').val(),
+                   checkOut: $('#check_out_input').val(),
+                   bagSize: $('#bag_size_input').val()
+                 },
+           success: function(data) {
+             location.href = '/alltrips';
+           },
+           error: function(e) {
+             alert("Message from the server " + e.responseText);
+
+         }
+       });
+     };
+   });
+
 
 });
 

@@ -146,13 +146,13 @@ $(document).ready(function() {
       //setting each trip con with it's relevant details.
       tripCon.attr("data-key", trip._id);
       tripCon.attr("data-city", trip.city);
-      tripCon.attr("data-city", trip.countryName);
+      tripCon.attr("data-countryName", trip.countryName);
       tripCon.attr("data-countryCode", trip.countryCode);
       tripCon.attr("data-checkIn", trip.checkIn);
       tripCon.attr("data-checkOut", trip.checkOut);
 
       //TODO: NEED To set to trip bag size. Template used for now
-      tripCon.attr("data-bagSize", listOfBag[i]);
+      tripCon.attr("data-bagSize", trip.bagSize);
 
       tripTitle.html(`${trip.city}, ${trip.countryName}`);
       tripTitle.css('background-color', ' rgba(255, 255, 255, 0.6)');
@@ -164,9 +164,9 @@ $(document).ready(function() {
       tripDate.html(`${trip.checkIn} - ${trip.checkOut}`);
       tripDate.css('padding-left', '5px');
       //TODO: NEED To set to trip bag size. Template used for now
-      tripBag.html(listOfBag[i]);
+      tripBag.html(trip.bagSize);
       tripBag.css('padding-left', '5px');
-
+      console.log("this is the trip: " + trip.city);
       var backgroundStyle = {
         'background-image': `url(/img/city/${trip.city}.jpeg)`
       }
