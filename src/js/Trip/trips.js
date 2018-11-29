@@ -57,19 +57,28 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
     if (!req.params.tripID.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid object ID");
 
+    // var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl
+    // console.log(fullUrl);
+
     let token = req.get('x-auth-token');
     token = jwt.decode(token);
     
     let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
-    if (!trip || trip.length <= 0) return res.status(400).send("You have no trips! Go on a trip!");
+    if (!trip || trip.length <= 0) return res.status(400).send("You have no trips! Go on a trip!\n");
     
     trip = trip[0];
     
-    console.log(`request for articles on trip ${trip._id} from ${req.connection.remoteAddress}`);
+    console.log(`request for articles on trip ${trip._id} from ${req.connection.remoteAddress} with filter ${req.query.category}`);
+
+    if (trip.articles.length <= 0) {
+        console.log(`No articles with trip ${trip._id}`);
+        return res.status(404).send("No Articles found");
+    }
 
     var filterByCategory = false;
-    if (req.query.category)
+    if (req.query.category) {
         filterByCategory = true;
+    }
 
 
     var articles = [];
@@ -82,7 +91,10 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
                 var article = await Article.find({ _id: articleID });
             }
 
-            articles.push(article[0]);
+            if (article[0]) {
+                articles.push(article[0]);
+            }
+
             if (array.length === articles.length) {
                 resolve()
             }
@@ -90,8 +102,13 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
     });
 
     searchForArticles.then(function() {
-        console.log(`Sending ${articles.length} articles to ${req.connection.remoteAddress}\n`);
-        res.send(articles);
+        if (articles.length <= 0) {
+            console.log(`No articles found`);
+            return res.status(404).send(`No articles found`);
+        }
+
+        console.log(`Sending ${articles.length} articles to ${req.connection.remoteAddress} with filter ${req.query.category}\n`);
+        res.send({ articles: articles });
     });
 
 });

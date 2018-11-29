@@ -55,8 +55,10 @@ console.log(localStorage.getItem('tripID'));
 
   function getArticles(articleCategory, callback) {
     var url;
-    if (articleCategory)
+    if (true) {
       url = `/api/trips/wardrobe/${localStorage.getItem('tripID')}?category=${articleCategory}`
+      console.log(url);
+    }
     else
       url = `/api/trips/wardrobe/${localStorage.getItem('tripID')}`
 
@@ -182,8 +184,8 @@ console.log(localStorage.getItem('tripID'));
   }
 
   
-  getArticles('shirts', populateTopWear);
-  getArticles('pants', populateBottomWear);
+  getArticles('shirt', populateTopWear);
+  getArticles('pant', populateBottomWear);
   getArticles('jacket', populateJacketWear);;
 
 //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
