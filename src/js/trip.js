@@ -31,9 +31,61 @@ $(document).ready(function() {
   var jacketcon = $("#jacket_con");
   M.updateTextFields();
 
+//////////////////////////////////////// ajax functions ////////////////////////////////////////
+  $.ajaxSetup({
+      headers: { 'x-auth-token': localStorage.getItem('token') }
+    });
+
+console.log(localStorage.getItem('tripID'));
+
+  function getTrip(callback){
+    $.ajax({
+        type: 'get',
+        url: `/api/trips/${localStorage.getItem('tripID')}`,
+        success: function(data){
+          console.log(data.trip);
+          callback(data.trip);
+        },
+        error: function(e){
+            console.log(e.responseText); 
+            // TODO: Display error to user
+        }
+    });
+  }
+
+  function getArticles(articleCategory, callback) {
+    var url;
+    if (articleCategory)
+      url = `/api/trips/wardrobe/${localStorage.getItem('tripID')}?category=${articleCategory}`
+    else
+      url = `/api/trips/wardrobe/${localStorage.getItem('tripID')}`
+
+    $.ajax({
+      type: 'get',
+      url: url,
+      success: function(data) {
+        callback(data);
+        console.log(data);
+        callback(data);
+      },
+      error: function(e) {
+        console.log(e.responseText);
+      }
+
+    })
+  }
+  
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+  function populateTripInfo(trip) {
+    console.log(trip);
+    // TODO: set trip data, Destination, Bag Size, Check in, Check out
+  }
+  getTrip(populateTripInfo);
 
   //POPULATE THE TOPS
-  function populateTopWear() {
+  function populateTopWear(articles) {
+    console.log(articles);
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
@@ -66,7 +118,8 @@ $(document).ready(function() {
 
 
   //POPULATE THE BOTTOMS
-  function populateBottomWear() {
+  function populateBottomWear(articles) {
+    console.log(articles);
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
@@ -96,7 +149,8 @@ $(document).ready(function() {
     }
   }
   //POPULATE THE JACKET AREA WHEN NEEDED
-  function populateJacketWear() {
+  function populateJacketWear(articles) {
+    console.log(articles);
     for (var i = 0; i < listOfClothes.length; i++) {
       var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
@@ -127,9 +181,11 @@ $(document).ready(function() {
     }
   }
 
-  populateTopWear();
-  populateBottomWear()
-  populateJacketWear();
+  
+  getArticles('shirts', populateTopWear);
+  getArticles('pants', populateBottomWear);
+  getArticles('jacket', populateJacketWear);;
+
 //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
 var submenuOpen = 0;
 $(document).mousedown(function(e) {
@@ -245,8 +301,5 @@ $('.icon_delete').on('click', function() {
 
 
   });
-
-
-
 
 });

@@ -3,6 +3,7 @@ var authAccess = require('../../../middleware/auth');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { Trip, validateTrip } = require('./trip');
+const { Article } = require('../Clothing/article');
 
 const router = express.Router();
 
@@ -35,13 +36,69 @@ router.get('/', authAccess, async (req, res) => {
     res.send({ trips: trips });
 });
 
-router.get('/:trip', authAccess, async (req, res) => {
+router.get('/:id', authAccess, async (req, res) => {
+    let token = req.get('x-auth-token');
+    if (!token) return res.status(401).send("Invalid token! No trip for you!");
+
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+
+    token = jwt.decode(token);
+
+    let trip = await Trip.find( { owner: token._id, _id: req.params.id });
+    if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
+
+    console.log(`Returning trip ${trip._id} to ${token._id} at ${req.connection.remoteAddress}`);
+    res.send({ trip: trip });  
+});
+
+// Get all articles on a trip, include category=[category] to get articles of that category attached to the trip
+router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
+    if (!req.params.tripID.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+
+    let token = req.get('x-auth-token');
+    token = jwt.decode(token);
+    
+    let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
+    if (!trip || trip.length <= 0) return res.status(400).send("You have no trips! Go on a trip!");
+    
+    trip = trip[0];
+    
+    console.log(`request for articles on trip ${trip._id} from ${req.connection.remoteAddress}`);
+
+    var filterByCategory = false;
+    if (req.query.category)
+        filterByCategory = true;
+
+
+    var articles = [];
+
+    var searchForArticles = new Promise((resolve) => {
+        trip.articles.forEach( async (articleID, undefined, array) => {
+            if (filterByCategory){
+                var article = await Article.find({ _id: articleID, category: req.query.category });
+            } else {
+                var article = await Article.find({ _id: articleID });
+            }
+
+            articles.push(article[0]);
+            if (array.length === articles.length) {
+                resolve()
+            }
+        });
+    });
+
+    searchForArticles.then(function() {
+        console.log(`Sending ${articles.length} articles to ${req.connection.remoteAddress}\n`);
+        res.send(articles);
+    });
 
 });
 
 
 // Switching articles of clothing in a trip
-router.put('/wardrobe/?:oldArticle&:newArticle', authAccess, async (req, res) => {
+router.put('/wardrobe/swap/?:oldArticle&:newArticle', authAccess, async (req, res) => {
     const error = validateTrip(req.body);
     // if (error) return res.status(400).send("Invalid trip body");
 
@@ -69,6 +126,7 @@ router.put('/wardrobe/?:oldArticle&:newArticle', authAccess, async (req, res) =>
 
     res.send(trip.articles);
 });
+
 
 router.delete('/:id', authAccess, function (req, res) {
     const token = jwt.decode(req.get('x-auth-token'));

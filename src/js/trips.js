@@ -204,8 +204,9 @@ $(document).ready(function() {
       // return false;
 
       // window.location='/trip';
-
-      window.location = '/trip';
+      let tripID = $(this).attr('data-key');
+      window.location=`/trip/${tripID}`;
+      console.log(`/trip/${tripID}`);
     }
   });
 

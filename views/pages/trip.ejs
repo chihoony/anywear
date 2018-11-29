@@ -113,8 +113,14 @@
 
 
   <footer>
+
     <% include ../partials/footer %>
-    <script src="./src/js/trip.js"></script>
+    <script src="/src/js/trip.js"></script>
+    <script type="text/javascript">
+      var data = <%- JSON.stringify(tripID) %>;
+      localStorage.setItem('tripID', data);
+    </script>
+
   </footer>
   </body>
 </html>

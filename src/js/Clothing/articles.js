@@ -33,6 +33,22 @@ router.get('/:articleID', authAccess, async (req, res) => {
 });
 
 /**
+ * This api call get articles(clothing) based on two queries, 
+ * First: category=[category] (shirt, jacket, etc...)
+ * Second: trip=[tripID] used to grab clothing of the [category] and are part of the trip. 
+ * If the trip is unused, it will return all trips of that category type. 
+ * If both query values are empty, it will return all clothing.
+ */
+router.get('/', authAccess, async (req, res) => {
+    console.log(req.query.category);
+
+    let articles = await Article.find({ category: req.query.category })
+    if (!articles) return res.status(400).send("Unable to find articles!");
+
+    res.send(articles);
+});
+
+/**
  * This endpoint takes an id from a trip and an id from an article,
  * it then grabs all articles from the database that match that articles
  * type (category, color, tone, weather), it then filters out articles that
