@@ -43,22 +43,25 @@ console.log(localStorage.getItem('tripID'));
         type: 'get',
         url: `/api/trips/${localStorage.getItem('tripID')}`,
         success: function(data){
-          console.log(data.trip);
+          console.log(data);
           callback(data.trip);
         },
         error: function(e){
             console.log(e.responseText); 
             // TODO: Display error to user
+        },
+        statusCode: {
+          404: function() {
+            console.log(`No trips found at ${url}`);
+          }
         }
     });
   }
 
   function getArticles(articleCategory, callback) {
     var url;
-    if (true) {
+    if (articleCategory)
       url = `/api/trips/wardrobe/${localStorage.getItem('tripID')}?category=${articleCategory}`
-      console.log(url);
-    }
     else
       url = `/api/trips/wardrobe/${localStorage.getItem('tripID')}`
 
@@ -66,21 +69,23 @@ console.log(localStorage.getItem('tripID'));
       type: 'get',
       url: url,
       success: function(data) {
-        callback(data);
         console.log(data);
         callback(data);
       },
       error: function(e) {
         console.log(e.responseText);
+      },
+      statusCode: {
+        404: function() {
+          console.log(`No articles found at ${url}`);
+        }
       }
-
     })
   }
   
 //////////////////////////////////////////////////////////////////////////////////////////////
 
   function populateTripInfo(trip) {
-    console.log(trip);
     // TODO: set trip data, Destination, Bag Size, Check in, Check out
   }
   getTrip(populateTripInfo);
@@ -183,7 +188,6 @@ console.log(localStorage.getItem('tripID'));
     }
   }
 
-  
   getArticles('shirt', populateTopWear);
   getArticles('pant', populateBottomWear);
   getArticles('jacket', populateJacketWear);;
