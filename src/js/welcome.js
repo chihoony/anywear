@@ -4,40 +4,40 @@ $(document).ready(function() {
     $("#signUpMoment").hide();
     $("#passwordMoment").hide();
     $("#buttonIn").click(function() {
-        $("#welcomeMoment").fadeOut();
+        $("#welcomeMoment").hide();
         $("#signInMoment").fadeIn(500);
     });
     $("#buttonIn1").click(function() {
-        $("#passwordMoment").fadeOut();
+        $("#passwordMoment").hide();
         $("#signInMoment").fadeIn(500);
     });
 
     $("#buttonUp").click(function() {
-        $("#welcomeMoment").fadeOut();
+        $("#welcomeMoment").hide();
         $("#signUpMoment").fadeIn(500);
     });
     $("#buttonUp1").click(function() {
-        $("#signInMoment").fadeOut();
+        $("#signInMoment").hide();
         $("#signUpMoment").fadeIn(500);
     });
     $("#buttonPassword").click(function() {
-        $("#signInMoment").fadeOut();
+        $("#signInMoment").hide();
         $("#passwordMoment").fadeIn(500);
     });
 
     $("#backToWelcom1").click(function() {
         $("#welcomeMoment").fadeIn(500);
-        $("#signInMoment").fadeOut();
+        $("#signInMoment").hide();
     });
 
     $("#backToWelcom2").click(function() {
         $("#welcomeMoment").fadeIn(500);
-        $("#signUpMoment").fadeOut();
+        $("#signUpMoment").hide();
     });
 
     $("#backToWelcom3").click(function() {
         $("#welcomeMoment").fadeIn(500);
-        $("#passwordMoment").fadeOut();
+        $("#passwordMoment").hide();
     });
 
     var tooltips = $("[title]").tooltip({
@@ -78,7 +78,7 @@ $(document).ready(function() {
                 type: 'post',
                 url: '/api/users',
                 dataType: 'json',
-                data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), gender: $("#gender").val() },
+                data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), age: $("#age").val(), gender: $("#gender").val() },
                 success: function(data){
 
                     console.log('Created user at Username: ${data.username} Email: ${data.email}');
