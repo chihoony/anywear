@@ -52,6 +52,27 @@ console.log(localStorage.getItem('tripID'));
         }
     });
   }
+
+  function getArticles(articleCategory, callback) {
+    var url;
+    if (articleCategory)
+      url = `/api/wardrobe/${localStorage.getItem('tripID')}?category=${articleCategory}`
+    else
+      url = `/api/wardrobe/${localStorage.getItem('tripID')}`
+
+    $.ajax({
+      type: 'get',
+      url: url,
+      success: function(data) {
+        callback(data);
+        console.log(data);
+      },
+      error: function(e) {
+        console.log(e.responseText);
+      }
+
+    })
+  }
   
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -155,9 +176,11 @@ console.log(localStorage.getItem('tripID'));
     }
   }
 
+  
   populateTopWear();
   populateBottomWear()
   populateJacketWear();
+
 //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
 var submenuOpen = 0;
 $(document).mousedown(function(e) {
