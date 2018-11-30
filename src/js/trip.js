@@ -190,7 +190,7 @@ console.log(localStorage.getItem('tripID'));
 
   getArticles('shirt', populateTopWear);
   getArticles('pant', populateBottomWear);
-  getArticles('jacket', populateJacketWear);;
+  // getArticles('jacket', populateJacketWear);
 
 //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
 var submenuOpen = 0;
