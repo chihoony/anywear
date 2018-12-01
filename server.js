@@ -1,6 +1,7 @@
 // server.js
 // load the things we need
 var config = require('config');
+var cors = require('cors');
 var authAccess = require('./middleware/auth');
 var express = require('express');
 var app = express();
@@ -38,6 +39,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// cors handler
+app.use(cors());
+
 // API handlers
 app.use('/api/users', users);
 app.use('/api/auth', printToConsole, auth);
@@ -50,7 +54,6 @@ app.use('/api/articles', articles);
 app.get('/current', function(req, res) {
   res.render('pages/currenttrip');
 })
-
 
 // profile page
 app.get('/profile', function(req, res) {

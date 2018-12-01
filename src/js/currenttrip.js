@@ -28,10 +28,56 @@ var elems = document.querySelectorAll('.carousel');
 var instances = M.Carousel.init(elems);
 });
 
-$(document).ready(function() { 
-   $.ajaxSetup({
-      headers: { 'x-auth-token': localStorage.getItem('token') }
-    });
+// variables for weather calling: change to corresponding data.
+var city;
+var countryCode;
+
+var temp_max, temp_min, current_temp, weather_id;
+
+
+
+
+
+$(document).ready(function() {
+  $.ajax();
+  // snowStorm needs to be toggled twice to set params to start then stopped.
+  // reactives when it actually is snowing using the weather api.
+  snowStorm.toggleSnow();
+  snowStorm.toggleSnow();
+  // Making the url to call the weather api
+  function makeTestCall(c, cc) {
+    return 'http://api.openweathermap.org/data/2.5/weather?q=' + c + ',' + cc + apiKey + '&units=metric';
+  };
+
+  // this function gets the json and you can call the individual values from a key
+  function weatherCallBack(weatherData) {
+    console.log(weatherData.name);
+    console.log(weatherData.sys.country);
+
+    temp_max = weatherData.main.temp_max;
+    temp_min = weatherData.main.temp_min;
+    current_temp = weatherData.main.temp;
+    weather_id = weatherData.weather[0].id;
+
+
+    // this prints out the current weather (rain, sunny, etc)
+    console.log("weather_id: " + weather_id);
+    console.log("temp_max: " + temp_max);
+    console.log("temp_min: " + temp_min);
+    console.log("Current_temp: " + current_temp);
+    weather_id = 500;
+
+    // sets the background of the carousel to the corresponding weather
+    setBackgroundCarousel();
+
+    // sets the temperature for the day.
+    $('#temperature').text(`${temp_min}°C - ${temp_max}°C`);
+  };
+
+  // Setting the Weather call to the city and country code
+  city = 'Tokyo';
+  countryCode = 'JP';
+
 
   M.AutoInit();
   // start carrousel
@@ -60,6 +106,7 @@ $(document).ready(function() {
   var outfit_calendar_con = $("<div id='outfit_calendar_con'></div>");
   outfit_Section.append(outfit_calendar_con);
 
+  //Creating/displaying a list of outfits
   function createOutfits(dates, listOfLinks) {
     for (var i = 0; i < dates.length; i++) {
       var card = $("<div class='card'></div>");
@@ -89,6 +136,29 @@ $(document).ready(function() {
     }
   }
 
+  // WEATHER Background
+  // For Reference:
+  // Weather Condition Codes
+  // Group 2xx: Thunderstorm | Group 3xx: Drizzle | Group 5xx: Rain | Group 6xx: Snow |
+  // Group 7xx: Atmosphere | Group 800: Clear | Group 80x: Clouds
+  // TODO: Check with the weather given to give the corresponding image/gif
+  function setBackgroundCarousel() {
+    let weatherImage;
+    if (weather_id < 299) { weatherImage = 'thunder.jpg';}
+    else if (weather_id < 399) { weatherImage = 'drizzle.gif';}
+    else if (weather_id < 599) { weatherImage = 'rain.gif';}
+    else if (weather_id < 699) { weatherImage = 'snow.jpg'; snowStorm.toggleSnow();}
+    else if (weather_id < 799) { weatherImage = 'atmosphere.jpg';}
+    else if (weather_id == 800){ weatherImage = 'clear.jpg';}
+    else if (weather_id == 804){ weatherImage = 'scattered.jpg';}
+    else if (weather_id == 804){ weatherImage = 'overcast.jpg';}
+    else if (weather_id < 810) { weatherImage = 'cloud.jpg';}
+    else { weatherImage = 'other.jpg';}
+
+    $('#carouselBackground').css('background-image', `url(../img/weather/${weatherImage})`);
+  };
+
+
   createOutfits(listOfDates, listOfClothes);
 
   $('.jacket_img').on('click', )
@@ -96,5 +166,14 @@ $(document).ready(function() {
   if ($('.carousel-item').first().children('img').length < 3) {
     $('.carousel').css('margin-bottom', '-150px');
   }
+
+  //Call the weather api
+  $.getJSON(makeTestCall(city, countryCode), weatherCallBack);
+
+  $.ajaxSetup({
+     headers: { 'x-auth-token': localStorage.getItem('token'),
+      'Access-Control-Allow-Headers': '*'}
+   });
+
 
 });

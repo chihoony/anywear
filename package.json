@@ -9,6 +9,7 @@
         "body-parser": "^1.18.3",
         "config": "^2.0.2",
         "console-stamp": "^0.2.7",
+        "cors": "*",
         "ejs": "^2.6.1",
         "express": "^4.6.1",
         "joi": "^14.1.0",
