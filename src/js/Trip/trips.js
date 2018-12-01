@@ -80,8 +80,10 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
         filterByCategory = true;
     }
 
-
     var articles = [];
+
+    // Only used if sorting by category
+    var potentialAmount = trip.articles.length;
 
     var searchForArticles = new Promise((resolve) => {
         trip.articles.forEach( async (articleID, undefined, array) => {
@@ -91,11 +93,17 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
                 var article = await Article.find({ _id: articleID });
             }
 
-            if (article[0]) {
+            var category = _.pick(article[0], ['category']).category;
+
+            console.log(`${category} == ${req.query.category}`);
+            if (category != req.query.category) {
+                potentialAmount--;
+            } else if (articles) {
                 articles.push(article[0]);
             }
 
-            if (array.length === articles.length) {
+            if (potentialAmount === articles.length) {
+                console.log("yayay");
                 resolve()
             }
         });
