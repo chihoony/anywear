@@ -2,6 +2,7 @@
 // load the things we need
 var config = require('config');
 var cors = require('cors');
+var cors_proxy = require('cors-anywhere');
 var authAccess = require('./middleware/auth');
 var express = require('express');
 var app = express();
@@ -109,6 +110,8 @@ app.post('/createtrip', function(req, res) {
 // serving up public files
 app.use('/src', express.static('src'));
 app.use('/img', express.static('src/img'));
+app.use(cors({origin: '*'}));
+app.use(cors({origin: 'http://localhost:8000'}));
 
 // start the server
 app.listen(8000);

@@ -36,7 +36,7 @@ $(document).ready(function() {
       headers: { 'x-auth-token': localStorage.getItem('token') }
     });
 
-console.log(localStorage.getItem('tripID'));
+  console.log(localStorage.getItem('tripID'));
 
   function getTrip(callback){
     $.ajax({
@@ -47,7 +47,7 @@ console.log(localStorage.getItem('tripID'));
           callback(data.trip);
         },
         error: function(e){
-            console.log(e.responseText); 
+            console.log(e.responseText);
             // TODO: Display error to user
         },
         statusCode: {
@@ -82,11 +82,23 @@ console.log(localStorage.getItem('tripID'));
       }
     })
   }
-  
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 
   function populateTripInfo(trip) {
     // TODO: set trip data, Destination, Bag Size, Check in, Check out
+    let thisTrip = trip[0];
+    $('#destination_con p').text(`${thisTrip.city}, ${thisTrip.countryName}`);
+    $('#bagsize_con p').text(thisTrip.bagSize);
+    $('#checkin_con p').text(thisTrip.checkIn);
+    $('#checkout_con p').text(thisTrip.checkOut);
+
+    var backgroundStyle = {
+      'background-image': `url(/img/city/${thisTrip.city}.jpeg)`
+    };
+    $('.parallax img').attr('src', `../../img/city/${thisTrip.city}.jpeg`);
+
+
   }
   getTrip(populateTripInfo);
 

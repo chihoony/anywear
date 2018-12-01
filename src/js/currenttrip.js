@@ -39,7 +39,15 @@ var temp_max, temp_min, current_temp, weather_id;
 
 
 $(document).ready(function() {
-  $.ajax();
+  // Settings CORS proxy.
+  $.ajaxPrefilter(function(options) {
+    if (options.crossDomain && $.support.cors) {
+      options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+     }
+  });
+  $.ajaxSetup({
+     headers: { 'x-auth-token': localStorage.getItem('token')}
+   });
   // snowStorm needs to be toggled twice to set params to start then stopped.
   // reactives when it actually is snowing using the weather api.
   snowStorm.toggleSnow();
@@ -167,13 +175,10 @@ $(document).ready(function() {
     $('.carousel').css('margin-bottom', '-150px');
   }
 
+
   //Call the weather api
   $.getJSON(makeTestCall(city, countryCode), weatherCallBack);
 
-  $.ajaxSetup({
-     headers: { 'x-auth-token': localStorage.getItem('token'),
-      'Access-Control-Allow-Headers': '*'}
-   });
 
 
 });

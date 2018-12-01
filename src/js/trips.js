@@ -169,7 +169,7 @@ $(document).ready(function() {
       console.log("this is the trip: " + trip.city);
       var backgroundStyle = {
         'background-image': `url(/img/city/${trip.city}.jpeg)`
-      }
+      };
       tripCon.css(backgroundStyle);
 
       tripContainer.append(tripCon);
