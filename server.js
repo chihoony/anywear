@@ -47,7 +47,7 @@ app.use(cors());
 // API handlers
 app.use('/api/users', users);
 app.use('/api/auth', printToConsole, auth);
-app.use('/api/trips', printToConsole, trips);
+app.use('/api/trips', trips);
 app.use('/api/articles', articles);
 
 // use res.render to load up an ejs view file

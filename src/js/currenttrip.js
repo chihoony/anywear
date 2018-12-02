@@ -50,6 +50,19 @@ function getTrip(callback) {
     });
   }
 
+function getOutfits(callback) {
+  $.ajax({
+    type: 'get',
+    url: 'api/trips',
+    success: function(data) {
+
+    },
+    error: function(e) {
+      console.log(e.responseText);
+    }
+  });
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
