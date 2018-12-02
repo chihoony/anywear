@@ -15,6 +15,7 @@ const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
 const printToConsole = require('./middleware/printToConsole');
+const onTrip = require('./middleware/onTrip');
 
 require('console-stamp')(console,
   { pattern: 'ddd mmm dd HH:MM:ss',
@@ -52,7 +53,7 @@ app.use('/api/articles', articles);
 // use res.render to load up an ejs view file
 
 // currenttrip page
-app.get('/current', function(req, res) {
+app.get('/current', authAccess, onTrip, function(req, res) {
   res.render('pages/currenttrip');
 })
 
