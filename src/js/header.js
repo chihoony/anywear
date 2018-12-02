@@ -18,6 +18,7 @@ function navigateOnTrip() {
             console.log(JSON.stringify(data));
             if (data.onTrip) {
                 location.href = '/current';
+                localStorage.setItem('currentTripID', data.tripID);
             } else {
                 alert("Not on a trip");
                 location.href = '/createtrip';

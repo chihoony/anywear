@@ -63,7 +63,7 @@ router.get('/:id', authAccess, async (req, res) => {
     if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
 
     console.log(`Returning trip ${trip._id} to ${token._id} at ${req.connection.remoteAddress}`);
-    res.send({ trip: trip });  
+    res.send({ trip: trip[0] });  
 });
 
 // Get all articles on a trip, include category=[category] to get articles of that category attached to the trip

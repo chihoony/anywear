@@ -87,7 +87,7 @@ $(document).ready(function() {
 
   function populateTripInfo(trip) {
     // TODO: set trip data, Destination, Bag Size, Check in, Check out
-    let thisTrip = trip[0];
+    let thisTrip = trip;
     $('#destination_con p').text(`${thisTrip.city}, ${thisTrip.countryName}`);
     $('#bagsize_con p').text(thisTrip.bagSize);
     $('#checkin_con p').text(thisTrip.checkIn);

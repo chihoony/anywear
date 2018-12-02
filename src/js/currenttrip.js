@@ -35,6 +35,23 @@ var countryCode;
 var temp_max, temp_min, current_temp, weather_id;
 
 
+//////////////////////////////////////// ajax functions ////////////////////////////////////////
+
+function getTrip(callback) {
+    $.ajax({
+      type: 'get',
+      url: '/api/trips',
+      success: function(data) {
+        callback(data.trip);
+      },
+      error: function(e) {
+        console.log(e.responseText);
+      }
+    });
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
