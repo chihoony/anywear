@@ -47,13 +47,13 @@ app.use(cors());
 // API handlers
 app.use('/api/users', users);
 app.use('/api/auth', printToConsole, auth);
-app.use('/api/trips', trips);
+app.use('/api/trips', printToConsole, trips);
 app.use('/api/articles', articles);
 
 // use res.render to load up an ejs view file
 
 // currenttrip page
-app.get('/current', authAccess, onTrip, function(req, res) {
+app.get('/current', function(req, res) {
   res.render('pages/currenttrip');
 })
 
