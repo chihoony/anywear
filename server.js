@@ -9,6 +9,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var nodemon = require('nodemon');
 var path = require('path');
+var fs = require('fs');
 var users = require('./src/js/User/users');
 var mongoose = require('mongoose');
 const auth = require('./src/js/User/auth');
@@ -34,6 +35,7 @@ mongoose.connect('mongodb://localhost/anywear')
   .then(() => console.log("Connected to mongo...\n"))
   .catch(err => console.log("Failed connection to mongo ", err));
 
+
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -45,6 +47,7 @@ app.use(cors());
 
 // API handlers
 app.use('/api/users', users);
+
 app.use('/api/auth', printToConsole, auth);
 app.use('/api/trips', trips);
 app.use('/api/articles', articles);

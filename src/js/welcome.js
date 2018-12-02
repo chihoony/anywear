@@ -78,12 +78,15 @@ $(document).ready(function() {
                 type: 'post',
                 url: '/api/users',
                 dataType: 'json',
-                data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), age: $("#age").val(), gender: $("#gender").val() },
+                // data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), age: $("#age").val(), gender: $("#gender").val() },
+                data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), gender: $("#gender").val() },
                 success: function(data){
 
                     console.log('Created user at Username: ${data.username} Email: ${data.email}');
                     $("#welcomeMoment").fadeIn(500);
                     $("#signUpMoment").fadeOut();
+                    localStorage.setItem('token', data.token);
+                    imageSetter();
                 },
                 error: function(e){
                     console.log(e.responseText);
@@ -92,5 +95,44 @@ $(document).ready(function() {
             }
       )});
 
+  // Currently broken. IT does not set the image after running the ajax post /api/users
+  function imageSetter() {
+
+
+    var form = document.forms.namedItem("fileinfo");
+    var formData = new FormData(form);
+    console.log(formData);
+    var xhr = new XMLHttpRequest();
+    // Add any event handlers here...
+    xhr.open('PUT', '/api/users/setProfileImg', true);
+    xhr.onload = function(oEvent) {
+     if (xhr.status == 200) {
+       alert("Uploaded!");
+     } else {
+        alert("Error " + xhr.status + " occurred when trying to upload your file.<br \/>");
+     }
+   };
+    xhr.send(FormData);
+
+    return false;
+
+    // $.ajax(
+    //   {
+    //     headers: { 'x-auth-token': localStorage.getItem('token') },
+    //     type: 'put',
+    //
+    //     url: '/api/users/setProfileImg',
+    //     success: function() {
+    //       console.log("set the image");
+    //     },
+    //     error: function() {
+    //       // console.log(e.responseText);
+    //       // alert(e.responseText);
+    //       console.log("error");
+    //     }
+    //
+    //   }
+    // )
+  }
 
 });
