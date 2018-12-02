@@ -2,20 +2,33 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 
 const articleSchema = new mongoose.Schema({
-    category: { // Foreign key to category
-        type: String,
-        required: true
+
+    season: {
+      type: String,
+      required: true
+    },
+    temp: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      required: true
+    },
+    waterproof: {
+      type: String,
+      required: true
     },
     tone: {
-        type: String,
-        required: true,
+      type: String,
+      required: true
     },
-    color: {
-        type: String,
-        required: true
+    gender: {
+      type: String,
+      required: true
     },
     imgLink: {
-        type: String
+      type: String,
     }
 });
 
