@@ -36,6 +36,19 @@ router.get('/', authAccess, async (req, res) => {
     res.send({ trips: trips });
 });
 
+router.get('/onTrip', authAccess, async (req, res) => {
+    let token = req.get('x-auth-token');
+    token = jwt.decode(token);
+
+    var trips = Trip.find({owner: token._id});
+
+    // TODO: check if the current user has a trip
+    const onTrip = true;
+    const tripID = "Eventually be the current trip id, empty if not on a trip"
+
+    res.send({ onTrip: onTrip, tripID: tripID });
+});
+
 router.get('/:id', authAccess, async (req, res) => {
     let token = req.get('x-auth-token');
     if (!token) return res.status(401).send("Invalid token! No trip for you!");
