@@ -147,7 +147,6 @@ router.get('/onTrip', async (req, res) => {
 
     var currentTrip;
     for (const trip of trips) {
-        console.log("trip id " + trip._id);
         if (dateCheck(trip.checkIn, trip.checkOut, new Date())) {
             currentTrip = trip;
             break;
@@ -349,11 +348,6 @@ router.delete('/:id', authAccess, function (req, res) {
 });
 
 function dateCheck(from, to, check) {
-
-    console.log("from " + from);
-    console.log("to " + to);
-    console.log("check " + check);
-
     var fDate, lDate, cDate;
     fDate = Date.parse(from);
     lDate = Date.parse(to);
