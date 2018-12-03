@@ -40,8 +40,6 @@ function fillArticles(trip, user) {
 
       let shirtArticles = await Article.find({season: tripSeason, category: "shirt", gender: user.gender, copy: "0"});
       let allShirtArticles = await Article.find({season: 4, category: "shirt", gender: user.gender, copy: "0"});
-      console.log(allShirtArticles);
-      console.log(shirtArticles);
       let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender, copy: "0"});
       let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender, copy: "0"});
       let combinedPantArticles = pantArticles.concat(allPantArticles);
