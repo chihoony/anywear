@@ -64,12 +64,16 @@ $(document).ready(function() {
     }
   });
 
-  function getTrip() {
+  function getTrip(callback) {
       $.ajax({
         type: 'get',
         url: `/api/trips/${localStorage.getItem('currentTripID')}`,
-        success: function(data)
-          callback(data.city, data.countryCode);
+        success: function(data) {
+          console.log('--------------- ')
+          console.log(data);
+
+          console.log(callback(data.trip.city, data.trip.countryCode));
+          $.getJSON(callback(data.trip.city, data.trip.countryCode), weatherCallBack);
         },
         error: function(e) {
           console.log(e.responseText);
@@ -96,6 +100,7 @@ $(document).ready(function() {
   snowStorm.toggleSnow();
   // Making the url to call the weather api
   function makeTestCall(c, cc) {
+
     return 'http://api.openweathermap.org/data/2.5/weather?q=' + c + ',' + cc + apiKey + '&units=metric';
   };
 
@@ -150,16 +155,16 @@ $(document).ready(function() {
 
   function populateCarousel(outfit) {
     console.log("Outfit length: " + outfit.length);
-    var carouselCon= $('#carouselID');
-    console.log("------------------------------");
+    var carouselCon = $('#carouselID');
     //check current date
+    var firstDate = outfit[0].date;
     for (var i = 0; i < outfit.length; i++) {
 
       console.log("Outfit " + i + ": ");
       console.log(outfit[i])
       var current = outfit[i];
       // check if it's the current date. If it is then enter the statement
-      if (current.date == 1) {
+      if (current.date == firstDate) {
         var carouselItem = $(`<a class="carousel-item" href="${listOfNumbers[i]}">`);
         if (outfit[i].pieces.length > 2) {
           var imgTop = $('<img/>');
@@ -205,7 +210,10 @@ $(document).ready(function() {
     var cardBody = $('<div class="card-content"></div>');
     var cardTitle = $('<span class="card-title activator grey-text text-darken-4"></span>');
     var cardDate = $('<p></p>');
-    cardDate.html(outfit.date);
+
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    cardDate.html((new Date(outfit.date)).toLocaleDateString("en-US", options));
 
     cardBody.append(cardTitle, cardDate);
 
@@ -251,12 +259,7 @@ $(document).ready(function() {
     $('#carouselBackground').css('background-image', `url(../img/weather/${weatherImage})`);
   };
 
-
-
-  //Call the weather api
-  $.getJSON(gitTrip(makeTestCall), weatherCallBack);
-  //  city = 'Tokyo';
-  //  countryCode = 'JP';
+  getTrip(makeTestCall)
 
   getOutfits(populateCarousel);
 
