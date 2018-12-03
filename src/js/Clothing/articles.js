@@ -63,6 +63,8 @@ router.get('/related/:articleID?&:tripID?', authAccess, async (req, res) => {
     let articleID = req.params.articleID;
     let tripID = req.params.tripID;
 
+    console.log(`request for articles related to ${req.params.articleID} from ${req.connection.remoteAddress} with trip ${req.params.tripID}`);
+
     if (!articleID.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid article ID!");
 

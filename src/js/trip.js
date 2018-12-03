@@ -326,12 +326,40 @@ $(document).ready(function() {
         callback(data.articles);
       },
       error: function(e) {
-        console.log(e.responseText);
+        console.error(e.responseText);
       },
       statusCode: {
         404: function() {
-          console.log(`No articles found at ${url}`);
+          console.error(`No articles found at ${url}`);
         }
+      }
+    })
+  }
+
+  function getRelatedArticles(articleID, tripID, callback) {
+    $.ajax({
+      type: 'get',
+      url: `/api/articles/related/${articleID}&${tripID}`,
+      success: function(data) {
+        // console.log('related articles ' + data);
+        callback(data);
+      },
+      error: function(e) {
+        console.error(e.responseText);
+      }
+    })
+  }
+
+  function swapArticles(oldArticleID, newArticleID) {
+    $.ajax({
+      type: 'put',
+      url: `/api/trips/wardrobe/swap/${localStorage.getItem('tripID')}/${oldArticleID}&${newArticleID}`,
+      data: localStorage.getItem(''),
+      success: function(data) {
+        console.log("swap success");
+      },
+      error: function(e) {
+        console.error(e.responseText);
       }
     })
   }
@@ -341,6 +369,10 @@ $(document).ready(function() {
   function populateTripInfo(trip) {
     // TODO: set trip data, Destination, Bag Size, Check in, Check out
     let thisTrip = trip;
+
+    // Not proud of this
+    localStorage.setItem('tripIDHolder', trip._id);
+
     $('#destination_con p').text(`${thisTrip.city}, ${thisTrip.countryName}`);
     $('#bagsize_con p').text(thisTrip.bagSize);
     $('#checkin_con p').text(thisTrip.checkIn);
@@ -503,22 +535,29 @@ $(document).on('click', '.icon_delete', function() {
     // post remove and post new cloth
     selectedArticle = $(this).parent().parent().siblings('img');
     oldArticleKey = $(this).parent().parent().siblings('img').data('key');
-    console.log(oldArticleKey);
     var imageSrc = $(this).parent().parent().siblings('.cloth_img').attr('src');
-
+    
+    
+    console.log("old article key" + oldArticleKey);
 
     var rightGrid = $('#right-grid');
     // TODO REQUEST THE SERVER TO GIVE YOU A LIST OF AVAILABLE CLOTHES AND ADD TO THE RIGHTGRID
     // TODO SEND OLD KEY TO GET A LIST OF CLOTHES.
     // TODO SEND TRIP KEY.
+    function buildSwapOptions(articles) {
+      rightGrid.children().remove();
 
-    for (var i = 0; i < listOfDummies.length; i++) {
-      var warddrobeCloth = $('<img class="warddrobe_img cloth_img" src="" alt="no image"/>');
-
-      warddrobeCloth.attr('data-key', i);
-      warddrobeCloth.attr('src', listOfDummies[i]);
-      rightGrid.append(warddrobeCloth);
+      for (const article of articles) {
+        console.log(article);
+        var wardrobeCloth = $('<img class="warddrobe_img cloth_img" src="" alt="no image"/>');
+        wardrobeCloth.attr('data-key', article._id);
+        wardrobeCloth.attr('src', article.imgLink);
+        rightGrid.append(wardrobeCloth);
+      }
     }
+
+    // Calling server api for all articles
+    getRelatedArticles(oldArticleKey, "Not Used", buildSwapOptions);
 
     //SWAPPED IMAGE
     $('#left-img').attr('src', imageSrc);
@@ -553,6 +592,15 @@ $(document).on('click', '.icon_delete', function() {
 
   });
 
+  $(document).on('dblclick', 'img.warddrobe_img', function(e) {
+    console.log($(this));
+    newSelectedArticle = $(this);
+    newArticleSwap = $(this).data('key');
+
+    $('img.warddrobe_img').removeClass('border-blue');
+    $(this).addClass('border-blue');
+
+  });
 
   // HANDLING THE SUBMIT SWAP CLOTHES REQUEST
   $('#buttonNext').on('click', function() {
@@ -561,8 +609,10 @@ $(document).on('click', '.icon_delete', function() {
     selectedArticle.data('key', newSelectedArticle.data('key'));
 
     $("#edit-overlay").fadeOut('400', function() {
-
+      
+    swapArticles(oldArticleKey, newArticleSwap);
     })
+
 
     //now send the old key and new key to the backend
     // also send the trip id here too.
@@ -577,7 +627,7 @@ $(document).on('click', '.icon_delete', function() {
 
   //TODO THIS NEEDS TO PUT/UPDATE THE NEW DATA FROM THE EDIT SCREEN.
   // Posting a new trip to the database.
-   $(document).on('click', '#buttonNext', function(e){
+   $(document).on('click', '#bttonNext', function(e){
      $(document).ready(function() {
       M.updateTextFields();
     });

@@ -193,7 +193,6 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
 
             var category = _.pick(article[0], ['category']).category;
 
-            console.log(`${category} == ${req.query.category}`);
             if (category != req.query.category) {
                 potentialAmount--;
             } else if (articles) {
@@ -201,7 +200,6 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
             }
 
             if (potentialAmount === articles.length) {
-                console.log("yayay");
                 resolve()
             }
         });
@@ -221,13 +219,15 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
 
 
 // Switching articles of clothing in a trip
-router.put('/wardrobe/swap/?:oldArticle&:newArticle', authAccess, async (req, res) => {
-    const error = validateTrip(req.body);
-    // if (error) return res.status(400).send("Invalid trip body");
+router.put('/wardrobe/swap/:tripID/?:oldArticle&:newArticle', authAccess, async (req, res) => {
+   if (!req.params.oldArticle.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+   if (!req.params.newArticle.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+   if (!req.params.tripID.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
 
-    const { _id } = _.pick(req.body, ['_id']);
-
-    let trip = await Trip.findById( { _id } );
+    let trip = await Trip.findById(req.params.tripID);
     if (!trip) return res.status(400).send("Invalid trip id");
 
     let oldArticle = req.params.oldArticle;
