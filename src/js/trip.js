@@ -381,7 +381,37 @@ $(document).ready(function() {
     var backgroundStyle = {
       'background-image': `url(/img/city/${thisTrip.city}.jpeg)`
     };
-    $('.parallax img').attr('src', `../../img/city/${thisTrip.city}.jpeg`);
+    var tripCityName = "";
+    switch (trip.city) {
+      case "New York":
+        backgroundStyle = {
+          'background-image': `url(/img/city/New_York.jpeg)`
+        };
+        tripCityName = "New_York";
+        break;
+      case "San Francisco":
+        backgroundStyle = {
+          'background-image': `url(/img/city/San_Francisco.jpeg)`
+        };
+        tripCityName = "San_Francisco";
+        break;
+      case "Brussels":
+      case "Fujiyama":
+      case "Honolulu":
+      case "Seoul":
+      case "Sydney":
+      case "Tokyo":
+      case "Vancouver":
+      tripCityName = thisTrip.city;
+      break;
+      default:
+      backgroundStyle = {
+        'background-image': `url(/img/city/default.jpeg)`
+      };
+      tripCityName = "default";
+      break;
+    }
+    $('.parallax img').attr('src', `../../img/city/${tripCityName}.jpeg`);
 
 
   }

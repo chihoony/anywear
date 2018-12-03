@@ -440,6 +440,33 @@ $(document).ready(function() {
       var backgroundStyle = {
         'background-image': `url(/img/city/${trip.city}.jpeg)`
       };
+      switch (trip.city) {
+        case "New York":
+          backgroundStyle = {
+            'background-image': `url(/img/city/New_York.jpeg)`
+          };
+          break;
+        case "San Francisco":
+          backgroundStyle = {
+            'background-image': `url(/img/city/San_Francisco.jpeg)`
+          };
+          break;
+        case "Brussels":
+        case "Fujiyama":
+        case "Honolulu":
+        case "Seoul":
+        case "Sydney":
+        case "Tokyo":
+        case "Vancouver":
+        break;
+        default:
+        backgroundStyle = {
+          'background-image': `url(/img/city/default.jpeg)`
+        };
+        break;
+      }
+
+
       tripCon.css(backgroundStyle);
 
       tripContainer.append(tripCon);
