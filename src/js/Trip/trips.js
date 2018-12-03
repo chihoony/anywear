@@ -21,7 +21,7 @@ router.post('/', authAccess, async (req, res) => {
     // Filling trip articles if no articles were previously specified
     const fillingArticles = fillArticles(trip);
 
-    fillingArticles.then(() => {
+    fillingArticles.then(async() => {
         await trip.save();
         res.send(trip);
     });
@@ -131,38 +131,26 @@ router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
         // Build some outfits
     }
 
-
-    let buildingOutfits = new Promise((resolve, reject) => {
+    let buildingOutfits = new Promise( async (resolve, reject) => {
         let outfits = [];
-        let outfitPromises;
 
-        outfitPromises = new Promise((resolve, reject) => {
-            tripOutfits.forEach( async (outfit, index, array) => {
-                let newOutfit = { date: outfit.date, pieces: [] };
-                let piecePromises;
+        for (const outfit of tripOutfits) {
+            let newOutfit = { date: outfit.date, pieces: [] };
 
-                piecePromises = new Promise(async (resolve, reject) => {
-                    for (const piece of outfit.pieces) {
-                        article = await Article.findById(piece);
-                        newOutfit.pieces.push(article);
-                    }
-                    resolve();
-                });
-
-                piecePromises.then(() => {
-                    outfits.push(newOutfit);
-                    resolve();
-                });
-        })});
-
-        outfitPromises.then(() => {
-            resolve(outfits);
-        });
+            for (const piece of outfit.pieces) {
+                article = await Article.findById(piece);
+                
+                newOutfit.pieces.push(article);
+            }
+            
+            outfits.push(newOutfit);
+        }
+        resolve(outfits);
     });
 
     buildingOutfits.then((outfits) => {
         console.log(`returning ${outfits.length} outfit(s) to ${token._id} at ${req.connection.remoteAddress}`);
-        res.send(outfits);
+        return res.send(outfits);
     });
 });
 
