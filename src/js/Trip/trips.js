@@ -69,14 +69,14 @@ router.get('/', authAccess, async (req, res) => {
 router.get('/onTrip', async (req, res) => {
     let token = req.get('x-auth-token');
     token = jwt.decode(token);
-    
+
     var trips = Trip.find({owner: token._id});
-    
+
     // TODO: check if the current user has a trip
-    
+
     const onTrip = true;
-    const tripID = "5c03757ce96f76327878f218";
-    
+    const tripID = "5c0478623a90610a1bd07de1";
+
     res.send({ onTrip: onTrip, tripID: tripID });
 });
 
@@ -94,7 +94,7 @@ router.get('/:id', authAccess, async (req, res) => {
     if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
 
     console.log(`Returning trip ${trip._id} to ${token._id} at ${req.connection.remoteAddress}`);
-    res.send({ trip: trip[0] });  
+    res.send({ trip: trip[0] });
 });
 
 router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
@@ -114,8 +114,8 @@ router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
         return res.status(400).send("go make some outfits");
         // Build some outfits
     }
-    
-    
+
+
     let buildingOutfits = new Promise((resolve, reject) => {
         let outfits = [];
         let outfitPromises;
@@ -123,7 +123,7 @@ router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
         outfitPromises = new Promise((resolve, reject) => {
             tripOutfits.forEach( async (outfit, index, array) => {
                 let newOutfit = { date: outfit.date, pieces: [] };
-                let piecePromises; 
+                let piecePromises;
 
                 piecePromises = new Promise(async (resolve, reject) => {
                     for (const piece of outfit.pieces) {

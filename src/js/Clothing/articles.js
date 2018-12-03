@@ -15,9 +15,9 @@ router.post('/', authAccess, async (req, res) => {
         if (error)
             return res.send("Failed to save article! " + error);
     });
-
     res.send(article)
 });
+
 
 router.get('/:articleID', authAccess, async (req, res) => {
     const articleID = req.params.articleID;
