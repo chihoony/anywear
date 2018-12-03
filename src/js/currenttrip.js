@@ -22,6 +22,8 @@ var listOfDates = ["Date 1",
                     "Date 10",
                     "Date 11"];
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
 var elems = document.querySelectorAll('.carousel');
 // var options = {indicators: true};

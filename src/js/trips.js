@@ -31,9 +31,256 @@ var listOfBag = ["20-30l",
 ];
 
 
-
 var nameOfUser = "Group 33"
 
+
+var countryCodes = [
+  {name: 'Afghanistan', code: 'AF'},
+  {name: 'Åland Islands', code: 'AX'},
+  {name: 'Albania', code: 'AL'},
+  {name: 'Algeria', code: 'DZ'},
+  {name: 'American Samoa', code: 'AS'},
+  {name: 'AndorrA', code: 'AD'},
+  {name: 'Angola', code: 'AO'},
+  {name: 'Anguilla', code: 'AI'},
+  {name: 'Antarctica', code: 'AQ'},
+  {name: 'Antigua and Barbuda', code: 'AG'},
+  {name: 'Argentina', code: 'AR'},
+  {name: 'Armenia', code: 'AM'},
+  {name: 'Aruba', code: 'AW'},
+  {name: 'Australia', code: 'AU'},
+  {name: 'Austria', code: 'AT'},
+  {name: 'Azerbaijan', code: 'AZ'},
+  {name: 'Bahamas', code: 'BS'},
+  {name: 'Bahrain', code: 'BH'},
+  {name: 'Bangladesh', code: 'BD'},
+  {name: 'Barbados', code: 'BB'},
+  {name: 'Belarus', code: 'BY'},
+  {name: 'Belgium', code: 'BE'},
+  {name: 'Belize', code: 'BZ'},
+  {name: 'Benin', code: 'BJ'},
+  {name: 'Bermuda', code: 'BM'},
+  {name: 'Bhutan', code: 'BT'},
+  {name: 'Bolivia', code: 'BO'},
+  {name: 'Bosnia and Herzegovina', code: 'BA'},
+  {name: 'Botswana', code: 'BW'},
+  {name: 'Bouvet Island', code: 'BV'},
+  {name: 'Brazil', code: 'BR'},
+  {name: 'British Indian Ocean Territory', code: 'IO'},
+  {name: 'Brunei Darussalam', code: 'BN'},
+  {name: 'Bulgaria', code: 'BG'},
+  {name: 'Burkina Faso', code: 'BF'},
+  {name: 'Burundi', code: 'BI'},
+  {name: 'Cambodia', code: 'KH'},
+  {name: 'Cameroon', code: 'CM'},
+  {name: 'Canada', code: 'CA'},
+  {name: 'Cape Verde', code: 'CV'},
+  {name: 'Cayman Islands', code: 'KY'},
+  {name: 'Central African Republic', code: 'CF'},
+  {name: 'Chad', code: 'TD'},
+  {name: 'Chile', code: 'CL'},
+  {name: 'China', code: 'CN'},
+  {name: 'Christmas Island', code: 'CX'},
+  {name: 'Cocos (Keeling) Islands', code: 'CC'},
+  {name: 'Colombia', code: 'CO'},
+  {name: 'Comoros', code: 'KM'},
+  {name: 'Congo', code: 'CG'},
+  {name: 'Congo, The Democratic Republic of the', code: 'CD'},
+  {name: 'Cook Islands', code: 'CK'},
+  {name: 'Costa Rica', code: 'CR'},
+  {name: 'Cote D\'Ivoire', code: 'CI'},
+  {name: 'Croatia', code: 'HR'},
+  {name: 'Cuba', code: 'CU'},
+  {name: 'Cyprus', code: 'CY'},
+  {name: 'Czech Republic', code: 'CZ'},
+  {name: 'Denmark', code: 'DK'},
+  {name: 'Djibouti', code: 'DJ'},
+  {name: 'Dominica', code: 'DM'},
+  {name: 'Dominican Republic', code: 'DO'},
+  {name: 'Ecuador', code: 'EC'},
+  {name: 'Egypt', code: 'EG'},
+  {name: 'El Salvador', code: 'SV'},
+  {name: 'Equatorial Guinea', code: 'GQ'},
+  {name: 'Eritrea', code: 'ER'},
+  {name: 'Estonia', code: 'EE'},
+  {name: 'Ethiopia', code: 'ET'},
+  {name: 'Falkland Islands (Malvinas)', code: 'FK'},
+  {name: 'Faroe Islands', code: 'FO'},
+  {name: 'Fiji', code: 'FJ'},
+  {name: 'Finland', code: 'FI'},
+  {name: 'France', code: 'FR'},
+  {name: 'French Guiana', code: 'GF'},
+  {name: 'French Polynesia', code: 'PF'},
+  {name: 'French Southern Territories', code: 'TF'},
+  {name: 'Gabon', code: 'GA'},
+  {name: 'Gambia', code: 'GM'},
+  {name: 'Georgia', code: 'GE'},
+  {name: 'Germany', code: 'DE'},
+  {name: 'Ghana', code: 'GH'},
+  {name: 'Gibraltar', code: 'GI'},
+  {name: 'Greece', code: 'GR'},
+  {name: 'Greenland', code: 'GL'},
+  {name: 'Grenada', code: 'GD'},
+  {name: 'Guadeloupe', code: 'GP'},
+  {name: 'Guam', code: 'GU'},
+  {name: 'Guatemala', code: 'GT'},
+  {name: 'Guernsey', code: 'GG'},
+  {name: 'Guinea', code: 'GN'},
+  {name: 'Guinea-Bissau', code: 'GW'},
+  {name: 'Guyana', code: 'GY'},
+  {name: 'Haiti', code: 'HT'},
+  {name: 'Heard Island and Mcdonald Islands', code: 'HM'},
+  {name: 'Holy See (Vatican City State)', code: 'VA'},
+  {name: 'Honduras', code: 'HN'},
+  {name: 'Hong Kong', code: 'HK'},
+  {name: 'Hungary', code: 'HU'},
+  {name: 'Iceland', code: 'IS'},
+  {name: 'India', code: 'IN'},
+  {name: 'Indonesia', code: 'ID'},
+  {name: 'Iran, Islamic Republic Of', code: 'IR'},
+  {name: 'Iraq', code: 'IQ'},
+  {name: 'Ireland', code: 'IE'},
+  {name: 'Isle of Man', code: 'IM'},
+  {name: 'Israel', code: 'IL'},
+  {name: 'Italy', code: 'IT'},
+  {name: 'Jamaica', code: 'JM'},
+  {name: 'Japan', code: 'JP'},
+  {name: 'Jersey', code: 'JE'},
+  {name: 'Jordan', code: 'JO'},
+  {name: 'Kazakhstan', code: 'KZ'},
+  {name: 'Kenya', code: 'KE'},
+  {name: 'Kiribati', code: 'KI'},
+  {name: 'Korea, Democratic People\'S Republic of', code: 'KP'},
+  {name: 'Korea, Republic of', code: 'KR'},
+  {name: 'South Korea', code: 'KR'},
+  {name: 'Kuwait', code: 'KW'},
+  {name: 'Kyrgyzstan', code: 'KG'},
+  {name: 'Lao People\'S Democratic Republic', code: 'LA'},
+  {name: 'Latvia', code: 'LV'},
+  {name: 'Lebanon', code: 'LB'},
+  {name: 'Lesotho', code: 'LS'},
+  {name: 'Liberia', code: 'LR'},
+  {name: 'Libyan Arab Jamahiriya', code: 'LY'},
+  {name: 'Liechtenstein', code: 'LI'},
+  {name: 'Lithuania', code: 'LT'},
+  {name: 'Luxembourg', code: 'LU'},
+  {name: 'Macao', code: 'MO'},
+  {name: 'Macedonia, The Former Yugoslav Republic of', code: 'MK'},
+  {name: 'Madagascar', code: 'MG'},
+  {name: 'Malawi', code: 'MW'},
+  {name: 'Malaysia', code: 'MY'},
+  {name: 'Maldives', code: 'MV'},
+  {name: 'Mali', code: 'ML'},
+  {name: 'Malta', code: 'MT'},
+  {name: 'Marshall Islands', code: 'MH'},
+  {name: 'Martinique', code: 'MQ'},
+  {name: 'Mauritania', code: 'MR'},
+  {name: 'Mauritius', code: 'MU'},
+  {name: 'Mayotte', code: 'YT'},
+  {name: 'Mexico', code: 'MX'},
+  {name: 'Micronesia, Federated States of', code: 'FM'},
+  {name: 'Moldova, Republic of', code: 'MD'},
+  {name: 'Monaco', code: 'MC'},
+  {name: 'Mongolia', code: 'MN'},
+  {name: 'Montserrat', code: 'MS'},
+  {name: 'Morocco', code: 'MA'},
+  {name: 'Mozambique', code: 'MZ'},
+  {name: 'Myanmar', code: 'MM'},
+  {name: 'Namibia', code: 'NA'},
+  {name: 'Nauru', code: 'NR'},
+  {name: 'Nepal', code: 'NP'},
+  {name: 'Netherlands', code: 'NL'},
+  {name: 'Netherlands Antilles', code: 'AN'},
+  {name: 'New Caledonia', code: 'NC'},
+  {name: 'New Zealand', code: 'NZ'},
+  {name: 'Nicaragua', code: 'NI'},
+  {name: 'Niger', code: 'NE'},
+  {name: 'Nigeria', code: 'NG'},
+  {name: 'Niue', code: 'NU'},
+  {name: 'Norfolk Island', code: 'NF'},
+  {name: 'Northern Mariana Islands', code: 'MP'},
+  {name: 'Norway', code: 'NO'},
+  {name: 'Oman', code: 'OM'},
+  {name: 'Pakistan', code: 'PK'},
+  {name: 'Palau', code: 'PW'},
+  {name: 'Palestinian Territory, Occupied', code: 'PS'},
+  {name: 'Panama', code: 'PA'},
+  {name: 'Papua New Guinea', code: 'PG'},
+  {name: 'Paraguay', code: 'PY'},
+  {name: 'Peru', code: 'PE'},
+  {name: 'Philippines', code: 'PH'},
+  {name: 'Pitcairn', code: 'PN'},
+  {name: 'Poland', code: 'PL'},
+  {name: 'Portugal', code: 'PT'},
+  {name: 'Puerto Rico', code: 'PR'},
+  {name: 'Qatar', code: 'QA'},
+  {name: 'Reunion', code: 'RE'},
+  {name: 'Romania', code: 'RO'},
+  {name: 'Russian Federation', code: 'RU'},
+  {name: 'RWANDA', code: 'RW'},
+  {name: 'Saint Helena', code: 'SH'},
+  {name: 'Saint Kitts and Nevis', code: 'KN'},
+  {name: 'Saint Lucia', code: 'LC'},
+  {name: 'Saint Pierre and Miquelon', code: 'PM'},
+  {name: 'Saint Vincent and the Grenadines', code: 'VC'},
+  {name: 'Samoa', code: 'WS'},
+  {name: 'San Marino', code: 'SM'},
+  {name: 'Sao Tome and Principe', code: 'ST'},
+  {name: 'Saudi Arabia', code: 'SA'},
+  {name: 'Senegal', code: 'SN'},
+  {name: 'Serbia and Montenegro', code: 'CS'},
+  {name: 'Seychelles', code: 'SC'},
+  {name: 'Sierra Leone', code: 'SL'},
+  {name: 'Singapore', code: 'SG'},
+  {name: 'Slovakia', code: 'SK'},
+  {name: 'Slovenia', code: 'SI'},
+  {name: 'Solomon Islands', code: 'SB'},
+  {name: 'Somalia', code: 'SO'},
+  {name: 'South Africa', code: 'ZA'},
+  {name: 'South Georgia and the South Sandwich Islands', code: 'GS'},
+  {name: 'Spain', code: 'ES'},
+  {name: 'Sri Lanka', code: 'LK'},
+  {name: 'Sudan', code: 'SD'},
+  {name: 'Suriname', code: 'SR'},
+  {name: 'Svalbard and Jan Mayen', code: 'SJ'},
+  {name: 'Swaziland', code: 'SZ'},
+  {name: 'Sweden', code: 'SE'},
+  {name: 'Switzerland', code: 'CH'},
+  {name: 'Syrian Arab Republic', code: 'SY'},
+  {name: 'Taiwan, Province of China', code: 'TW'},
+  {name: 'Tajikistan', code: 'TJ'},
+  {name: 'Tanzania, United Republic of', code: 'TZ'},
+  {name: 'Thailand', code: 'TH'},
+  {name: 'Timor-Leste', code: 'TL'},
+  {name: 'Togo', code: 'TG'},
+  {name: 'Tokelau', code: 'TK'},
+  {name: 'Tonga', code: 'TO'},
+  {name: 'Trinidad and Tobago', code: 'TT'},
+  {name: 'Tunisia', code: 'TN'},
+  {name: 'Turkey', code: 'TR'},
+  {name: 'Turkmenistan', code: 'TM'},
+  {name: 'Turks and Caicos Islands', code: 'TC'},
+  {name: 'Tuvalu', code: 'TV'},
+  {name: 'Uganda', code: 'UG'},
+  {name: 'Ukraine', code: 'UA'},
+  {name: 'United Arab Emirates', code: 'AE'},
+  {name: 'United Kingdom', code: 'GB'},
+  {name: 'United States', code: 'US'},
+  {name: 'USA', code: 'US'},
+  {name: 'United States Minor Outlying Islands', code: 'UM'},
+  {name: 'Uruguay', code: 'UY'},
+  {name: 'Uzbekistan', code: 'UZ'},
+  {name: 'Vanuatu', code: 'VU'},
+  {name: 'Venezuela', code: 'VE'},
+  {name: 'Viet Nam', code: 'VN'},
+  {name: 'Virgin Islands, British', code: 'VG'},
+  {name: 'Virgin Islands, U.S.', code: 'VI'},
+  {name: 'Wallis and Futuna', code: 'WF'},
+  {name: 'Western Sahara', code: 'EH'},
+  {name: 'Yemen', code: 'YE'},
+  {name: 'Zambia', code: 'ZM'},
+  {name: 'Zimbabwe', code: 'ZW'}
+];
 
 
 
@@ -90,7 +337,28 @@ $(document).ready(function() {
     })
   }
 
-  function editTrip() {
+  function editTrip(id, c) {
+    console.log("updating trip");
+    $.ajax({
+      type: 'put',
+      url: `/api/trips/editTrip/${id}`,
+      dataType: 'json',
+      data: { city: c.city,
+              countryCode: c.code,
+              countryName: c.name,
+              checkIn: $('#check_in_input').val(),
+              checkOut: $('#check_out_input').val(),
+              bagSize: $('#bag_size_input').val()
+            },
+
+      success: function(data) {
+        console.log(data);
+        location.href = '/alltrips';
+      },
+      error: function(e) {
+        console.log(e.responseText);
+      }
+    })
 
   }
   ////////////////////////////////////////////////////////////////////////////////
@@ -190,20 +458,7 @@ $(document).ready(function() {
       $(e.target).hasClass('overlay_p_top')) {
 
     } else {
-      //GO TO THE SPECIFIED PAGE USING KEY VALUE
-      // // TODO post the url with key of trip.
-      // var tripKey = $(this).data('key');
-      // $.ajax({
-      //   type: 'POST',
-      //   url: '/....../${tripKey}',
-      //   data: ,
-      //   success: function(content) {
-      //     $()
-      //   }
-      // });
-      // return false;
 
-      // window.location='/trip';
       let tripID = $(this).attr('data-key');
       window.location=`/trip/${tripID}`;
       console.log(`/trip/${tripID}`);
@@ -234,6 +489,7 @@ $(document).ready(function() {
   //OPENING THE SUBMENU FOR A TRIP
   $('#trip_container').on('click', '.icon_delete', function() {
     selectedTrip = $(this).parent().parent();
+    selectedTripKey = selectedTrip.attr('data-key');
     if (selectedTrip.children('.overlay_menu').css('display') == "none") {
       $('.overlay_menu').slideUp(200);
     }
@@ -250,7 +506,7 @@ $(document).ready(function() {
       removeTrip($(this).attr('data-key'));
       console.log($(this).attr('data-key'));
       $(this).remove();
-    });;
+    });
   });
 
 
@@ -305,7 +561,7 @@ $(document).ready(function() {
     //OPENING Edit MENU extracting key value to place into value of edit fields
     // Setting the edit menu to the trips params
     selectedTrip.data('key');
-    $('#search_term_input').attr('value', selectedTrip.data('destination'));
+    $('#search_term_input').attr('value', selectedTrip.data('city') + ", " + selectedTrip.data('countryname'));
     $('#check_in_input').attr('value', selectedTrip.data('checkin'));
     $('#check_out_input').attr('value', selectedTrip.data('checkout'));
     $('#bag_size_input').attr('value', selectedTrip.data('bagsize'));
@@ -325,7 +581,9 @@ $(document).ready(function() {
     var container = $("#edit-con");
 
     // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
+    if (!container.is(e.target) && container.has(e.target).length === 0
+      && !$(e.target).parent().hasClass('pac-item')
+      && !$(e.target).parent().hasClass('pac-container')) {
       $('#edit-overlay').fadeOut('400', function() {});
     }
   });
@@ -344,51 +602,30 @@ $(document).ready(function() {
     // Everything else in the body data
     // also send the trip id here too.
     // TODO AJAX CALL
-    selectedTrip.data('key');
-    selectedTrip.data('destination');
-    selectedTrip.data('checkin');
-    selectedTrip.data('checkout');
-    selectedTrip.data('bagsize');
+    $(document).ready(function() {
+     M.updateTextFields();
+   });
+    var form0 = document.getElementById('search_term_input');
+    var form1 = document.getElementById('check_in_input');
+    var form2 = document.getElementById('check_out_input');
+    var form3 = document.getElementById('bag_size_input');
 
-    // // TODO post the url with key of trip.
-    // var tripKey = $(this).data('key');
-    // $.ajax({
-    //   type: 'POST',
-    //   url: '/....../${tripKey}',
-    //   data: ,
-    //   success: function(content) {
-    //     $()
-    //   }
-    // });
-    // return false;
+    console.log("1" + form0);
 
-    // $.ajax({
-    //   url: "/post-form",
-    //   dataType: "json",
-    //   type: "POST",
-    //   data: formData,
-    //   success: function(data) {
-    //       console.log("SUCCESS JSON:", data);
-    //       // how do we know what we are getting?
-    //       $("#p2").html(data[0] + " " + data[1]['firstName']
-    //                     + " " + data[1]['lastName']
-    //                     + " " + data[1]['email']
-    //                    );
-    //
-    //   },
-    //   error: function(jqXHR, textStatus, errorThrown) {
-    //       $("#p2").text(jqXHR.statusText);
-    //       console.log("ERROR:", jqXHR, textStatus, errorThrown);
-    //   }
-    //  });
-    // })
+    if (form0.checkValidity() && form1.checkValidity()
+         && form2.checkValidity() && form3.checkValidity()) {
+      var cName = siftForCountry($('#search_term_input').val());
+      var cCity = siftForCity($('#search_term_input').val());
+      var cCode = findCountryCode(cName);
+      var cIn = $('#check_in_input').val();
+      var cOut = $('#check_out_input').val();
 
-    $.ajax({
-      type: 'POST',
+      countryData = {name: cName, city: cCity, code: cCode, checkIn: cIn,checkOut: cOut};
+      editTrip(selectedTrip.data('key'), countryData)
 
 
+    };
 
-    })
 
   });
 
@@ -410,4 +647,48 @@ $(document).ready(function() {
 
 
   });
+
 });
+
+
+
+// HELPER function
+// Sifts through a string to parse for a country name.
+// @return a Country
+function siftForCountry(unparsedCountry) {
+  var countryParsed = unparsedCountry.split(',');
+  if (countryParsed.length == 3) {
+    return countryParsed[2].trim();
+  } else {
+    return countryParsed[1].trim();
+  }
+};
+
+
+// HELPER functions
+// Takes a city and returns it's corresponding country code.
+// @return country code of the country
+function findCountryCode(parsedCountry) {
+  // The countryCodeHolder is used because for some reason
+  // the for each won't return anything but the value is being printed.
+  for (var i = 0; i < countryCodes.length; i++) {
+
+    if (parsedCountry == countryCodes[i].name) {
+      console.log("found it");
+      console.log("index value :" + i);
+      return countryCodes[i].code;
+    }
+  }
+};
+
+
+
+
+
+// HELPER function
+// Sifts through a string to parse for a city name.
+// @return a city
+function siftForCity(unparsedCity) {
+  var cityParsed = unparsedCity.split(',');
+  return cityParsed[0].trim();
+}

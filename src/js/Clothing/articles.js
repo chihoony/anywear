@@ -10,7 +10,7 @@ router.post('/', authAccess, async (req, res) => {
     const { error } = validateArticle(req.body);
     if (error) return res.status(400).send("Invalid Request Body!")
 
-    let article = new Article(_.pick(req.body, ['category', 'tone', 'color', 'imgLink']));
+    let article = new Article(_.pick(req.body, ['season', 'temp', 'category', 'waterproof', 'tone', 'color', 'gender', 'imgLink']));
     await article.save(function(error){
         if (error)
             return res.send("Failed to save article! " + error);
@@ -33,10 +33,10 @@ router.get('/:articleID', authAccess, async (req, res) => {
 });
 
 /**
- * This api call get articles(clothing) based on two queries, 
+ * This api call get articles(clothing) based on two queries,
  * First: category=[category] (shirt, jacket, etc...)
- * Second: trip=[tripID] used to grab clothing of the [category] and are part of the trip. 
- * If the trip is unused, it will return all trips of that category type. 
+ * Second: trip=[tripID] used to grab clothing of the [category] and are part of the trip.
+ * If the trip is unused, it will return all trips of that category type.
  * If both query values are empty, it will return all clothing.
  */
 router.get('/', authAccess, async (req, res) => {
@@ -53,10 +53,10 @@ router.get('/', authAccess, async (req, res) => {
  * it then grabs all articles from the database that match that articles
  * type (category, color, tone, weather), it then filters out articles that
  * the trip already contains
- * 
+ *
  * If no trip id is given, it wont filter out articles already contained
  * in a trip
- * 
+ *
  * @returns array of articles, if no related artiles found returns ""
  */
 router.get('/related/:articleID?&:tripID?', authAccess, async (req, res) => {
@@ -65,7 +65,7 @@ router.get('/related/:articleID?&:tripID?', authAccess, async (req, res) => {
 
     if (!articleID.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid article ID!");
-    
+
     var filterTrip = false;
     if (tripID.match(/^[0-9a-fA-F]{24}$/))
         filterTrip = true;

@@ -11,7 +11,7 @@ const articleSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    type: {
+    category: {
       type: String,
       required: true
     },
@@ -38,7 +38,7 @@ function validateArticle(article) {
     const schema =  {
         season: Joi.string().required(),
         temp: Joi.string().required(),
-        type: Joi.string().required(),
+        category: Joi.string().required(),
         waterproof: Joi.string().required(),
         tone: Joi.string().required(),
         gender: Joi.string().required(),

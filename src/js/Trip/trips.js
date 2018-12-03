@@ -23,6 +23,36 @@ router.post('/', authAccess, async (req, res) => {
     res.send(trip);
 });
 
+// updates a trip
+router.put('/editTrip/:id', authAccess, async (req, res) => {
+  console.log("updating a trip");
+    let token = req.get('x-auth-token');
+    if (!token) return res.status(401).send("Invalid token! No trip for you!");
+
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+
+    token = jwt.decode(token);
+
+    let trip = await Trip.find( { owner: token._id, _id: req.params.id });
+    if (!trip || trip.length <= 0) return res.status(400).send("You have no trips! Go on a trip!\n");
+
+    trip = trip[0];
+
+    console.log(`Returning trip ${trip._id} to ${token._id} at ${req.connection.remoteAddress}`);
+
+    trip.city = req.body.city;
+    trip.countryCode = req.body.countryCode;
+    trip.countryName = req.body.countryName;
+    trip.checkIn = req.body.checkIn;
+    trip.checkOut = req.body.checkOut;
+    trip.bagSize = req.body.bagSize;
+
+    await trip.save();
+
+    res.status(200).send("Your trip was updated");
+});
+// get all the trips
 router.get('/', authAccess, async (req, res) => {
     let token = req.get('x-auth-token');
     if (!token) return res.status(401).send("Invalid token! No trip for you!");
@@ -35,7 +65,7 @@ router.get('/', authAccess, async (req, res) => {
     console.log(`Returning ${trips.length} trips to ${token._id} at ${req.connection.remoteAddress}`);
     res.send({ trips: trips });
 });
-
+//get a single trip
 router.get('/:id', authAccess, async (req, res) => {
     let token = req.get('x-auth-token');
     if (!token) return res.status(401).send("Invalid token! No trip for you!");
@@ -49,7 +79,7 @@ router.get('/:id', authAccess, async (req, res) => {
     if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
 
     console.log(`Returning trip ${trip._id} to ${token._id} at ${req.connection.remoteAddress}`);
-    res.send({ trip: trip });  
+    res.send({ trip: trip });
 });
 
 // Get all articles on a trip, include category=[category] to get articles of that category attached to the trip
@@ -62,12 +92,12 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
 
     let token = req.get('x-auth-token');
     token = jwt.decode(token);
-    
+
     let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
     if (!trip || trip.length <= 0) return res.status(400).send("You have no trips! Go on a trip!\n");
-    
+
     trip = trip[0];
-    
+
     console.log(`request for articles on trip ${trip._id} from ${req.connection.remoteAddress} with filter ${req.query.category}`);
 
     if (trip.articles.length <= 0) {

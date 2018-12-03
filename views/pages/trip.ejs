@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <% include ../partials/head %>
-  <link type="text/css" rel="stylesheet" href="../src/css/trip.css" />
+  <link type="text/css" rel="stylesheet" href="/src/css/trip.css" />
 </head>
 <body>
   <header>
@@ -53,26 +53,6 @@
       <div id="top_con_top" class="col s12">
         <h5>Top Wear</h5>
         <div id="top_con" class="clothing_containers row s12">
-          <figure class="cloth_figure col xl3 m4 s6">
-            <div class="cloth_img_con">
-              <img class="cloth_img" data-key="123" src="https://dummyimage.com/200x200/aaaaaa/ffffff&text=test" alt"no image"/>
-              <i class="icon_delete grey-text material-icons">more_vert</i>
-              <div class="overlay_menu">
-                <div class="overlay_con">
-                  <div class="overlay_top">
-                    <p class="overlay_p_top">
-                      Swap
-                    </p>
-                  </div>
-                  <div class="overlay_bottom">
-                    <p class="overlay_p_bottom">
-                      Remove
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </figure>
         </div>
       </div>
       <div id="bottom_con_top" class="col s12">
@@ -121,6 +101,7 @@
   <footer>
 
     <% include ../partials/footer %>
+    <script src="/src/js/edittrip.js"></script>
     <script src="/src/js/trip.js"></script>
     <script type="text/javascript">
       var data = <%- JSON.stringify(tripID) %>;
