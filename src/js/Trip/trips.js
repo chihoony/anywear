@@ -36,7 +36,7 @@ function fillArticles(trip, user) {
 
       let tripSeason = getSeason(new Date(trip.checkIn).getMonth());
 
-      let shirtArticles = await JSON.stringify(Article.find({season: tripSeason, category: "shirt", gender: user.gender}));
+      let shirtArticles = await Article.find({season: tripSeason, category: "shirt", gender: user.gender});
       let allShirtArticles = await Article.find({season: 4, category: "shirt", gender: user.gender});
       console.log(shirtArticles);
       let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender});
@@ -53,22 +53,22 @@ function fillArticles(trip, user) {
         if (!shirtArticles || shirtArticles.length <= seasonSize) {
           let combinedShirtArticle = shirtArticles.concat(allShirtArticles);
           for (var i = 0; i < clothSize + seasonSize; i++) {
-            trip.articles.push(combinedShirtArticle[Math.floor((Math.random() * combinedShirtArticle.length))]);
+            trip.articles.push(combinedShirtArticle[Math.floor((Math.random() * combinedShirtArticle.length))]._id);
           }
         } else {
           for (var i = 0; i < seasonSize; i++) {
-            trip.articles.push(shirtArticles[Math.floor((Math.random() * shirtArticles.length))]);
+            trip.articles.push(shirtArticles[Math.floor((Math.random() * shirtArticles.length))]._id);
 
           }
           for (var i = 0; i < clothSize; i++) {
-            trip.articles.push(allShirtArticles[Math.floor((Math.random() * allShirtArticles.length))]);
+            trip.articles.push(allShirtArticles[Math.floor((Math.random() * allShirtArticles.length))]._id);
           }
         }
         for (var i = 0; i < pantSize; i++) {
-          trip.articles.push(combinedPantArticles[Math.floor((Math.random() * combinedPantArticles.length))]);
+          trip.articles.push(combinedPantArticles[Math.floor((Math.random() * combinedPantArticles.length))]._id);
         }
         for (var i = 0; i < jacketSize; i++) {
-          trip.articles.push(combinedJacketArticles[Math.floor((Math.random() * combinedJacketArticles.length))]);
+          trip.articles.push(combinedJacketArticles[Math.floor((Math.random() * combinedJacketArticles.length))]._id);
         }
       }
 
