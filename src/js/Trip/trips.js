@@ -38,38 +38,80 @@ function fillArticles(trip, user) {
       let tripSeason = getSeason(new Date(trip.checkIn).getMonth());
 
       let shirtArticles = await Article.find({season: tripSeason, category: "shirt", gender: user.gender});
-      let allShirtArticles = await Article.find({season: 4, category: "shirt", gender: user.gender});
+      let allShirtArticles = await Article.find({season: 4, category: "shirt", gender: user.gender, copy: "0"});
+      console.log(allShirtArticles);
       console.log(shirtArticles);
       let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender});
-      let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender});
+      let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender, copy: "0"});
       let combinedPantArticles = pantArticles.concat(allPantArticles);
       console.log(pantArticles);
       let jacketArticles = await Article.find({season: tripSeason, category: "jacket", gender: user.gender});
-      let allJacketArticles = await Article.find({season: 4, category: "jacket", gender: user.gender});
+      let allJacketArticles = await Article.find({season: 4, category: "jacket", gender: user.gender, copy: "0"});
+      let waterProofJacketArticles = await Article.find({season: 4, category: "jacket", waterproof: 1, gender: user.gender});
       let combinedJacketArticles = jacketArticles.concat(allJacketArticles);
 
-      console.log(jacketArticles);
+
+
 
       function populateArticles(seasonSize, clothSize, pantSize, jacketSize) {
+        let randShirt = 0;
         if (!shirtArticles || shirtArticles.length <= seasonSize) {
           let combinedShirtArticle = shirtArticles.concat(allShirtArticles);
+
           for (var i = 0; i < clothSize + seasonSize; i++) {
-            trip.articles.push(combinedShirtArticle[Math.floor((Math.random() * combinedShirtArticle.length))]._id);
+            var insideRand = Math.floor((Math.random() * combinedShirtArticle.length));
+
+            while (randShirt == insideRand) {
+              insideRand = Math.floor((Math.random() * combinedShirtArticle.length));
+            }
+            trip.articles.push(combinedShirtArticle[insideRand]._id);
+            randShirt = insideRand;
           }
         } else {
           for (var i = 0; i < seasonSize; i++) {
-            trip.articles.push(shirtArticles[Math.floor((Math.random() * shirtArticles.length))]._id);
+            var insideRand = Math.floor((Math.random() * shirtArticles.length));
+
+            while (randShirt == insideRand) {
+              insideRand = Math.floor((Math.random() * shirtArticles.length));
+            }
+            trip.articles.push(shirtArticles[insideRand]._id);
+            randShirt = insideRand;
 
           }
           for (var i = 0; i < clothSize; i++) {
-            trip.articles.push(allShirtArticles[Math.floor((Math.random() * allShirtArticles.length))]._id);
+            var insideRand = Math.floor((Math.random() * allShirtArticles.length));
+
+            while (randShirt == insideRand) {
+              insideRand = Math.floor((Math.random() * allShirtArticles.length));
+            }
+            trip.articles.push(allShirtArticles[insideRand]._id);
+            randShirt = insideRand;
           }
         }
         for (var i = 0; i < pantSize; i++) {
-          trip.articles.push(combinedPantArticles[Math.floor((Math.random() * combinedPantArticles.length))]._id);
+          var insideRand = Math.floor((Math.random() * combinedPantArticles.length));
+
+          while (randShirt == insideRand) {
+            insideRand = Math.floor((Math.random() * combinedPantArticles.length));
+          }
+          console.log("Pants insideRand: " + insideRand);
+          trip.articles.push(combinedPantArticles[insideRand]._id);
+          randShirt = insideRand;
+          console.log("randShirt : " + randShirt);
         }
-        for (var i = 0; i < jacketSize; i++) {
-          trip.articles.push(combinedJacketArticles[Math.floor((Math.random() * combinedJacketArticles.length))]._id);
+        trip.articles.push(waterProofJacketArticles[Math.floor((Math.random() * waterProofJacketArticles.length))]._id);
+        var insideRand = Math.floor((Math.random() * combinedJacketArticles.length));
+
+        while (randShirt == insideRand) {
+          insideRand = Math.floor((Math.random() * combinedJacketArticles.length));
+        }
+        for (var i = 1; i < jacketSize; i++) {
+
+          while (randShirt == insideRand) {
+            insideRand = Math.floor((Math.random() * combinedJacketArticles.length));
+          }
+          trip.articles.push(combinedJacketArticles[insideRand]._id);
+          randShirt = insideRand;
         }
       }
 
@@ -89,13 +131,13 @@ function fillArticles(trip, user) {
               populateArticles(3,2,4,2);
               break;
           case "50-65 L":
-              populateArticles(4,2,5,3);
+              populateArticles(4,2,5,2);
               break;
           case "65-75 L":
-              populateArticles(4,4,5,3);
+              populateArticles(4,4,5,2);
               break;
           case "75-120 L":
-              populateArticles(5,5,6,4);
+              populateArticles(5,5,6,3);
               break;
           default:
 
