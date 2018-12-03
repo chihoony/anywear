@@ -22,6 +22,18 @@ var listOfDates = ["Date 1",
                     "Date 10",
                     "Date 11"];
 
+var listOfNumbers = ["#one!",
+                    "#two!",
+                    "#three!",
+                    "#four!",
+                    "#five!",
+                    "#six!",
+                    "#seven!",
+                    "#eight!",
+                    "#nine!",
+                    "#ten!"];
+
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -37,45 +49,6 @@ var countryCode;
 var temp_max, temp_min, current_temp, weather_id;
 
 
-//////////////////////////////////////// ajax functions ////////////////////////////////////////
-$.ajaxSetup({
-  headers: {
-    'x-auth-token': localStorage.getItem('token')
-  }
-});
-
-function getTrip(callback) {
-    $.ajax({
-      type: 'get',
-      url: '/api/trips',
-      success: function(data) {
-        callback(data);
-        console.log("trip " + JSON.stringify(data));
-      },
-      error: function(e) {
-        console.log(e.responseText);
-      }
-    });
-  }
-
-function getOutfits(callback) {
-  $.ajax({
-    type: 'get',
-    url: `/api/trips/wardrobe/outfits/${localStorage.getItem('currentTripID')}`,
-    success: function(data) {
-      console.log("outfits " + JSON.stringify(data));
-    },
-    error: function(e) {
-      console.log(e.responseText);
-    }
-  });
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-getOutfits();
-getTrip();
-
 
 
 $(document).ready(function() {
@@ -86,8 +59,39 @@ $(document).ready(function() {
      }
   });
   $.ajaxSetup({
-     headers: { 'x-auth-token': localStorage.getItem('token')}
-   });
+    headers: {
+      'x-auth-token': localStorage.getItem('token')
+    }
+  });
+
+  function getTrip(callback) {
+      $.ajax({
+        type: 'get',
+        url: '/api/trips',
+        success: function(data) {
+          callback(data);
+          console.log("trip " + JSON.stringify(data));
+        },
+        error: function(e) {
+          console.log(e.responseText);
+        }
+      });
+    }
+
+  function getOutfits(callback) {
+    $.ajax({
+      type: 'get',
+      url: `/api/trips/wardrobe/outfits/${localStorage.getItem('currentTripID')}`,
+      success: function(data) {
+        callback(data);
+        console.log("outfits " + JSON.stringify(data));
+      },
+      error: function(e) {
+        console.log(e.responseText);
+      }
+    });
+  }
+
   // snowStorm needs to be toggled twice to set params to start then stopped.
   // reactives when it actually is snowing using the weather api.
   snowStorm.toggleSnow();
@@ -127,11 +131,6 @@ $(document).ready(function() {
   countryCode = 'JP';
 
 
-  M.AutoInit();
-  // start carrousel
-   $('.carousel.carousel-slider').carousel({
-      indicators: false
-   });
 
 
    // move next carousel
@@ -154,34 +153,85 @@ $(document).ready(function() {
   var outfit_calendar_con = $("<div id='outfit_calendar_con'></div>");
   outfit_Section.append(outfit_calendar_con);
 
-  //Creating/displaying a list of outfits
-  function createOutfits(dates, listOfLinks) {
-    for (var i = 0; i < dates.length; i++) {
-      var card = $("<div class='card'></div>");
+  function populateCarousel(outfit) {
+    console.log("Outfit length: " + outfit.length);
+    var carouselCon= $('#carouselID');
+    console.log("------------------------------");
+    //check current date
+    for (var i = 0; i < outfit.length; i++) {
 
+      console.log("Outfit " + i + ": ");
+      console.log(outfit[i])
+      var current = outfit[i];
+      // check if it's the current date. If it is then enter the statement
+      if (current.date == 1) {
+        var carouselItem = $(`<a class="carousel-item" href="${listOfNumbers[i]}">`);
+        if (outfit[i].pieces.length > 2) {
+          var imgTop = $('<img/>');
+          var imgBottom = $('<img/>');
+          var imgJacket = $('<img/>');
+          imgTop.attr('src', current.pieces[0].imgLink);
+          imgBottom.attr('src', current.pieces[1].imgLink);
+          imgJacket.attr('src', current.pieces[2].imgLink);
+          carouselItem.append(imgJacket, imgTop, imgBottom);
+        } else {
+          var imgTop = $('<img/>');
+          var imgBottom = $('<img/>');
+          imgTop.attr('src', current.pieces[0].imgLink);
+          imgBottom.attr('src', current.pieces[1].imgLink);
+          carouselItem.append(imgTop, imgBottom);
+        }
+        carouselCon.append(carouselItem);
+      } else if (current.pieces[0].imgLink) {
+        createOutfits(current);
+      }
 
-      var cardBody = $('<div class="card-content"></div>');
-      var cardTitle = $('<span class="card-title activator grey-text text-darken-4"></span>');
-      var cardDate = $('<p></p>');
-      cardDate.html(listOfDates[i]);
-
-      cardBody.append(cardTitle, cardDate);
-      var jacket_img = $("<img class='activator' id='jacket_img' src='' alt-img='' />");
-      jacket_img.attr('src', listOfLinks[i]);
-
-      //JACKET TEST WITHOUT
-      var jacket_img = $("<img class='activator' id='jacket_img' src='' alt-img='' />");
-      // jacket_img.attr('src', listOfLinks[i]);
-
-
-      var top_img = $("<img class='activator' id='top_img' src='' alt-img='' />");
-      top_img.attr('src', listOfLinks[i]);
-      var bottom_img = $("<img class='activator' id='bottom_img' src='' alt-img='' />");
-      bottom_img.attr('src', listOfLinks[i]);
-
-      card.append(jacket_img, top_img, bottom_img, cardBody);
-      outfit_calendar_con.append(card);
     }
+
+
+    //initializing the carousel after populating it.
+    $('.carousel.carousel-slider').carousel({
+       indicators: false
+    });
+    // resizing the carousel to the current height.
+    if ($('.carousel-item').first().children('img').length < 3) {
+      $('.carousel').css('margin-bottom', '-150px');
+    }
+
+
+  };
+
+  //Creating/displaying a list of outfits
+  function createOutfits(outfit) {
+
+    // for (var i = 0; i < dates.length; i++) {
+    var card = $("<div class='card'></div>");
+
+    var cardBody = $('<div class="card-content"></div>');
+    var cardTitle = $('<span class="card-title activator grey-text text-darken-4"></span>');
+    var cardDate = $('<p></p>');
+    cardDate.html(outfit.date);
+
+    cardBody.append(cardTitle, cardDate);
+
+    if (outfit.pieces.length > 2) {
+      var imgTop = $("<img class='activator' id='top_img' src='' alt-img='' />");
+      var imgBottom = $("<img class='activator' id='bottom_img' src='' alt-img='' />");
+      var imgJacket = $("<img class='activator' id='jacket_img' src='' alt-img='' />");
+      imgTop.attr('src', outfit.pieces[0].imgLink);
+      imgBottom.attr('src', outfit.pieces[1].imgLink);
+      imgJacket.attr('src', outfit.pieces[2].imgLink);
+      card.append(imgJacket, imgTop, imgBottom, cardBody);
+    } else {
+      var imgTop = $("<img class='activator' id='top_img' src='' alt-img='' />");
+      var imgBottom = $("<img class='activator' id='bottom_img' src='' alt-img='' />");
+      imgTop.attr('src', outfit.pieces[0].imgLink);
+      imgBottom.attr('src', outfit.pieces[1].imgLink);
+      card.append(imgTop, imgBottom, cardBody);
+    }
+
+    outfit_calendar_con.append(card);
+    // }
   }
 
   // WEATHER Background
@@ -203,22 +253,16 @@ $(document).ready(function() {
     else if (weather_id < 810) { weatherImage = 'cloud.jpg';}
     else { weatherImage = 'other.jpg';}
 
-    $('#carouselBackground').css('background-image', `url(../img/weather/${weatherImage})`);
+    // $('#carouselBackground').css('background-image', `url(../img/weather/${weatherImage})`);
   };
 
-
-  createOutfits(listOfDates, listOfClothes);
-
-  $('.jacket_img').on('click', )
-
-  if ($('.carousel-item').first().children('img').length < 3) {
-    $('.carousel').css('margin-bottom', '-150px');
-  }
 
 
   //Call the weather api
   $.getJSON(makeTestCall(city, countryCode), weatherCallBack);
 
 
+  getOutfits(populateCarousel);
+  getTrip();
 
 });
