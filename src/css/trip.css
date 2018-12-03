@@ -120,17 +120,20 @@
 
 /* Clothing Container section */
 .cloth_img_con {
+  max-height: 150px;
   max-width: 150px;
   display: block;
   position: relative;
-  height: auto;
+  /* height: auto; */
   margin: 0 auto;
   margin-top: 0.3em;
   margin-bottom: 0.3em;
+  /* background-image: linear-gradient(to right, #DFDED8 , #D4D0CE); */
 }
 
 .cloth_img {
-  max-width: 150px;
+  width: 150px;
+  max-height: 150px;
   display: block;
   margin: 0 auto;
 }

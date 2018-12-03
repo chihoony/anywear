@@ -4,6 +4,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const { Trip, validateTrip } = require('./trip');
 const { Article } = require('../Clothing/article');
+const { User, validate } = require('../User/user');
 
 const router = express.Router();
 
@@ -14,11 +15,13 @@ router.post('/', authAccess, async (req, res) => {
     let token = req.header('x-auth-token');
     token = jwt.decode(token);
 
+    let user = await User.findById(token._id);
+    console.log("I'm a user: " + token._id);
     let trip = new Trip(_.pick(req.body, ['city', 'countryCode', 'countryName',
                                  'checkIn', 'checkOut', 'outfits', 'articles', 'bagSize']));
     trip.owner = token._id;
 
-    const fillingArticles = fillArticles(trip);
+    const fillingArticles = fillArticles(trip, user);
 
     fillingArticles.then( async () => {
         await trip.save();
@@ -27,37 +30,71 @@ router.post('/', authAccess, async (req, res) => {
 });
 
 // Filling trip articles
-function fillArticles(trip) {
+function fillArticles(trip, user) {
     return new Promise( async (resolve, reject) => {
-      let tripSeason = getSeason(new Date(trip.date));
-      let shirtArticles = await Article.find({season: tripSeason, category: 0});
-      let allShirtArticles = await Article.find({season: 4, category: 0});
+      console.log("users gender: " + user.gender);
+
+      let tripSeason = getSeason(new Date(trip.checkIn).getMonth());
+
+      let shirtArticles = await JSON.stringify(Article.find({season: tripSeason, category: "shirt", gender: user.gender}));
+      let allShirtArticles = await Article.find({season: 4, category: "shirt", gender: user.gender});
       console.log(shirtArticles);
-      let pantArticles = await Article.find({season: tripSeason, category: 1});
-      let allPantArticles = await Article.find({season: 4, category: 1});
+      let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender});
+      let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender});
+      let combinedPantArticles = pantArticles.concat(allPantArticles);
       console.log(pantArticles);
-      let jacketArticles = await Article.find({season: tripSeason, category: 2});
-      let allJacketArticles = await Article.find({season: 4, category: 2});
+      let jacketArticles = await Article.find({season: tripSeason, category: "jacket", gender: user.gender});
+      let allJacketArticles = await Article.find({season: 4, category: "jacket", gender: user.gender});
+      let combinedJacketArticles = jacketArticles.concat(allJacketArticles);
+
       console.log(jacketArticles);
+
+      function populateArticles(seasonSize, clothSize, pantSize, jacketSize) {
+        if (!shirtArticles || shirtArticles.length <= seasonSize) {
+          let combinedShirtArticle = shirtArticles.concat(allShirtArticles);
+          for (var i = 0; i < clothSize + seasonSize; i++) {
+            trip.articles.push(combinedShirtArticle[Math.floor((Math.random() * combinedShirtArticle.length))]);
+          }
+        } else {
+          for (var i = 0; i < seasonSize; i++) {
+            trip.articles.push(shirtArticles[Math.floor((Math.random() * shirtArticles.length))]);
+
+          }
+          for (var i = 0; i < clothSize; i++) {
+            trip.articles.push(allShirtArticles[Math.floor((Math.random() * allShirtArticles.length))]);
+          }
+        }
+        for (var i = 0; i < pantSize; i++) {
+          trip.articles.push(combinedPantArticles[Math.floor((Math.random() * combinedPantArticles.length))]);
+        }
+        for (var i = 0; i < jacketSize; i++) {
+          trip.articles.push(combinedJacketArticles[Math.floor((Math.random() * combinedJacketArticles.length))]);
+        }
+      }
+
+
         // Logic for adding articles
         switch(trip.bagSize) {
           case "20-30 L":
-
+              populateArticles(2,1,2,2);
               break;
           case "35-40 L":
-
+              populateArticles(3,2,2,2);
               break;
           case "40-45 L":
-
+              populateArticles(4,2,3,2);
+              break;
+          case "45-50 L":
+              populateArticles(3,2,4,2);
               break;
           case "50-65 L":
-
+              populateArticles(4,2,5,3);
               break;
           case "65-75 L":
-
+              populateArticles(4,4,5,3);
               break;
           case "75-120 L":
-
+              populateArticles(5,5,6,4);
               break;
           default:
 
@@ -70,29 +107,31 @@ function fillArticles(trip) {
 }
 
 function getSeason(month) {
+  console.log(month);
     switch(month) {
-        case '12':
-        case '1':
-        case '2':
-            return 3;
+      case 12:
+      case 1:
+      case 2:
+          return 3;
+          break;
+      case 3:
+      case 4:
+      case 5:
+        return 0;
         break;
-        case '3':
-        case '4':
-        case '5':
-            return 0;
-        break;
-        case '6':
-        case '7':
-        case '8':
-            return 1;
-        break;
-        case '9':
-        case '10':
-        case '11':
-            return 2;
-        break;
+      case 6:
+      case 7:
+      case 8:
+          return 1;
+      break;
+      case 9:
+      case 10:
+      case 11:
+          return 2;
+      break;
     }
 }
+
 
 // updates a trip
 router.put('/editTrip/:id', authAccess, async (req, res) => {

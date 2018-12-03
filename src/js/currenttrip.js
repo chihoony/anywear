@@ -253,7 +253,7 @@ $(document).ready(function() {
     else if (weather_id < 810) { weatherImage = 'cloud.jpg';}
     else { weatherImage = 'other.jpg';}
 
-    // $('#carouselBackground').css('background-image', `url(../img/weather/${weatherImage})`);
+    $('#carouselBackground').css('background-image', `url(../img/weather/${weatherImage})`);
   };
 
 
