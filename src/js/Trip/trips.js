@@ -180,12 +180,29 @@ router.get('/onTrip', async (req, res) => {
     let token = req.get('x-auth-token');
     token = jwt.decode(token);
 
-    var trips = Trip.find({owner: token._id});
+    console.log(`Checking if user ${token._id} is on a trip`);
 
-    // TODO: check if the current user has a trip
+    var trips = await Trip.find({owner: token._id});
 
-    const onTrip = true;
-    const tripID = "5c0478623a90610a1bd07de1";
+    var currentTrip;
+    for (const trip of trips) {
+        if (dateCheck(trip.checkIn, trip.checkOut, new Date())) {
+            currentTrip = trip;
+            break;
+        }
+    }
+
+    let onTrip;
+    let tripID;
+    if (currentTrip) {
+        onTrip = true;
+        tripID = currentTrip._id;
+    } else {
+        onTrip = false;
+        tripID = "";
+    }
+
+    console.log(`User ${token._id} is on trip: ${onTrip}`);
 
     res.send({ onTrip: onTrip, tripID: tripID });
 });
@@ -369,6 +386,16 @@ router.delete('/:id', authAccess, function (req, res) {
         }
 });
 
+function dateCheck(from, to, check) {
+    var fDate, lDate, cDate;
+    fDate = Date.parse(from);
+    lDate = Date.parse(to);
+    cDate = Date.parse(check);
 
+    if((cDate <= lDate && cDate >= fDate)) {
+        return true;
+    }
+    return false;
+}
 
 module.exports = router;

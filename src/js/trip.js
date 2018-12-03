@@ -593,14 +593,14 @@ $(document).on('click', '.icon_delete', function() {
   });
 
   $(document).on('dblclick', 'img.warddrobe_img', function(e) {
-    console.log($(this));
-    newSelectedArticle = $(this);
-    newArticleSwap = $(this).data('key');
+    console.log('button pressed');
+    selectedArticle.attr('src', newSelectedArticle.attr('src'));
+    selectedArticle.data('key', newSelectedArticle.data('key'));
 
-    $('img.warddrobe_img').removeClass('border-blue');
-    $(this).addClass('border-blue');
-
-  });
+    $("#edit-overlay").fadeOut('400', function() {
+      
+    swapArticles(oldArticleKey, newArticleSwap);
+  })});
 
   // HANDLING THE SUBMIT SWAP CLOTHES REQUEST
   $('#buttonNext').on('click', function() {

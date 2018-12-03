@@ -60,7 +60,7 @@ $(document).ready(function() {
                 success: function(data){
                     console.log(data.token);
                     localStorage.setItem('token', data.token);
-                    location.href = '/alltrips';
+                    onTrip(routeIfOnTrip)
                 },
                 error: function(e){
                     console.log(e.responseText);
@@ -68,7 +68,6 @@ $(document).ready(function() {
                 }
             }
       )}
-
     );
 
       $("#signedUp").on("click", function(e){
@@ -94,6 +93,31 @@ $(document).ready(function() {
                 }
             }
       )});
+
+  function onTrip(callback) {
+      $.ajax({
+          type: 'get',
+          url: '/api/trips/onTrip',
+          headers:  {'x-auth-token': localStorage.getItem('token') },
+          success: function(data) {
+            callback(data);
+          },
+          error: function(e) {
+            console.error(e.responseText);
+          }
+      });
+  }
+
+  function routeIfOnTrip(onTripData) {
+      if (onTripData.onTrip) {
+        console.log("current Trip");
+        localStorage.setItem('currentTripID', onTripData.tripID);
+        location.href = '/current';
+      } else {
+        console.log("alltrips");
+        location.href = '/alltrips';
+      }
+  }
 
   // Currently broken. IT does not set the image after running the ajax post /api/users
   function imageSetter() {
@@ -134,5 +158,4 @@ $(document).ready(function() {
     //   }
     // )
   }
-
 });
