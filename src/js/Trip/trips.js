@@ -45,7 +45,7 @@ router.get('/onTrip', async (req, res) => {
     // TODO: check if the current user has a trip
 
     const onTrip = true;
-    const tripID = "Eventually be the current trip id, empty if not on a trip"
+    const tripID = "5c03757ce96f76327878f218";
 
     res.send({ onTrip: onTrip, tripID: tripID });
 });
@@ -95,19 +95,14 @@ router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
                 let piecePromises; 
 
                 piecePromises = new Promise(async (resolve, reject) => {
-                    console.log(outfit.pieces);
                     for (const piece of outfit.pieces) {
-                        console.log("piece " + piece);
                         article = await Article.findById(piece);
-                        console.log("pushing article");
                         newOutfit.pieces.push(article);
                     }
-
                     resolve();
                 });
 
                 piecePromises.then(() => {
-                    console.log("pushing outfit");
                     outfits.push(newOutfit);
                     resolve();
                 });
