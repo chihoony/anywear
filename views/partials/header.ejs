@@ -1,14 +1,15 @@
 <!-- views/partials/header.ejs -->
+
 <nav class="yellow">
   <div class="nav-wrapper container">
     <a href="/alltrips" class="brand-logo">anyWear</a>
     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="/createtrip">+NewTrip</a></li>
-      <li><a href="/current">CurrentTrip</a></li>
-      <li><a href="/alltrips">Trips</a></li>
-      <li><a href="/profile">Profile</a></li>
-      <li><a href="/">SignOut</a></li>
+      <li><a id="createTrip" href="/createtrip">+NewTrip</a></li>
+      <li><a id="current">CurrentTrip</a></li>
+      <li><a id="allTrips" href="/alltrips">Trips</a></li>
+      <li><a id="profile" href="/profile">Profile</a></li>
+      <li><a id="signOut" href="/">SignOut</a></li>
     </ul>
   </div>
 </nav>
@@ -20,3 +21,6 @@
   <li><a href="/profile">Profile</a></li>
   <li><a href="/">SignOut</a></li>
 </ul>
+
+<script src="/src/js/jquery-3.3.1.min.js"></script>
+<script src="/src/js/header.js"></script>

@@ -37,6 +37,44 @@ var countryCode;
 var temp_max, temp_min, current_temp, weather_id;
 
 
+//////////////////////////////////////// ajax functions ////////////////////////////////////////
+$.ajaxSetup({
+  headers: {
+    'x-auth-token': localStorage.getItem('token')
+  }
+});
+
+function getTrip(callback) {
+    $.ajax({
+      type: 'get',
+      url: '/api/trips',
+      success: function(data) {
+        callback(data);
+        console.log("trip " + JSON.stringify(data));
+      },
+      error: function(e) {
+        console.log(e.responseText);
+      }
+    });
+  }
+
+function getOutfits(callback) {
+  $.ajax({
+    type: 'get',
+    url: `/api/trips/wardrobe/outfits/${localStorage.getItem('currentTripID')}`,
+    success: function(data) {
+      console.log("outfits " + JSON.stringify(data));
+    },
+    error: function(e) {
+      console.log(e.responseText);
+    }
+  });
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+getOutfits();
+getTrip();
 
 
 

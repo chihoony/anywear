@@ -65,6 +65,21 @@ router.get('/', authAccess, async (req, res) => {
     console.log(`Returning ${trips.length} trips to ${token._id} at ${req.connection.remoteAddress}`);
     res.send({ trips: trips });
 });
+
+router.get('/onTrip', async (req, res) => {
+    let token = req.get('x-auth-token');
+    token = jwt.decode(token);
+    
+    var trips = Trip.find({owner: token._id});
+    
+    // TODO: check if the current user has a trip
+    
+    const onTrip = true;
+    const tripID = "5c03757ce96f76327878f218";
+    
+    res.send({ onTrip: onTrip, tripID: tripID });
+});
+
 //get a single trip
 router.get('/:id', authAccess, async (req, res) => {
     let token = req.get('x-auth-token');
@@ -79,7 +94,60 @@ router.get('/:id', authAccess, async (req, res) => {
     if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
 
     console.log(`Returning trip ${trip._id} to ${token._id} at ${req.connection.remoteAddress}`);
-    res.send({ trip: trip });
+    res.send({ trip: trip[0] });  
+});
+
+router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
+    let token = req.get('x-auth-token');
+    token = jwt.decode(token);
+
+    if (!req.params.tripID.match(/^[0-9a-fA-F]{24}$/))
+        return res.status(400).send("Invalid object ID");
+
+    let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
+    if (!trip || trip.length <= 0) return res.status(400).send("Unable to find that trip");
+    trip = trip[0];
+
+    const tripOutfits = trip.outfits;
+
+    if (!tripOutfits.length) {
+        return res.status(400).send("go make some outfits");
+        // Build some outfits
+    }
+    
+    
+    let buildingOutfits = new Promise((resolve, reject) => {
+        let outfits = [];
+        let outfitPromises;
+
+        outfitPromises = new Promise((resolve, reject) => {
+            tripOutfits.forEach( async (outfit, index, array) => {
+                let newOutfit = { date: outfit.date, pieces: [] };
+                let piecePromises; 
+
+                piecePromises = new Promise(async (resolve, reject) => {
+                    for (const piece of outfit.pieces) {
+                        article = await Article.findById(piece);
+                        newOutfit.pieces.push(article);
+                    }
+                    resolve();
+                });
+
+                piecePromises.then(() => {
+                    outfits.push(newOutfit);
+                    resolve();
+                });
+        })});
+
+        outfitPromises.then(() => {
+            resolve(outfits);
+        });
+    });
+
+    buildingOutfits.then((outfits) => {
+        console.log(`returning ${outfits.length} outfit(s) to ${token._id} at ${req.connection.remoteAddress}`);
+        res.send(outfits);
+    });
 });
 
 // Get all articles on a trip, include category=[category] to get articles of that category attached to the trip

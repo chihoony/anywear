@@ -16,6 +16,7 @@ const auth = require('./src/js/User/auth');
 const trips = require('./src/js/Trip/trips');
 const articles = require('./src/js/Clothing/articles');
 const printToConsole = require('./middleware/printToConsole');
+const onTrip = require('./middleware/onTrip');
 
 require('console-stamp')(console,
   { pattern: 'ddd mmm dd HH:MM:ss',
