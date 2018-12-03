@@ -29,6 +29,9 @@ const articleSchema = new mongoose.Schema({
     },
     imgLink: {
       type: String,
+    },
+    copy: {
+      type: String,
     }
 });
 
@@ -42,7 +45,8 @@ function validateArticle(article) {
         waterproof: Joi.string().required(),
         tone: Joi.string().required(),
         gender: Joi.string().required(),
-        imgLink: Joi.string()
+        imgLink: Joi.string(),
+        copy: Joi.string()
     };
 
     return Joi.validate(article, schema);
