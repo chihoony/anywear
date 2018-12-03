@@ -18,25 +18,80 @@ router.post('/', authAccess, async (req, res) => {
                                  'checkIn', 'checkOut', 'outfits', 'articles', 'bagSize']));
     trip.owner = token._id;
 
-    // Filling trip articles if no articles were previously specified
     const fillingArticles = fillArticles(trip);
 
-    fillingArticles.then(() => {
+    fillingArticles.then( async () => {
         await trip.save();
-        res.send(trip);
+        return res.send(trip);
     });
 });
 
 // Filling trip articles
 function fillArticles(trip) {
-    return new Promise((resolve, reject) => {
-        
+    return new Promise( async (resolve, reject) => {
+      let tripSeason = getSeason(new Date(trip.date));
+      let shirtArticles = await Article.find({season: tripSeason, category: 0});
+      let allShirtArticles = await Article.find({season: 4, category: 0});
+      console.log(shirtArticles);
+      let pantArticles = await Article.find({season: tripSeason, category: 1});
+      let allPantArticles = await Article.find({season: 4, category: 1});
+      console.log(pantArticles);
+      let jacketArticles = await Article.find({season: tripSeason, category: 2});
+      let allJacketArticles = await Article.find({season: 4, category: 2});
+      console.log(jacketArticles);
         // Logic for adding articles
+        switch(trip.bagSize) {
+          case "20-30 L":
+
+              break;
+          case "35-40 L":
+
+              break;
+          case "40-45 L":
+
+              break;
+          case "50-65 L":
+
+              break;
+          case "65-75 L":
+
+              break;
+          case "75-120 L":
+
+              break;
+          default:
+
+            }
 
 
         // After everything has been added
         resolve();
     });
+}
+
+function getSeason(month) {
+    switch(month) {
+        case '12':
+        case '1':
+        case '2':
+            return 3;
+        break;
+        case '3':
+        case '4':
+        case '5':
+            return 0;
+        break;
+        case '6':
+        case '7':
+        case '8':
+            return 1;
+        break;
+        case '9':
+        case '10':
+        case '11':
+            return 2;
+        break;
+    }
 }
 
 // updates a trip
