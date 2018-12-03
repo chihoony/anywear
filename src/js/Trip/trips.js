@@ -228,6 +228,8 @@ router.get('/onTrip', async (req, res) => {
 
     var trips = await Trip.find({owner: token._id});
 
+    if (!trips || trips.length <= 0) return res.send({ onTrip: false, tripID: "" });
+
     var currentTrip;
     for (const trip of trips) {
         if (checkIfCurrentTrip(trip)) {
@@ -238,7 +240,7 @@ router.get('/onTrip', async (req, res) => {
 
     // Generate outfits for the current trip, unless it already has outfits
     let generatingOutfits = generateOutfits(currentTrip);
-
+    
     let onTrip;
     let tripID;
     if (currentTrip) {
@@ -457,13 +459,11 @@ request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ','
     var current_temp = body.main.temp;
     var weather_id = body.weather[0].id;
 
-    var outfits = [];
     var articles = [];
     for (const articleID of trip.articles) {
         article = await Article.find({_id: articleID})
         articles.push(article);
     }
-    console.log("Look I found articles " + articles);
 
     Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
@@ -471,14 +471,14 @@ request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ','
     return date;
 }
 
-    for (var i = 0; i <= 7; i++) {
+    for (var i = 0; i < 7; i++) {
         if (i > 2) {
             current_temp = Math.floor((Math.random() * 10)) + body.main.temp;
-        } else if (i > 4) {
+        }
+        
+        if (i > 4) {
             current_temp = -(Math.floor((Math.random() * 10))) + body.main.temp;
         }
-
-        console.log("temp " + current_temp);
 
         let outfit = { pieces: [] };
 
@@ -487,8 +487,6 @@ request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ','
         } else {
             outfit['date'] = new Date().addDays(i - 2);
         }
-
-        current_temp = 5;
 
         // Include jacket if temp is low
         if (current_temp < 15) {
@@ -519,13 +517,9 @@ request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ','
         outfit.pieces.push(useBottom[0]._id);
         outfit.pieces.push(useTop[0]._id);
 
-        console.log("outfit " + JSON.stringify(outfit));
         trip.outfits.push(outfit);
     }
 
-
-
-    console.log("generated")
     return resolve();
 }).catch(err => {
     console.log(err);
