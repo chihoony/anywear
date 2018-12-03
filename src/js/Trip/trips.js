@@ -25,6 +25,7 @@ router.post('/', authAccess, async (req, res) => {
     const fillingArticles = fillArticles(trip, user);
 
     fillingArticles.then( async () => {
+      console.log(trip.articles);
         await trip.save();
         return res.send(trip);
     });
@@ -37,15 +38,15 @@ function fillArticles(trip, user) {
 
       let tripSeason = getSeason(new Date(trip.checkIn).getMonth());
 
-      let shirtArticles = await Article.find({season: tripSeason, category: "shirt", gender: user.gender});
+      let shirtArticles = await Article.find({season: tripSeason, category: "shirt", gender: user.gender, copy: "0"});
       let allShirtArticles = await Article.find({season: 4, category: "shirt", gender: user.gender, copy: "0"});
       console.log(allShirtArticles);
       console.log(shirtArticles);
-      let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender});
+      let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender, copy: "0"});
       let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender, copy: "0"});
       let combinedPantArticles = pantArticles.concat(allPantArticles);
       console.log(pantArticles);
-      let jacketArticles = await Article.find({season: tripSeason, category: "jacket", gender: user.gender});
+      let jacketArticles = await Article.find({season: tripSeason, category: "jacket", gender: user.gender, copy: "0"});
       let allJacketArticles = await Article.find({season: 4, category: "jacket", gender: user.gender, copy: "0"});
       let waterProofJacketArticles = await Article.find({season: 4, category: "jacket", waterproof: 1, gender: user.gender});
       let combinedJacketArticles = jacketArticles.concat(allJacketArticles);
@@ -251,7 +252,7 @@ router.get('/onTrip', async (req, res) => {
 
     generatingOutfits.then(() => {
       if (currentTrip) currentTrip.save();
-      
+
       console.log(`User ${token._id} is on trip: ${onTrip}`);
       res.send({ onTrip: onTrip, tripID: tripID });
     });
@@ -458,10 +459,10 @@ function generateOutfits(trip) {
             return resolve();
         }
 
-request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ',' + trip.countryCode 
+request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ',' + trip.countryCode
   + '&appid=2b09f34775a0dae360c45f7f788db016' + '&units=metric', function (error, response, body) {
   if (!error && response.statusCode == 200) {
-    console.log(body) // Show the HTML for the Google homepage. 
+    console.log(body) // Show the HTML for the Google homepage.
   }
 });
 

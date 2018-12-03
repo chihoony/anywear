@@ -391,7 +391,7 @@ $(document).ready(function() {
   function populateTopWear(articles) {
     console.log(articles[0]);
     for (var i = 0; i < articles.length; i++) {
-      var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
+      var figure = $('<figure class="cloth_figure"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
       var cloth = $('<img class="cloth_img" src="" alt"no image"/>');
       var icon = $('<i class="icon_delete grey-text material-icons">more_vert</i>');
@@ -425,7 +425,7 @@ $(document).ready(function() {
   function populateBottomWear(articles) {
     console.log(articles);
     for (var i = 0; i < articles.length; i++) {
-      var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
+      var figure = $('<figure class="cloth_figure"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
       var cloth = $('<img class="cloth_img" src="" alt"no image"/>');
       var icon = $('<i class="icon_delete grey-text material-icons">more_vert</i>');
@@ -456,7 +456,7 @@ $(document).ready(function() {
   function populateJacketWear(articles) {
     console.log(articles);
     for (var i = 0; i < articles.length; i++) {
-      var figure = $('<figure class="cloth_figure col xl3 m4 s6"></figure>');
+      var figure = $('<figure class="cloth_figure"></figure>');
       var clothIconCon = $('<div class="cloth_img_con"></div>');
       var cloth = $('<img class="cloth_img" src="" alt"no image"/>');
       var icon = $('<i class="icon_delete grey-text material-icons">more_vert</i>');
@@ -536,8 +536,8 @@ $(document).on('click', '.icon_delete', function() {
     selectedArticle = $(this).parent().parent().siblings('img');
     oldArticleKey = $(this).parent().parent().siblings('img').data('key');
     var imageSrc = $(this).parent().parent().siblings('.cloth_img').attr('src');
-    
-    
+
+
     console.log("old article key" + oldArticleKey);
 
     var rightGrid = $('#right-grid');
@@ -593,14 +593,14 @@ $(document).on('click', '.icon_delete', function() {
   });
 
   $(document).on('dblclick', 'img.warddrobe_img', function(e) {
-    console.log('button pressed');
-    selectedArticle.attr('src', newSelectedArticle.attr('src'));
-    selectedArticle.data('key', newSelectedArticle.data('key'));
+    console.log($(this));
+    newSelectedArticle = $(this);
+    newArticleSwap = $(this).data('key');
 
-    $("#edit-overlay").fadeOut('400', function() {
-      
-    swapArticles(oldArticleKey, newArticleSwap);
-  })});
+    $('img.warddrobe_img').removeClass('border-blue');
+    $(this).addClass('border-blue');
+
+  });
 
   // HANDLING THE SUBMIT SWAP CLOTHES REQUEST
   $('#buttonNext').on('click', function() {
@@ -609,7 +609,7 @@ $(document).on('click', '.icon_delete', function() {
     selectedArticle.data('key', newSelectedArticle.data('key'));
 
     $("#edit-overlay").fadeOut('400', function() {
-      
+
     swapArticles(oldArticleKey, newArticleSwap);
     })
 

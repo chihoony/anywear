@@ -64,12 +64,12 @@ $(document).ready(function() {
     }
   });
 
-  function getTrip(callback) {
+  function getTrip() {
       $.ajax({
         type: 'get',
         url: `/api/trips/${localStorage.getItem('currentTripID')}`,
-        success: function(data) {
-          callback(data);
+        success: function(data)
+          callback(data.city, data.countryCode);
         },
         error: function(e) {
           console.log(e.responseText);
@@ -115,7 +115,6 @@ $(document).ready(function() {
     console.log("temp_max: " + temp_max);
     console.log("temp_min: " + temp_min);
     console.log("Current_temp: " + current_temp);
-    weather_id = 500;
 
     // sets the background of the carousel to the corresponding weather
     setBackgroundCarousel();
@@ -125,8 +124,6 @@ $(document).ready(function() {
   };
 
   // Setting the Weather call to the city and country code
-  city = 'Tokyo';
-  countryCode = 'JP';
 
 
 
@@ -257,10 +254,10 @@ $(document).ready(function() {
 
 
   //Call the weather api
-  $.getJSON(makeTestCall(city, countryCode), weatherCallBack);
-
+  $.getJSON(gitTrip(makeTestCall), weatherCallBack);
+  //  city = 'Tokyo';
+  //  countryCode = 'JP';
 
   getOutfits(populateCarousel);
-  getTrip();
 
 });

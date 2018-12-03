@@ -130,7 +130,7 @@ footer {
   bottom: 0;
 }
 .overlay_bottom{
-  background-color: rgba(0, 0, 0, 0.8);;
+  background-color: rgba(0, 0, 0, 0.8);
   border-top: 2px solid rgba(140, 140, 140, 1);
   width: 100%;
   height: 50%;
@@ -144,4 +144,16 @@ footer {
 .overlay_con {
   width: 100%;
   height: 100%;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-family: 'Kanit', sans-serif !important;
+}
+
+body {
+  background-color:rgba(240, 240, 240, 1);
+  color: #292a33!important;
 }

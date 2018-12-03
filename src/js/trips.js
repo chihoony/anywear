@@ -391,10 +391,10 @@ $(document).ready(function() {
       var tripCon = $('<div class="trip_con"></div>');
       var tripBackgroundCon = $('<div class="trip_background_con"></div>');
       var tripTitle = $('<h5 class="trip_title"></h5>');
-      var tripDate = $('<p class="white-text trip_description"></p>');
-      var tripBag = $('<p class="white-text trip_description"></p>');
+      var tripDate = $('<p class="trip_description"></p><br/>');
+      var tripBag = $('<p class="trip_description"></p>');
 
-      var icon = $('<i class="icon_delete grey-text material-icons">more_vert</i>');
+      var icon = $('<i class="icon_delete material-icons">more_vert</i>');
 
       var overlayMenu = $('<div class="overlay_menu"></div>');
       var overlayCon = $('<div class="overlay_con"></div>');
