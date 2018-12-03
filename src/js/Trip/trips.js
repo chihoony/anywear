@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { Trip, validateTrip } = require('./trip');
 const { Article } = require('../Clothing/article');
 const { User, validate } = require('../User/user');
-var request = require('request');
+var request = require('request-promise');
 
 const router = express.Router();
 
@@ -437,37 +437,99 @@ router.delete('/:id', authAccess, function (req, res) {
         }
 });
 
-//   function makeTestCall(c, cc) {
-//     return 'http://api.openweathermap.org/data/2.5/weather?q=' + c + ',' + cc + apiKey + '&units=metric';
-//   };
-
-//   // this function gets the json and you can call the individual values from a key
-//   function weatherCallBack(weatherData) {
-//     console.log(weatherData.name);
-//     console.log(weatherData.sys.country);
-
-//     temp_max = weatherData.main.temp_max;
-//     temp_min = weatherData.main.temp_min;
-//     current_temp = weatherData.main.temp;
-//     weather_id = weatherData.weather[0].id;
-
 function generateOutfits(trip) {
     // generating outfits
+
+    // dont generate outfits if somethings are true
     return new Promise((resolve, reject) => {
-        if (!trip || trip.outfits.length > 0 || trip.articles.length <= 0) {
-            console.log("No generating needed");
-            return resolve();
-        }
+        // if (!trip || trip.outfits.length > 0 || trip.articles.length <= 0) {
+        //     console.log("No generating needed");
+        //     return resolve();
+        // }
+
+trip.outfits = [];
 
 request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ',' + trip.countryCode
-  + '&appid=2b09f34775a0dae360c45f7f788db016' + '&units=metric', function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    console.log(body) // Show the HTML for the Google homepage.
-  }
-});
++ '&appid=2b09f34775a0dae360c45f7f788db016' + '&units=metric').then(async body => {
+    body = JSON.parse(body);
+    var temp_max = body.main.temp_max;
+    var temp_min = body.main.temp_min;
+    var current_temp = body.main.temp;
+    var weather_id = body.weather[0].id;
 
-        console.log("generated")
-        return resolve();
+    var outfits = [];
+    var articles = [];
+    for (const articleID of trip.articles) {
+        article = await Article.find({_id: articleID})
+        articles.push(article);
+    }
+    console.log("Look I found articles " + articles);
+
+    Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+    for (var i = 0; i <= 7; i++) {
+        if (i > 2) {
+            current_temp = Math.floor((Math.random() * 10)) + body.main.temp;
+        } else if (i > 4) {
+            current_temp = -(Math.floor((Math.random() * 10))) + body.main.temp;
+        }
+
+        console.log("temp " + current_temp);
+
+        let outfit = { pieces: [] };
+
+        if (i <= 2) {
+            outfit['date'] = new Date();
+        } else {
+            outfit['date'] = new Date().addDays(i - 2);
+        }
+
+        current_temp = 5;
+
+        // Include jacket if temp is low
+        if (current_temp < 15) {
+            var jackets = await articles.filter(obj => {
+                return obj[0].category == 'jacket';
+            });
+
+            var jacketIndex = Math.floor(Math.random() * jackets.length);
+            var useJacket = jackets[jacketIndex];
+
+            outfit.pieces.push(useJacket[0]._id);
+        }
+
+        var bottoms = await articles.filter(obj => {
+            return obj[0].category == 'pant';
+        });
+
+        var tops = await articles.filter(obj => {
+            return obj[0].category == 'shirt';
+        });
+
+        var bottomIndex = Math.floor(Math.random() * bottoms.length);
+        var topIndex = Math.floor(Math.random() * bottoms.length);
+
+        var useBottom = bottoms[bottomIndex];
+        var useTop = tops[topIndex];
+
+        outfit.pieces.push(useBottom[0]._id);
+        outfit.pieces.push(useTop[0]._id);
+
+        console.log("outfit " + JSON.stringify(outfit));
+        trip.outfits.push(outfit);
+    }
+
+
+
+    console.log("generated")
+    return resolve();
+}).catch(err => {
+    console.log(err);
+});
     });
 }
 
