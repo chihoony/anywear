@@ -20,11 +20,7 @@ router.post('/', authAccess, async (req, res) => {
 
     const fillingArticles = fillArticles(trip);
 
-<<<<<<< HEAD
     fillingArticles.then( async () => {
-=======
-    fillingArticles.then(async() => {
->>>>>>> 9c6f46a12ea5f03eb3438238b7b31f166a931bd5
         await trip.save();
         return res.send(trip);
     });
@@ -198,10 +194,10 @@ router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
 
             for (const piece of outfit.pieces) {
                 article = await Article.findById(piece);
-                
+
                 newOutfit.pieces.push(article);
             }
-            
+
             outfits.push(newOutfit);
         }
         resolve(outfits);
