@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { Trip, validateTrip } = require('./trip');
 const { Article } = require('../Clothing/article');
 const { User, validate } = require('../User/user');
+var request = require('request');
 
 const router = express.Router();
 
@@ -192,6 +193,9 @@ router.get('/onTrip', async (req, res) => {
         }
     }
 
+    // Generate outfits for the current trip, unless it already has outfits
+    let generatingOutfits = generateOutfits(currentTrip);
+
     let onTrip;
     let tripID;
     if (currentTrip) {
@@ -202,9 +206,13 @@ router.get('/onTrip', async (req, res) => {
         tripID = "";
     }
 
-    console.log(`User ${token._id} is on trip: ${onTrip}`);
 
-    res.send({ onTrip: onTrip, tripID: tripID });
+    generatingOutfits.then(() => {
+      if (currentTrip) currentTrip.save();
+      
+      console.log(`User ${token._id} is on trip: ${onTrip}`);
+      res.send({ onTrip: onTrip, tripID: tripID });
+    });
 });
 
 //get a single trip
@@ -385,6 +393,40 @@ router.delete('/:id', authAccess, function (req, res) {
             }
         }
 });
+
+//   function makeTestCall(c, cc) {
+//     return 'http://api.openweathermap.org/data/2.5/weather?q=' + c + ',' + cc + apiKey + '&units=metric';
+//   };
+
+//   // this function gets the json and you can call the individual values from a key
+//   function weatherCallBack(weatherData) {
+//     console.log(weatherData.name);
+//     console.log(weatherData.sys.country);
+
+//     temp_max = weatherData.main.temp_max;
+//     temp_min = weatherData.main.temp_min;
+//     current_temp = weatherData.main.temp;
+//     weather_id = weatherData.weather[0].id;
+
+function generateOutfits(trip) {
+    // generating outfits
+    return new Promise((resolve, reject) => {
+        if (!trip || trip.outfits.length > 0 || trip.articles.length <= 0) {
+            console.log("No generating needed");
+            return resolve();
+        }
+
+request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ',' + trip.countryCode 
+  + '&appid=2b09f34775a0dae360c45f7f788db016' + '&units=metric', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    console.log(body) // Show the HTML for the Google homepage. 
+  }
+});
+
+        console.log("generated")
+        return resolve();
+    });
+}
 
 function checkIfCurrentTrip(trip) {
     var fDate, lDate, cDate;

@@ -80,7 +80,7 @@ router.get('/related/:articleID?&:tripID?', authAccess, async (req, res) => {
     let baseArticle = await Article.findById(articleID);
         if(!baseArticle) return res.status(400).send("No article exists at that id")
 
-    let relatedArticles = await Article.find({ category: baseArticle.category, tone: baseArticle.tone });
+    let relatedArticles = await Article.find({ category: baseArticle.category, tone: baseArticle.tone, gender: baseArticle.gender });
         if(!relatedArticles) return res.status(400).send("")
 
     //-----

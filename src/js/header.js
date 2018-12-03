@@ -7,18 +7,16 @@ $(document).ready(() => {
     }
 });
 
-console.log(localStorage.getItem('token'));
 function navigateOnTrip() {
     $.ajax({
-        // headers: { 'x-auth-token': localStorage.getItem('token') },
         type: 'get',
         url: '/api/Trips/onTrip',
         success: function(data) {
             console.log("here");
             console.log(JSON.stringify(data));
             if (data.onTrip) {
-                location.href = '/current';
                 localStorage.setItem('currentTripID', data.tripID);
+                location.href = '/current';
             } else {
                 alert("Not on a trip");
                 location.href = '/createtrip';
