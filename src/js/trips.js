@@ -382,7 +382,9 @@ $(document).ready(function() {
   //   </div>
   // </div>
   function populatePage(trips) {
-    console.log(trips.length);
+    if(!trips.length)
+      location.href = '/createtrip';
+
     for (var i = 0; i < trips.length; i++) {
       var trip = trips[i];
 

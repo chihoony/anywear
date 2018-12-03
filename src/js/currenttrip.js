@@ -67,10 +67,9 @@ $(document).ready(function() {
   function getTrip(callback) {
       $.ajax({
         type: 'get',
-        url: '/api/trips',
+        url: `/api/trips/${localStorage.getItem('currentTripID')}`,
         success: function(data) {
           callback(data);
-          console.log("trip " + JSON.stringify(data));
         },
         error: function(e) {
           console.log(e.responseText);
@@ -84,7 +83,6 @@ $(document).ready(function() {
       url: `/api/trips/wardrobe/outfits/${localStorage.getItem('currentTripID')}`,
       success: function(data) {
         callback(data);
-        console.log("outfits " + JSON.stringify(data));
       },
       error: function(e) {
         console.log(e.responseText);
