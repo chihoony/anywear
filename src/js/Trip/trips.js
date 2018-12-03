@@ -18,10 +18,26 @@ router.post('/', authAccess, async (req, res) => {
                                  'checkIn', 'checkOut', 'outfits', 'articles', 'bagSize']));
     trip.owner = token._id;
 
-    await trip.save();
+    // Filling trip articles if no articles were previously specified
+    const fillingArticles = fillArticles(trip);
 
-    res.send(trip);
+    fillingArticles.then(() => {
+        await trip.save();
+        res.send(trip);
+    });
 });
+
+// Filling trip articles
+function fillArticles(trip) {
+    return new Promise((resolve, reject) => {
+        
+        // Logic for adding articles
+
+
+        // After everything has been added
+        resolve();
+    });
+}
 
 // updates a trip
 router.put('/editTrip/:id', authAccess, async (req, res) => {
