@@ -94,17 +94,20 @@ router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
                 let newOutfit = { date: outfit.date, pieces: [] };
                 let piecePromises; 
 
-                piecePromises = new Promise((resolve, reject) => {
-                    outfit.pieces.forEach( async (piece, index, array) => {
-                    article = await Article.findById(piece);
-                    newOutfit.pieces.push(article);
-
-                    if (index == array.length - 1) {
-                      resolve();
+                piecePromises = new Promise(async (resolve, reject) => {
+                    console.log(outfit.pieces);
+                    for (const piece of outfit.pieces) {
+                        console.log("piece " + piece);
+                        article = await Article.findById(piece);
+                        console.log("pushing article");
+                        newOutfit.pieces.push(article);
                     }
-                })});
+
+                    resolve();
+                });
 
                 piecePromises.then(() => {
+                    console.log("pushing outfit");
                     outfits.push(newOutfit);
                     resolve();
                 });
