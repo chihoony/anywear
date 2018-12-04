@@ -130,7 +130,7 @@ $(document).ready(function() {
       var current = outfit[i];
       // check if it's the current date. If it is then enter the statement
       if (current.date == firstDate) {
-        var carouselItem = $(`<a class="carousel-item" href="${i}">`);
+        var carouselItem = $(`<a class="carousel-item">`);
         if (outfit[i].pieces.length > 2) {
           var imgTop = $('<img/>');
           var imgBottom = $('<img/>');
