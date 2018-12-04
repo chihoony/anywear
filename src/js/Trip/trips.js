@@ -499,6 +499,7 @@ request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ','
     return date;
 }
 
+// Currently spoofing becuase weather API requires payed services to get forcast data beyond current date
     for (var i = 0; i < 7; i++) {
         if (i > 2) {
             current_temp = Math.floor((Math.random() * 10)) + body.main.temp;
@@ -555,6 +556,13 @@ request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ','
     });
 }
 
+/** 
+ * checkIfCurrentTrip takes a trip object in the param
+ * 
+ * returns true if the current date is within the trips date
+ * 
+ * returns false if current date is not within the trips date
+ */ 
 function checkIfCurrentTrip(trip) {
     var fDate, lDate, cDate;
     fDate = Date.parse(trip.checkIn);
