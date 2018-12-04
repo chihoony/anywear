@@ -6,6 +6,22 @@ const { Article, validateArticle } = require('./article');
 
 const router = express.Router();
 
+/**
+ POST creating new article
+ EXAMPLE POST BODY:
+    {
+        "season": "0",
+        "temp": "15",
+        "category": "shirt",
+        "waterproof": "0",
+        "tone": "0",
+        "color": "blue",
+        "gender": "f",
+        "imgLink": "something.png"
+    }
+
+ Resonds with "Failed to save article!" or the new article if successful
+*/
 router.post('/', authAccess, async (req, res) => {
     const { error } = validateArticle(req.body);
     if (error) return res.status(400).send("Invalid Request Body!")
@@ -20,7 +36,11 @@ router.post('/', authAccess, async (req, res) => {
     res.send(article)
 });
 
-
+/**
+ * GETS a article at the specified 'articleID' param
+ * 
+ * Responds with article object
+ */
 router.get('/:articleID', authAccess, async (req, res) => {
     const articleID = req.params.articleID;
     if (!articleID) return res.status(400).send("Invalid Request!");
@@ -61,7 +81,7 @@ router.get('/', authAccess, async (req, res) => {
  * If no trip id is given, it wont filter out articles already contained
  * in a trip
  *
- * @returns array of articles, if no related artiles found returns ""
+ * @returns array of articles, if no related articles found returns ""
  */
 router.get('/related/:articleID?&:tripID?', authAccess, async (req, res) => {
     let articleID = req.params.articleID;
