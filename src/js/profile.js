@@ -11,14 +11,9 @@ $(document).ready(function() {
         $("#profilePhotoEdit").show();
         $("#profilePhotoEdit").css("display", "flex");
     });
-
     $('#profilePhotoEdit').mouseout(function() {
         $("#profilePhotoEdit").hide();
     });
-
-    // $('#profilePhotoEdit').click( function() {
-    //     $('#photoUploader').click();
-    // });
 
     //When user clicks 'userName'
     $('#userNameDisplay').on('click', function() {
@@ -53,7 +48,7 @@ $(document).ready(function() {
 
 
 
-    // GETS the users profile information.  Checks the token to ake sure it is a valid user.
+    // GETS the users profile information.  Checks the token to make sure it is a valid user.
     function getUserInfo(callback) {
         $.ajax({
             type: 'get',
@@ -71,8 +66,8 @@ $(document).ready(function() {
 
     // Sets the profile information using the current users information.
     function setProfileInfo(user) {
-      // TODO: change this to actual users profile Image setting. For now it's using the most
-      // recent profile pic uploaded to server name default.jpeg (hack)
+        // TODO: change this to actual users profile Image setting. For now it's using the most
+        // recent profile pic uploaded to server name default.jpeg (hack)
         let profileImage = $('#profilePhoto');
         profileImage.attr('src', user.profilePic);
 
@@ -91,13 +86,15 @@ $(document).ready(function() {
 
         if (user.gender == 'f') {
             genderDisplay.text('Female');
-                $(".dropdown-content").children()[1].className += " selected";
+            $(".dropdown-content").children()[1].className += " selected";
         } else if (user.gender == 'm') {
             genderDisplay.text('Male');
-                $(".dropdown-content").children()[2].className += " selected";
+            $(".dropdown-content").children()[2].className += " selected";
         }
-        $(document).ready(function(){$('select').formSelect();});
-$("#genderSelect").val(user.gender);
+        $(document).ready(function() {
+            $('select').formSelect();
+        });
+        $("#genderSelect").val(user.gender);
 
     }
     getUserInfo(setProfileInfo);

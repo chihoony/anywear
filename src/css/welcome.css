@@ -1,13 +1,14 @@
 #welcomeMoment, #signInMoment, #signUpMoment, #passwordMoment {
     width: 27em;
-        height:22em !important;
-        margin-left: 20em;
+    height: 22em !important;
+    margin-left: 20em;
 }
 
-#welcomeMoment{
+#welcomeMoment {
     padding-top: 2em;
 }
-.floatRight{
+
+.floatRight {
     float: right;
 }
 
@@ -16,43 +17,52 @@
     display: none;
 }
 
-#signUpMoment input{
-    height : 2.4em;
+#signUpMoment input {
+    height: 2.4em;
 }
 
 .marginForWelcome {
     margin-top: 0.1em !important;
     margin-bottom: 0.2em !important;
 }
-.container{
-    width : 100% !important;
+
+.container {
+    width: 100% !important;
 }
 
 button {
     margin: 1em;
 }
 
-#passwordMoment a{
+#passwordMoment a {
     margin-right: 1em;
 }
 
 a {
     margin-left: 1em;
-    color:#E29800;
+    color: #E29800;
 }
 
 .ui-tooltip {
     width: 13em;
 }
 
-
-/* How to change first item in drop down menu */
-/* li:nth-child(1) {
-  min-height: 0px !important;
-  height: 25px;
-  padding: 0 !important;
+#welcomeContent {
+    padding-bottom: 2rem !important;
 }
 
-li:nth-child(1) span {
-  line-height: 100px !important;
-} */
+@media screen and (max-width: 800px) {
+    #welcomeMoment, #signInMoment, #signUpMoment, #passwordMoment {
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .descriptionForWelcome {
+        padding-left: 1em;
+    }
+
+    #welcomeMoment, #signInMoment, #signUpMoment, #passwordMoment {
+        width: auto;
+    }
+}
