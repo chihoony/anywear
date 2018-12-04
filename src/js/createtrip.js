@@ -1,3 +1,4 @@
+// Bag information, size, images, and a description.
 var bagSizes = ["20-30 L",
                 "35-40 L",
                 "40-45 L",

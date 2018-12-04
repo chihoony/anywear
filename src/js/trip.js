@@ -1,29 +1,3 @@
-var listOfClothes = ["https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear1",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear2",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear3",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear4",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear5",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear6",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear7",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear8",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear9",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear10",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=anyWear11"];
-
-
-var listOfDummies = ["https://dummyimage.com/200x200/123413/ffffff&text=Dummy1",
-                      "https://dummyimage.com/200x200/00F3DA/ffffff&text=Dummy2",
-                      "https://dummyimage.com/200x200/FF00DA/ffffff&text=Dummy3",
-                      "https://dummyimage.com/200x200/FFF300/ffffff&text=Dummy4",
-                      "https://dummyimage.com/200x200/55F3DA/ffffff&text=Dummy5",
-                      "https://dummyimage.com/200x200/FF55DA/ffffff&text=Dummy6",
-                      "https://dummyimage.com/200x200/FFF355/ffffff&text=Dummy7",
-                      "https://dummyimage.com/200x200/AAF3DA/ffffff&text=Dummy8",
-                      "https://dummyimage.com/200x200/FFAADA/ffffff&text=Dummy9",
-                      "https://dummyimage.com/200x200/FFF3AA/ffffff&text=aDummy10",
-                      "https://dummyimage.com/200x200/FFF3DA/ffffff&text=aDummy11"];
-
-
 var countryCodes = [
   {name: 'Afghanistan', code: 'AF'},
   {name: 'Åland Islands', code: 'AX'},
@@ -284,12 +258,14 @@ $(document).ready(function() {
   M.updateTextFields();
 
 //////////////////////////////////////// ajax functions ////////////////////////////////////////
+// setting encrypted and secure user token
   $.ajaxSetup({
       headers: { 'x-auth-token': localStorage.getItem('token') }
     });
 
   console.log(localStorage.getItem('tripID'));
 
+  // gets a valid single trip
   function getTrip(callback){
     $.ajax({
         type: 'get',
@@ -310,6 +286,7 @@ $(document).ready(function() {
     });
   }
 
+  // gets all the articles of clothing in the database with a specific type
   function getArticles(articleCategory, callback) {
     var url;
     if (articleCategory)
@@ -335,7 +312,7 @@ $(document).ready(function() {
       }
     })
   }
-
+  // gets all related articles of a trip
   function getRelatedArticles(articleID, tripID, callback) {
     $.ajax({
       type: 'get',
@@ -350,6 +327,7 @@ $(document).ready(function() {
     })
   }
 
+  // swaps a piece of article in a trip/warddrobe.
   function swapArticles(oldArticleID, newArticleID) {
     $.ajax({
       type: 'put',
@@ -365,9 +343,8 @@ $(document).ready(function() {
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-
+  // populates and creates trip containers in the html view
   function populateTripInfo(trip) {
-    // TODO: set trip data, Destination, Bag Size, Check in, Check out
     let thisTrip = trip;
 
     // Not proud of this
@@ -378,6 +355,9 @@ $(document).ready(function() {
     $('#checkin_con p').text(thisTrip.checkIn);
     $('#checkout_con p').text(thisTrip.checkOut);
 
+    /**
+    * Sets the trips background (need a huge list of images so only went with 10 and a default).
+    */
     var backgroundStyle = {
       'background-image': `url(/img/city/${thisTrip.city}.jpeg)`
     };
@@ -417,7 +397,7 @@ $(document).ready(function() {
   }
   getTrip(populateTripInfo);
 
-  //POPULATE THE TOPS
+  // Populates the top articles with a trips tops.
   function populateTopWear(articles) {
     console.log(articles[0]);
     for (var i = 0; i < articles.length; i++) {
@@ -451,7 +431,7 @@ $(document).ready(function() {
   }
 
 
-  //POPULATE THE BOTTOMS
+  // Populates the bottom articles with a trips bottoms.
   function populateBottomWear(articles) {
     console.log(articles);
     for (var i = 0; i < articles.length; i++) {
@@ -482,7 +462,7 @@ $(document).ready(function() {
       bottomcon.append(figure);
     }
   }
-  //POPULATE THE JACKET AREA WHEN NEEDED
+  // Populates the jacket articles with a trips jackets. Only runs if there are valid jacket articles.
   function populateJacketWear(articles) {
     console.log(articles);
     for (var i = 0; i < articles.length; i++) {
@@ -621,7 +601,7 @@ $(document).on('click', '.icon_delete', function() {
     $(this).addClass('border-blue');
 
   });
-
+  // DOUBLE CLICK TO SWAP CLOTHES (alternative to clicking the next button)
   $(document).on('dblclick', 'img.warddrobe_img', function(e) {
     console.log($(this));
     newSelectedArticle = $(this);
@@ -642,13 +622,6 @@ $(document).on('click', '.icon_delete', function() {
 
     swapArticles(oldArticleKey, newArticleSwap);
     })
-
-
-    //now send the old key and new key to the backend
-    // also send the trip id here too.
-    // oldArticleKey.send
-    // newArticleSwap.send
-    // TODO AJAX CALL
 
 
   });

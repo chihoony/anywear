@@ -46,6 +46,7 @@
 
 }
 
+/* CSS for individual card outfits */
 .outfitImageCon {
   width: 200px;
   padding-bottom: 3em;
@@ -71,27 +72,6 @@
   grid-auto-rows: minmax(100px, auto);
 }
 
-@media screen and (max-width: 1201px) {
-  #outfit_calendar_con {
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-  }
-}
-
-
-@media screen and (max-width: 993px) {
-  #outfit_calendar_con {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-  }
-}
-
-@media screen and (max-width: 601px) {
-  #outfit_calendar_con {
-    grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-  }
-}
 
 .card img {
   display: block;
@@ -155,4 +135,28 @@ a.middle-indicator-text{
 }
   .indicators{
 	visibility: hidden;
+}
+
+
+
+@media screen and (max-width: 1201px) {
+  #outfit_calendar_con {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+  }
+}
+
+
+@media screen and (max-width: 993px) {
+  #outfit_calendar_con {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+  }
+}
+
+@media screen and (max-width: 601px) {
+  #outfit_calendar_con {
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+  }
 }

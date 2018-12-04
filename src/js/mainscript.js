@@ -1,7 +1,4 @@
-// $(document).ready(function(){
-//    $('.sidenav').sidenav();
-//  });
-//
+//Initializing materialize javaScript
 $(document).ready(function() {
   M.AutoInit();
 })

@@ -1,39 +1,3 @@
-var listOfImgs = ["https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+1",
-  "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+2",
-  "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+3",
-  "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+4",
-  "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+5",
-  "https://dummyimage.com/200x200/FFF3DA/ffffff&text=Img+6"
-];
-
-var listOfDestinations = ["Japan",
-  "Canada",
-  "Tokyo, Japan",
-  "Seoul, Korea",
-  "Toronto, Canada",
-  "Florida, USA"
-];
-
-var listOfDates = ["October 21, 2018, November 30, 2018",
-  "October 21, 2018, November 30, 2018",
-  "October 21, 2018, November 30, 2018",
-  "October 21, 2018, November 30, 2018",
-  "October 21, 2018, November 30, 2018",
-  "October 21, 2018, November 30, 2018"
-];
-
-var listOfBag = ["20-30l",
-  "35-40l",
-  "40-45l",
-  "45-50l",
-  "50-65l",
-  "65-75l"
-];
-
-
-var nameOfUser = "Group 33"
-
-
 var countryCodes = [
   {name: 'Afghanistan', code: 'AF'},
   {name: 'Åland Islands', code: 'AX'},
@@ -287,12 +251,13 @@ var countryCodes = [
 $(document).ready(function() {
 
   //////////////////////////////////////// ajax functions ////////////////////////////////////////
+  // setting encrypted and secure user token
   $.ajaxSetup({
     headers: {
       'x-auth-token': localStorage.getItem('token')
     }
   });
-
+  // AJAX call to get all trips related to a user
   function getTrips(callback) {
     $.ajax({
       type: 'get',
@@ -308,7 +273,7 @@ $(document).ready(function() {
       }
     });
   }
-
+  // GETS a valid logged in users information
   function getUserInfo(callback) {
     $.ajax({
       type: 'get',
@@ -323,7 +288,7 @@ $(document).ready(function() {
       }
     })
   }
-
+  // DELETES a trip from the database and all associations with the user.
   function removeTrip(id) {
     $.ajax({
       type: 'delete',
@@ -337,6 +302,7 @@ $(document).ready(function() {
     })
   }
 
+  // PUT/updates a trip.
   function editTrip(id, c) {
     console.log("updating trip");
     $.ajax({
@@ -374,13 +340,8 @@ $(document).ready(function() {
   $('#trips_nav').addClass('active');
   var tripContainer = $('#trip_container');
 
-
-  // <div class="trip_con">
-  //   <div class="trip_background_con">
-  //     <h2 class="trip_title"></h2>
-  //     <p class="white-text trip_description"></p>
-  //   </div>
-  // </div>
+  // populates the  page with the necessary information.
+  // trip information and the editing warddrobe windows..
   function populatePage(trips) {
     if(!trips.length)
       location.href = '/createtrip';
@@ -420,17 +381,12 @@ $(document).ready(function() {
       tripCon.attr("data-countryCode", trip.countryCode);
       tripCon.attr("data-checkIn", trip.checkIn);
       tripCon.attr("data-checkOut", trip.checkOut);
-
-      //TODO: NEED To set to trip bag size. Template used for now
       tripCon.attr("data-bagSize", trip.bagSize);
 
       tripTitle.html(`${trip.city}, ${trip.countryName}`);
       tripTitle.css('background-color', ' rgba(255, 255, 255, 0.6)');
       tripTitle.css('padding', '5px');
 
-      //TODO: Parse the date so it display full month
-      // Nov 26, 2018 convert November, 26, 2018.
-      // For now it'll just display it as mmm dd, yyyy
       tripDate.html(`${trip.checkIn} to ${trip.checkOut}`);
       tripDate.css('padding-left', '5px');
       //TODO: NEED To set to trip bag size. Template used for now
@@ -562,7 +518,7 @@ $(document).ready(function() {
       });
     }
   });
-
+  //Sets the checkout calendar paraameters
   $("#check_out_input").datepicker({
     startDate: date,
     defaultDate: date,
@@ -667,12 +623,6 @@ $(document).ready(function() {
     $("#edit-overlay").fadeOut('400', function() {
 
     });
-
-    //now send the old key and new key to the backend
-    // also send the trip id here too.
-    // oldArticleKey.send
-    // newArticleSwap.send
-    // TODO AJAX CALL
 
 
   });

@@ -85,7 +85,6 @@ $(document).ready(function() {
                 type: 'post',
                 url: '/api/users',
                 dataType: 'json',
-                // data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), age: $("#age").val(), gender: $("#gender").val() },
                 data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), gender: $("#gender").val() },
                 success: function(data){
                   console.log(data.token);
@@ -151,7 +150,7 @@ $(document).ready(function() {
       }
   }
 
-  // Currently broken. IT does not set the image after running the ajax post /api/users
+  // Setting profile image helper function
   function imageSetter() {
 
 
@@ -160,22 +159,6 @@ $(document).ready(function() {
     var formData = new FormData();
 
     formData.append('profileImg', file);
-
-   //  var xhr = new XMLHttpRequest();
-   //
-   //
-   //  // Add any event handlers here...
-   //  xhr.open('PUT', '/api/users/setProfileImg', true);
-   //  xhr.onload = function(oEvent) {
-   //   if (xhr.status == 200) {
-   //     alert("Uploaded!");
-   //   } else {
-   //      alert("Error " + xhr.status + " occurred when trying to upload your file.<br \/>");
-   //   }
-   // };
-   //  xhr.send(FormData);
-   //
-   //  return false;
 
     $.ajax(
       {

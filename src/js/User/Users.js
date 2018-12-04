@@ -67,7 +67,7 @@ router.post('/', async (req, res ) => {
 // Putting a new profile image after validation occurs.
 router.put('/setProfileImg', upload, async (req, res) => {
   // var token = req.get('x-auth-token');
-  if (!req.file) return res.status(400).send(error.details[0].message);
+  // if (!req.file) return res.status(400).send(error.details[0].message);
   // token = jwt.decode(token);
   token = jwt.decode(tempToken);
   var user = await User.findById(token._id);

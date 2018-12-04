@@ -46,7 +46,7 @@ function fillArticles(trip, user) {
 
       let pantArticles = await Article.find({category: "pant", gender: user.gender});
 
-
+      // deprecated
       // let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender, copy: "0"});
 
       // let combinedPantArticles = pantArticles.concat(allPantArticles);
@@ -64,7 +64,7 @@ function fillArticles(trip, user) {
 
 
 
-
+      // populates a trips articles with article algorithm. (Out of scope/left for future iterations)
       function populateArticles(seasonSize, clothSize, pantSize, jacketSize) {
         let randShirt = 0;
         if (!shirtArticles || shirtArticles.length <= seasonSize) {
@@ -165,7 +165,7 @@ function fillArticles(trip, user) {
         resolve();
     });
 }
-
+// Checks to see which season you are in
 function getSeason(month) {
     switch(month) {
       case 12:
@@ -192,7 +192,7 @@ function getSeason(month) {
 }
 
 
-// updates a trip
+// PUT/updates a new trip
 router.put('/editTrip/:id', authAccess, async (req, res) => {
     let token = req.get('x-auth-token');
     if (!token) return res.status(401).send("Invalid token! No trip for you!");
