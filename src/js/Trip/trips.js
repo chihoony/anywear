@@ -241,7 +241,12 @@ router.get('/onTrip', async (req, res) => {
     console.log(`Checking if user ${token._id} is on a trip`);
 
     var trips = await Trip.find({owner: token._id});
+<<<<<<< HEAD
 
+=======
+    if (!trips || trips.length <= 0) return res.send({ onTrip: false, tripID: "" });
+    
+>>>>>>> 6915e53ffae2225b11802bdbf59661c24c884890
     var currentTrip;
     for (const trip of trips) {
         if (checkIfCurrentTrip(trip)) {
