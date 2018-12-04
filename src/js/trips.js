@@ -431,7 +431,7 @@ $(document).ready(function() {
       //TODO: Parse the date so it display full month
       // Nov 26, 2018 convert November, 26, 2018.
       // For now it'll just display it as mmm dd, yyyy
-      tripDate.html(`${trip.checkIn} - ${trip.checkOut}`);
+      tripDate.html(`${trip.checkIn} to ${trip.checkOut}`);
       tripDate.css('padding-left', '5px');
       //TODO: NEED To set to trip bag size. Template used for now
       tripBag.html(trip.bagSize);

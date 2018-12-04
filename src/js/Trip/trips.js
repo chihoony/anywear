@@ -39,18 +39,22 @@ function fillArticles(trip, user) {
 
       let shirtArticles = await Article.find({season: tripSeason, category: "shirt", gender: user.gender, copy: "0"});
       let allShirtArticles = await Article.find({season: 4, category: "shirt", gender: user.gender, copy: "0"});
-      let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender, copy: "0"});
+      // let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender, copy: "0"});
 
 
-      let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender, copy: "0"});
 
-      let combinedPantArticles = pantArticles.concat(allPantArticles);
+      let pantArticles = await Article.find({category: "pant", gender: user.gender});
 
-      if (tripSeason == 3) {
-        let springPants = await Article.find({season: 0, category: "pant", gender: user.gender, copy: "0"});
-        combinedPantArticles = sprintPants.concat(allPantArticles);
-        console.log("Season is spring: " + combinedPantArticles.length);
-      };
+
+      // let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender, copy: "0"});
+
+      // let combinedPantArticles = pantArticles.concat(allPantArticles);
+      //
+      // if (tripSeason == 3) {
+      //   let springPants = await Article.find({season: 0, category: "pant", gender: user.gender, copy: "0"});
+      //   combinedPantArticles = sprintPants.concat(allPantArticles);
+      //   console.log("Season is spring: " + combinedPantArticles.length);
+      // };
 
       let jacketArticles = await Article.find({season: tripSeason, category: "jacket", gender: user.gender, copy: "0"});
       let allJacketArticles = await Article.find({season: 4, category: "jacket", gender: user.gender, copy: "0"});
@@ -96,12 +100,19 @@ function fillArticles(trip, user) {
           }
         }
         for (var i = 0; i < pantSize; i++) {
-          var insideRand = Math.floor((Math.random() * combinedPantArticles.length));
+          // var insideRand = Math.floor((Math.random() * combinedPantArticles.length));
+
+          var insideRand = Math.floor((Math.random() * pantArticles.length));
+
 
           while (randShirt == insideRand) {
-            insideRand = Math.floor((Math.random() * combinedPantArticles.length));
+            // insideRand = Math.floor((Math.random() * combinedPantArticles.length));
+            insideRand = Math.floor((Math.random() * pantArticles.length));
+
           }
-          trip.articles.push(combinedPantArticles[insideRand]._id);
+          // trip.articles.push(combinedPantArticles[insideRand]._id);
+          trip.articles.push(pantArticles[insideRand]._id);
+
           randShirt = insideRand;
         }
         trip.articles.push(waterProofJacketArticles[Math.floor((Math.random() * waterProofJacketArticles.length))]._id);
@@ -230,7 +241,7 @@ router.get('/onTrip', async (req, res) => {
     console.log(`Checking if user ${token._id} is on a trip`);
 
     var trips = await Trip.find({owner: token._id});
-    
+
     var currentTrip;
     for (const trip of trips) {
         if (checkIfCurrentTrip(trip)) {

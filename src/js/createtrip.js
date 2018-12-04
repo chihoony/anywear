@@ -280,10 +280,11 @@ $(document).ready(function() {
     });
 
   //removing yellow nav bar class to make transparent
-  $('nav').first().removeClass('yellow');
-  $('.page-footer').first().removeClass('yellow');
-  $('.footer-copyright').first().removeClass('yellow');
+  $('nav').first().removeClass('white');
+  $('.page-footer').first().removeClass('white');
+  $('.footer-copyright').first().removeClass('white');
 
+  $('.black-text').removeClass('black-text');
 
 
 

@@ -12,13 +12,25 @@
 #temperature {
   position: absolute;
   right: 0;
+  top: 2em;
   background-color: rgba(255, 255, 255, 0.6);
   padding-right: 10px;
   padding-left: 10px;
+  margin: 0;
+}
+
+#countryHeader {
+  height: 1em;;
+  position: absolute;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding-right: 10px;
+  padding-left: 10px;
+  margin: 0;
 }
 
 #carouselID {
-  height: 550px;
+  height:600px;
 }
 .carousel, .carousel-slider{
 
@@ -82,11 +94,19 @@
 .card img {
   display: block;
   width: 150px;
-  padding: 5px;
+  padding: 2px;
   margin: 0 auto;
 }
 .card {
-  display: inline-block;
+  /* display: inline-block; */
+  position: relative;
+  padding-bottom: 4em;
+  padding-top: 1em;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
 }
 
 
@@ -115,7 +135,7 @@
 
 .middle-indicator{
    position:relative;
-   top:250px;
+   top:300px;
  }
 .middle-indicator-text{
  font-size: 4.2rem;

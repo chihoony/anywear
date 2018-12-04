@@ -15,7 +15,7 @@
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  margin-bottom: 0 !important;
+  /* margin-bottom: 0 !important; */
   background-color: rgba(255, 255, 255, 0.71);
 }
 #edit_trip_button {
@@ -80,7 +80,12 @@
 }
 #mid-grid {
   grid-row: span 3;
+  position: relative;
+}
 
+#mid-grid p {
+  position: absolute;
+  top 0;
 }
 #right-grid {
   flex-wrap: wrap;
@@ -156,6 +161,8 @@
 
 .clothes_header {
   font-family: 'Fjalla One', sans-serif;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
 }
 
 

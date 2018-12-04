@@ -71,7 +71,7 @@ $(document).ready(function() {
         success: function(data) {
           console.log('--------------- ')
           console.log(data);
-
+          $('#countryHeader').text(data.trip.city + ", " + data.trip.countryName);
           console.log(callback(data.trip.city, data.trip.countryCode));
           $.getJSON(callback(data.trip.city, data.trip.countryCode), weatherCallBack);
         },

@@ -85,7 +85,7 @@ $(document).ready(function() {
                     $("#welcomeMoment").fadeIn(500);
                     $("#signUpMoment").fadeOut();
                     localStorage.setItem('token', data.token);
-                    imageSetter();
+                    // imageSetter();
                 },
                 error: function(e){
                     console.log(e.responseText);
@@ -123,39 +123,39 @@ $(document).ready(function() {
   function imageSetter() {
 
 
-    var form = document.forms.namedItem("fileinfo");
-    var formData = new FormData(form);
-    console.log(formData);
-    var xhr = new XMLHttpRequest();
-    // Add any event handlers here...
-    xhr.open('PUT', '/api/users/setProfileImg', true);
-    xhr.onload = function(oEvent) {
-     if (xhr.status == 200) {
-       alert("Uploaded!");
-     } else {
-        alert("Error " + xhr.status + " occurred when trying to upload your file.<br \/>");
-     }
-   };
-    xhr.send(FormData);
+   //  var form = document.forms.namedItem("fileinfo");
+   //  var formData = new FormData(form);
+   //  console.log(formData);
+   //  var xhr = new XMLHttpRequest();
+   //  // Add any event handlers here...
+   //  xhr.open('PUT', '/api/users/setProfileImg', true);
+   //  xhr.onload = function(oEvent) {
+   //   if (xhr.status == 200) {
+   //     alert("Uploaded!");
+   //   } else {
+   //      alert("Error " + xhr.status + " occurred when trying to upload your file.<br \/>");
+   //   }
+   // };
+   //  xhr.send(FormData);
+   //
+   //  return false;
 
-    return false;
+    $.ajax(
+      {
+        headers: { 'x-auth-token': localStorage.getItem('token') },
+        type: 'put',
 
-    // $.ajax(
-    //   {
-    //     headers: { 'x-auth-token': localStorage.getItem('token') },
-    //     type: 'put',
-    //
-    //     url: '/api/users/setProfileImg',
-    //     success: function() {
-    //       console.log("set the image");
-    //     },
-    //     error: function() {
-    //       // console.log(e.responseText);
-    //       // alert(e.responseText);
-    //       console.log("error");
-    //     }
-    //
-    //   }
-    // )
+        url: '/api/users/setProfileImg',
+        success: function() {
+          console.log("set the image");
+        },
+        error: function() {
+          // console.log(e.responseText);
+          // alert(e.responseText);
+          console.log("error");
+        }
+
+      }
+    )
   }
 });
