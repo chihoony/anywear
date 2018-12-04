@@ -1,3 +1,4 @@
+/* Overlay for when swap menus are selected */
 #overlay {
   position: fixed;
   z-index: 99999;
@@ -11,6 +12,9 @@
 .brand-logo {
   /* z-index: 9999; */
   font-family: 'Kanit', sans-serif !important;
+}
+.sidenav-overlay{
+  z-index: 0 !important;
 }
 
 #background-back {
@@ -125,7 +129,6 @@ footer {
 }
 
 .overlay_top p{
-  /* padding: 0; */
   position: absolute;
   margin:0;
   padding-bottom: 1.3em;
@@ -153,7 +156,6 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  /* font-family: 'Kanit', sans-serif !important; */
 }
 
 body {

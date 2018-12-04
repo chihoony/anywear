@@ -10,6 +10,8 @@ router.post('/', authAccess, async (req, res) => {
     const { error } = validateArticle(req.body);
     if (error) return res.status(400).send("Invalid Request Body!")
 
+    console.log(`Creating new article from ${req.connection.remoteAddress}`)
+
     let article = new Article(_.pick(req.body, ['season', 'temp', 'category', 'waterproof', 'tone', 'color', 'gender', 'imgLink']));
     await article.save(function(error){
         if (error)
@@ -25,6 +27,8 @@ router.get('/:articleID', authAccess, async (req, res) => {
 
     if (!articleID.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid object ID");
+
+    console.log(`Getting article ${req.params.articleID} from ${req.connection.remoteAddress}`)
 
     let articleFound = await Article.findById(articleID);
     if (!articleFound) return res.status(400).send("Unable to find article!");

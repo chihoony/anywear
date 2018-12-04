@@ -113,6 +113,7 @@ app.post('/createtrip', function(req, res) {
 // serving up public files
 app.use('/src', express.static('src'));
 app.use('/img', express.static('src/img'));
+app.use('/uploads', express.static('uploads'));
 app.use(cors({origin: '*'}));
 app.use(cors({origin: 'http://localhost:8000'}));
 

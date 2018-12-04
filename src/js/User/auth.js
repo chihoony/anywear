@@ -10,6 +10,8 @@ router.post('/', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
+    console.log(`Login request from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
+
     let user = await User.findOne( { email: req.body.email });
     if (!user) {
     // req.connection.remoteAddress will return ::1 if logging in from localhost

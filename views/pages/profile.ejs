@@ -19,11 +19,11 @@
                     <img id='profilePhoto' src='https://dummyimage.com/400x400/f5c57d/ffffff.png&text=profile' alt='profile' />
                     <div id='profilePhotoEditCon'>
                         <div id='profilePhotoEdit'>
-                            <form id='photo_form' method="post" action="">
+                            <form id='photo_form' method="PUT" action="/api/users/setProfileImg">
                                 <div class="file-field input-field">
                                     <div class="btn yellow darken-2">
-                                        <span>Ed!t</span>
-                                        <input type="file" accept="image/*">
+                                        <span>Edit</span>
+                                        <input type="file" id="profileImg" name="profileImg" accept="image/*">
                                     </div>
                                 </div>
                             </form>

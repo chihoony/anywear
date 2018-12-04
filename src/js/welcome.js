@@ -71,7 +71,15 @@ $(document).ready(function() {
     );
 
       $("#signedUp").on("click", function(e){
+
         e.preventDefault();
+        var formInput = document.getElementById("profileImg");
+        var file = formInput.files[0];
+        var formData = new FormData();
+        formData.append('profileImg', file);
+
+
+        var xhr = new XMLHttpRequest();
         $.ajax(
             {
                 type: 'post',
@@ -80,12 +88,36 @@ $(document).ready(function() {
                 // data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), age: $("#age").val(), gender: $("#gender").val() },
                 data: { username: $("#username").val(), password: $("#pwd").val(), email: $("#email").val(), gender: $("#gender").val() },
                 success: function(data){
-
+                  console.log(data.token);
+                  console.log(data);
                     console.log('Created user at Username: ${data.username} Email: ${data.email}');
                     $("#welcomeMoment").fadeIn(500);
                     $("#signUpMoment").fadeOut();
                     localStorage.setItem('token', data.token);
-                    // imageSetter();
+                    // Sending profile photo
+                    // everything is working, just not getting the token.
+                    $.ajax(
+                      {
+                        type: 'PUT',
+                        data: formData,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        headers: { 'x-auth-token': data.token },
+                        url: '/api/users/setProfileImg',
+                        success: function() {
+                          console.log("set the image");
+                        },
+                        error: function() {
+                          // console.log(e.responseText);
+                          // alert(e.responseText);
+                          console.log("error");
+                        }
+
+                      }
+                    )
+
+
                 },
                 error: function(e){
                     console.log(e.responseText);
@@ -123,10 +155,15 @@ $(document).ready(function() {
   function imageSetter() {
 
 
-   //  var form = document.forms.namedItem("fileinfo");
-   //  var formData = new FormData(form);
-   //  console.log(formData);
+    var formInput = document.getElementById("profileImg");
+    var file = formInput.files[0];
+    var formData = new FormData();
+
+    formData.append('profileImg', file);
+
    //  var xhr = new XMLHttpRequest();
+   //
+   //
    //  // Add any event handlers here...
    //  xhr.open('PUT', '/api/users/setProfileImg', true);
    //  xhr.onload = function(oEvent) {
@@ -143,8 +180,11 @@ $(document).ready(function() {
     $.ajax(
       {
         headers: { 'x-auth-token': localStorage.getItem('token') },
-        type: 'put',
-
+        type: 'PUT',
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
         url: '/api/users/setProfileImg',
         success: function() {
           console.log("set the image");
@@ -158,4 +198,8 @@ $(document).ready(function() {
       }
     )
   }
+
+
+
+
 });

@@ -70,6 +70,11 @@ $(document).ready(function() {
 
     // PROFILE WITH THE USERS NAME
     function setProfileInfo(user) {
+      // TODO: change this to actual users profile Image setting. For now it's using the most
+      // recent profile pic uploaded to server name default.jpeg (hack)
+        let profileImage = $('#profilePhoto');
+        profileImage.attr('src', user.profilePic);
+
         let userNameDisplay = $('#userNameDisplay');
         userNameDisplay.text(user.username);
         userName.value = user.username;
