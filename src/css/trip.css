@@ -86,6 +86,7 @@
 #mid-grid p {
   position: absolute;
   top 0;
+  
 }
 #right-grid {
   flex-wrap: wrap;
