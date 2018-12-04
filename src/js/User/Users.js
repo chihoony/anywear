@@ -10,7 +10,6 @@ const { User, validate } = require('./user');
 
 const multer = require('multer');
 
-
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads/');
@@ -27,12 +26,13 @@ const router = express.Router();
 router.get('/me', auth, async (req, res) => {
     var token = req.get('x-auth-token');
     if (!token) return res.status(400).send("Uh Oh! You dont have a token!");
-
     token = jwt.decode(token);
+
+    console.log(`Request for me from user ${token._id} at ${req.connection.remoteAddress}`)
 
     const user = await User.findById(token._id).select('-password');
     if (!user) return res.status(400).send("Uh Oh! You dont exist!");
-    console.log({user});
+    console.log(`Returning user ${user._id} to ${req.connection.remoteAddress}`)
     res.send({user});
 
 });

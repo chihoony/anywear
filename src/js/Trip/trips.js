@@ -13,11 +13,12 @@ router.post('/', authAccess, async (req, res) => {
     const { error } = validateTrip(req.body);
     if (error) return res.status(400).send("Invalid trip body");
 
+    console.log(`Creating new trip from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
+
     let token = req.header('x-auth-token');
     token = jwt.decode(token);
 
     let user = await User.findById(token._id);
-    console.log("I'm a user: " + token._id);
     let trip = new Trip(_.pick(req.body, ['city', 'countryCode', 'countryName',
                                  'checkIn', 'checkOut', 'outfits', 'articles', 'bagSize']));
     trip.owner = token._id;
@@ -25,8 +26,8 @@ router.post('/', authAccess, async (req, res) => {
     const fillingArticles = fillArticles(trip, user);
 
     fillingArticles.then( async () => {
-      console.log(trip.articles);
         await trip.save();
+        console.log(`Created new trip from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
         return res.send(trip);
     });
 });
@@ -193,12 +194,14 @@ function getSeason(month) {
 
 // updates a trip
 router.put('/editTrip/:id', authAccess, async (req, res) => {
-  console.log("updating a trip");
     let token = req.get('x-auth-token');
     if (!token) return res.status(401).send("Invalid token! No trip for you!");
 
+    
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/))
-        return res.status(400).send("Invalid object ID");
+    return res.status(400).send("Invalid object ID");
+    
+    console.log(`Editing trip: ${req.params.id} from: ${req.connection.remoteAddress} user: ${req.body.email}`); 
 
     token = jwt.decode(token);
 
@@ -224,8 +227,9 @@ router.put('/editTrip/:id', authAccess, async (req, res) => {
 router.get('/', authAccess, async (req, res) => {
     let token = req.get('x-auth-token');
     if (!token) return res.status(401).send("Invalid token! No trip for you!");
-
     token = jwt.decode(token);
+
+    console.log(`Get all trips from: ${req.connection.remoteAddress} user: ${token._id}`); 
 
     let trips = await Trip.find( { owner: token._id });
     if (!trips) return res.status(400).send("You have no trips! Go on a trip!");
@@ -241,12 +245,9 @@ router.get('/onTrip', async (req, res) => {
     console.log(`Checking if user ${token._id} is on a trip`);
 
     var trips = await Trip.find({owner: token._id});
-<<<<<<< HEAD
 
-=======
     if (!trips || trips.length <= 0) return res.send({ onTrip: false, tripID: "" });
     
->>>>>>> 6915e53ffae2225b11802bdbf59661c24c884890
     var currentTrip;
     for (const trip of trips) {
         if (checkIfCurrentTrip(trip)) {
@@ -288,6 +289,9 @@ router.get('/:id', authAccess, async (req, res) => {
 
     token = jwt.decode(token);
 
+    console.log(`Getting trip ${req.params.id} for ${token._id} at ${req.connection.remoteAddress}`);
+
+
     let trip = await Trip.find( { owner: token._id, _id: req.params.id });
     if (!trip) return res.status(400).send("You have no trips! Go on a trip!");
 
@@ -302,15 +306,16 @@ router.get('/wardrobe/outfits/:tripID', authAccess, async (req, res) => {
     if (!req.params.tripID.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid object ID");
 
-    let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
-    if (!trip || trip.length <= 0) return res.status(400).send("Unable to find that trip");
-    trip = trip[0];
-
+        
+        let trip = await Trip.find({ owner: token._id, _id: req.params.tripID });
+        if (!trip || trip.length <= 0) return res.status(400).send("Unable to find that trip");
+        trip = trip[0];
+        
+    console.log(`Getting outfits on trip ${trip._id} for ${token._id} at ${req.connection.remoteAddress}`);
     const tripOutfits = trip.outfits;
 
     if (!tripOutfits.length) {
         return res.status(400).send("go make some outfits");
-        // Build some outfits
     }
 
     let buildingOutfits = new Promise( async (resolve, reject) => {
@@ -406,15 +411,17 @@ router.get('/wardrobe/:tripID', authAccess, async (req, res) => {
 
 // Switching articles of clothing in a trip
 router.put('/wardrobe/swap/:tripID/?:oldArticle&:newArticle', authAccess, async (req, res) => {
-   if (!req.params.oldArticle.match(/^[0-9a-fA-F]{24}$/))
+    if (!req.params.oldArticle.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid object ID");
-   if (!req.params.newArticle.match(/^[0-9a-fA-F]{24}$/))
+    if (!req.params.newArticle.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid object ID");
-   if (!req.params.tripID.match(/^[0-9a-fA-F]{24}$/))
+    if (!req.params.tripID.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid object ID");
 
     let trip = await Trip.findById(req.params.tripID);
     if (!trip) return res.status(400).send("Invalid trip id");
+
+    console.log(`request to swap article ${req.params.oldArticle} to ${req.params.newArticle} on trip ${req.params.tripID} from ${req.connection.remoteAddress}`);
 
     let oldArticle = req.params.oldArticle;
     let newArticle = req.params.newArticle;
@@ -430,9 +437,11 @@ router.put('/wardrobe/swap/:tripID/?:oldArticle&:newArticle', authAccess, async 
     trip.markModified("articles");
     trip.save(function(error){
         if (error)
-            console.log("Error saving trip: " + error);
-    });
+            return console.log("Error saving trip: " + error);
 
+        });
+        
+    console.log(`swapped articles ${req.params.oldArticle} to ${req.params.newArticle} on trip ${req.params.tripID} from ${req.connection.remoteAddress}`);
     res.send(trip.articles);
 });
 
@@ -443,15 +452,16 @@ router.delete('/:id', authAccess, function (req, res) {
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/))
         return res.status(400).send("Invalid object ID");
 
+    console.log(`Request to delete trip ${req.params.id} from ${token._id} at ${req.connection.remoteAddress}`);
+
         Trip.find( { owner: token._id, _id: req.params.id }).remove(removeCallback);
-        console.log(token._id);
 
         function removeCallback(err, product) {
             if (err) return res.status(400).send("Failed to remove trip");
 
             if (product.n === 0) res.status(400).send("Failed to remove trip");
             else{
-                console.log(`User: ${token._id} removed trip: ${req.params.id}`);
+                console.log(`User ${token._id} removed trip ${req.params.id}`);
                 res.send("Removed trip");
             }
         }
@@ -460,8 +470,9 @@ router.delete('/:id', authAccess, function (req, res) {
 function generateOutfits(trip) {
     // generating outfits
 
-    // dont generate outfits if somethings are true
     return new Promise((resolve, reject) => {
+
+        // Ignoring this code for now
         // if (!trip || trip.outfits.length > 0 || trip.articles.length <= 0) {
         //     console.log("No generating needed");
         //     return resolve();
