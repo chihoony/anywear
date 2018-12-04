@@ -157,3 +157,7 @@ body {
   background-color:rgba(240, 240, 240, 1);
   color: #292a33!important;
 }
+
+/* .row:after{
+  content: initial;
+} */

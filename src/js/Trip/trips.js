@@ -34,16 +34,24 @@ router.post('/', authAccess, async (req, res) => {
 // Filling trip articles
 function fillArticles(trip, user) {
     return new Promise( async (resolve, reject) => {
-      console.log("users gender: " + user.gender);
 
       let tripSeason = getSeason(new Date(trip.checkIn).getMonth());
 
       let shirtArticles = await Article.find({season: tripSeason, category: "shirt", gender: user.gender, copy: "0"});
       let allShirtArticles = await Article.find({season: 4, category: "shirt", gender: user.gender, copy: "0"});
       let pantArticles = await Article.find({season: tripSeason, category: "pant", gender: user.gender, copy: "0"});
+
+
       let allPantArticles = await Article.find({season: 4, category: "pant", gender: user.gender, copy: "0"});
+
       let combinedPantArticles = pantArticles.concat(allPantArticles);
-      console.log(pantArticles);
+
+      if (tripSeason == 3) {
+        let springPants = await Article.find({season: 0, category: "pant", gender: user.gender, copy: "0"});
+        combinedPantArticles = sprintPants.concat(allPantArticles);
+        console.log("Season is spring: " + combinedPantArticles.length);
+      };
+
       let jacketArticles = await Article.find({season: tripSeason, category: "jacket", gender: user.gender, copy: "0"});
       let allJacketArticles = await Article.find({season: 4, category: "jacket", gender: user.gender, copy: "0"});
       let waterProofJacketArticles = await Article.find({season: 4, category: "jacket", waterproof: 1, gender: user.gender});
@@ -93,10 +101,8 @@ function fillArticles(trip, user) {
           while (randShirt == insideRand) {
             insideRand = Math.floor((Math.random() * combinedPantArticles.length));
           }
-          console.log("Pants insideRand: " + insideRand);
           trip.articles.push(combinedPantArticles[insideRand]._id);
           randShirt = insideRand;
-          console.log("randShirt : " + randShirt);
         }
         trip.articles.push(waterProofJacketArticles[Math.floor((Math.random() * waterProofJacketArticles.length))]._id);
         var insideRand = Math.floor((Math.random() * combinedJacketArticles.length));
@@ -149,7 +155,6 @@ function fillArticles(trip, user) {
 }
 
 function getSeason(month) {
-  console.log(month);
     switch(month) {
       case 12:
       case 1:
@@ -238,7 +243,7 @@ router.get('/onTrip', async (req, res) => {
 
     // Generate outfits for the current trip, unless it already has outfits
     let generatingOutfits = generateOutfits(currentTrip);
-    
+
     let onTrip;
     let tripID;
     if (currentTrip) {
@@ -473,7 +478,7 @@ request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ','
         if (i > 2) {
             current_temp = Math.floor((Math.random() * 10)) + body.main.temp;
         }
-        
+
         if (i > 4) {
             current_temp = -(Math.floor((Math.random() * 10))) + body.main.temp;
         }
