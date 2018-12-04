@@ -29,6 +29,8 @@
   filter: blur(10px);
 }
 
+
+/* Setting the overall pages css */
 body {
   display: flex !important;
   min-height: 100vh !important;

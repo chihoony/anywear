@@ -2,6 +2,7 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 const _ = require('lodash');
 
+// Schema for a valid trip
 const tripSchema = new mongoose.Schema({
     city: {
         type: String,
@@ -44,6 +45,7 @@ const tripSchema = new mongoose.Schema({
 
 const Trip = mongoose.model('Trip', tripSchema);
 
+// Validates if the user follows 
 function validateTrip(trip) {
 console.log(trip);
 

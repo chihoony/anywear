@@ -1,12 +1,13 @@
 $(document).ready(() => {
     $('#current').click(navigateOnTrip);
-
+  // setting encrypted and secure user token
   $.ajaxSetup({
     headers: {
       'x-auth-token': localStorage.getItem('token')
     }
 });
 
+// Check sto see if you have a valid current trip, if not then will reject current trip selection
 function navigateOnTrip() {
     $.ajax({
         type: 'get',
@@ -29,6 +30,8 @@ function navigateOnTrip() {
 }
 
 });
+
+//Depcrcated signin and signup
 {/* <li><a id="createTrip" href="/createtrip">+NewTrip</a></li>
 <li><a id="current" href="/current">CurrentTrip</a></li>
 <li><a id="allTrips" href="/alltrips">Trips</a></li>
@@ -76,4 +79,3 @@ function navigateOnTrip() {
     //             }
     //         }
     //   )});
-

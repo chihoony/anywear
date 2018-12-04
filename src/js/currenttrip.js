@@ -1,46 +1,9 @@
-var listOfClothes = ["https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear1",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear2",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear3",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear4",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear5",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear6",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear7",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear8",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear9",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear10",
-                      "https://dummyimage.com/200x200/f5c57d/ffffff&text=anyWear11"];
-
-var listOfDates = ["Date 1",
-                    "Date 2",
-                    "Date 3",
-                    "Date 4",
-                    "Date 5",
-                    "Date 6",
-                    "Date 7",
-                    "Date 8",
-                    "Date 9",
-                    "Date 10",
-                    "Date 11"];
-
-var listOfNumbers = ["#one!",
-                    "#two!",
-                    "#three!",
-                    "#four!",
-                    "#five!",
-                    "#six!",
-                    "#seven!",
-                    "#eight!",
-                    "#nine!",
-                    "#ten!"];
-
-
-
-
+// initializing the left and right button
 document.addEventListener('DOMContentLoaded', function() {
 var elems = document.querySelectorAll('.carousel');
-// var options = {indicators: true};
 var instances = M.Carousel.init(elems);
 });
+
 
 // variables for weather calling: change to corresponding data.
 var city;
@@ -58,6 +21,7 @@ $(document).ready(function() {
       options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
      }
   });
+  // Setting token header
   $.ajaxSetup({
     headers: {
       'x-auth-token': localStorage.getItem('token')
@@ -71,6 +35,7 @@ $(document).ready(function() {
         success: function(data) {
           console.log('--------------- ')
           console.log(data);
+          city = data.trip.city;
           $('#countryHeader').text(data.trip.city + ", " + data.trip.countryName);
           console.log(callback(data.trip.city, data.trip.countryCode));
           $.getJSON(callback(data.trip.city, data.trip.countryCode), weatherCallBack);
@@ -165,21 +130,37 @@ $(document).ready(function() {
       var current = outfit[i];
       // check if it's the current date. If it is then enter the statement
       if (current.date == firstDate) {
-        var carouselItem = $(`<a class="carousel-item" href="${listOfNumbers[i]}">`);
+        var carouselItem = $(`<a class="carousel-item" href="${i}">`);
         if (outfit[i].pieces.length > 2) {
           var imgTop = $('<img/>');
           var imgBottom = $('<img/>');
           var imgJacket = $('<img/>');
-          imgTop.attr('src', current.pieces[0].imgLink);
-          imgBottom.attr('src', current.pieces[1].imgLink);
-          imgJacket.attr('src', current.pieces[2].imgLink);
-          carouselItem.append(imgJacket, imgTop, imgBottom);
+          if (current.pieces[1].category == "shirt") {
+            imgTop.attr('src', current.pieces[1].imgLink);
+            imgBottom.attr('src', current.pieces[0].imgLink);
+            imgJacket.attr('src', current.pieces[2].imgLink);
+          } else if (current.pieces[2].category == "shirt"){
+            imgTop.attr('src', current.pieces[2].imgLink);
+            imgBottom.attr('src', current.pieces[0].imgLink);
+            imgJacket.attr('src', current.pieces[1].imgLink);
+          } else {
+            imgTop.attr('src', current.pieces[0].imgLink);
+            imgBottom.attr('src', current.pieces[1].imgLink);
+            imgJacket.attr('src', current.pieces[2].imgLink);
+          }
+          carouselItem.append(imgBottom, imgTop, imgJacket);
         } else {
           var imgTop = $('<img/>');
           var imgBottom = $('<img/>');
-          imgTop.attr('src', current.pieces[0].imgLink);
-          imgBottom.attr('src', current.pieces[1].imgLink);
-          carouselItem.append(imgTop, imgBottom);
+          if (current.pieces[1].category == "shirt") {
+            imgTop.attr('src', current.pieces[1].imgLink);
+            imgBottom.attr('src', current.pieces[0].imgLink);
+          } else {
+            imgTop.attr('src', current.pieces[0].imgLink);
+            imgBottom.attr('src', current.pieces[1].imgLink);
+          }
+
+          carouselItem.append(imgBottom, imgTop);
         }
         carouselCon.append(carouselItem);
       } else if (current.pieces[0].imgLink) {
@@ -217,20 +198,36 @@ $(document).ready(function() {
 
     cardBody.append(cardTitle, cardDate);
 
+    // Checking if there is jacket.
     if (outfit.pieces.length > 2) {
       var imgTop = $("<img class='activator' id='top_img' src='' alt-img='' />");
       var imgBottom = $("<img class='activator' id='bottom_img' src='' alt-img='' />");
       var imgJacket = $("<img class='activator' id='jacket_img' src='' alt-img='' />");
-      imgTop.attr('src', outfit.pieces[0].imgLink);
-      imgBottom.attr('src', outfit.pieces[1].imgLink);
-      imgJacket.attr('src', outfit.pieces[2].imgLink);
-      card.append(imgJacket, imgTop, imgBottom, cardBody);
+      if (outfit.pieces[1].category == "shirt") {
+        imgTop.attr('src', outfit.pieces[1].imgLink);
+        imgBottom.attr('src', outfit.pieces[0].imgLink);
+        imgJacket.attr('src', outfit.pieces[2].imgLink);
+      } else if (outfit.pieces[2].category == "shirt"){
+        imgTop.attr('src', outfit.pieces[2].imgLink);
+        imgBottom.attr('src', outfit.pieces[0].imgLink);
+        imgJacket.attr('src', outfit.pieces[1].imgLink);
+      } else {
+        imgTop.attr('src', outfit.pieces[0].imgLink);
+        imgBottom.attr('src', outfit.pieces[1].imgLink);
+        imgJacket.attr('src', outfit.pieces[2].imgLink);
+      }
+      card.append(imgBottom, imgTop, imgJacket, cardBody);
     } else {
       var imgTop = $("<img class='activator' id='top_img' src='' alt-img='' />");
       var imgBottom = $("<img class='activator' id='bottom_img' src='' alt-img='' />");
-      imgTop.attr('src', outfit.pieces[0].imgLink);
-      imgBottom.attr('src', outfit.pieces[1].imgLink);
-      card.append(imgTop, imgBottom, cardBody);
+      if (outfit.pieces[1].category == "shirt") {
+        imgTop.attr('src', outfit.pieces[1].imgLink);
+        imgBottom.attr('src', outfit.pieces[0].imgLink);
+      } else {
+        imgTop.attr('src', outfit.pieces[0].imgLink);
+        imgBottom.attr('src', outfit.pieces[1].imgLink);
+      }
+      card.append(imgBottom, imgTop, cardBody);
     }
 
     outfit_calendar_con.append(card);
@@ -244,7 +241,12 @@ $(document).ready(function() {
   // Group 7xx: Atmosphere | Group 800: Clear | Group 80x: Clouds
   // TODO: Check with the weather given to give the corresponding image/gif
   function setBackgroundCarousel() {
+
     let weatherImage;
+    if (city = "Moscow") {
+      weather_id = 600;
+    }
+
     if (weather_id < 299) { weatherImage = 'thunder.jpg';}
     else if (weather_id < 399) { weatherImage = 'drizzle.gif';}
     else if (weather_id < 599) { weatherImage = 'rain.gif';}
@@ -255,6 +257,7 @@ $(document).ready(function() {
     else if (weather_id == 804){ weatherImage = 'overcast.jpg';}
     else if (weather_id < 810) { weatherImage = 'cloud.jpg';}
     else { weatherImage = 'other.jpg';}
+
 
     $('#carouselBackground').css('background-image', `url(../img/weather/${weatherImage})`);
   };

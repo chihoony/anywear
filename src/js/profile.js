@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  // setting encrypted and secure user token
     $.ajaxSetup({
         headers: {
             'x-auth-token': localStorage.getItem('token')
@@ -47,7 +48,7 @@ $(document).ready(function() {
 
 
 
-    //This gets user information
+    // GETS the users profile information.  Checks the token to make sure it is a valid user.
     function getUserInfo(callback) {
         $.ajax({
             type: 'get',
@@ -63,7 +64,7 @@ $(document).ready(function() {
         })
     }
 
-    // PROFILE WITH THE USERS NAME
+    // Sets the profile information using the current users information.
     function setProfileInfo(user) {
         // TODO: change this to actual users profile Image setting. For now it's using the most
         // recent profile pic uploaded to server name default.jpeg (hack)
