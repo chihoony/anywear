@@ -230,9 +230,7 @@ router.get('/onTrip', async (req, res) => {
     console.log(`Checking if user ${token._id} is on a trip`);
 
     var trips = await Trip.find({owner: token._id});
-
-    if (!trips || trips.length <= 0) return res.send({ onTrip: false, tripID: "" });
-
+    
     var currentTrip;
     for (const trip of trips) {
         if (checkIfCurrentTrip(trip)) {
@@ -240,6 +238,7 @@ router.get('/onTrip', async (req, res) => {
             break;
         }
     }
+    if (!currentTrip) return res.send({ onTrip: false, tripID: "" });
 
     // Generate outfits for the current trip, unless it already has outfits
     let generatingOutfits = generateOutfits(currentTrip);

@@ -421,7 +421,6 @@ $(document).ready(function() {
            },
            error: function(e) {
              alert("Message from the server " + e.responseText);
-
          }
        });
      };
