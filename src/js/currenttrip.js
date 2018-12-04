@@ -243,7 +243,7 @@ $(document).ready(function() {
   function setBackgroundCarousel() {
 
     let weatherImage;
-    if (city = "Moscow") {
+    if (city == "Moscow") {
       weather_id = 600;
     }
 
