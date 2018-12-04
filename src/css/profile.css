@@ -1,36 +1,37 @@
-
-#profilePage{
+#profilePage {
     padding: 3em;
     margin: 0 auto;
 }
 
-#profile{
+#profile {
     width: 340px;
     height: 20em;
     display: block;
     margin: 0 auto;
     margin-top: 5em;
     margin-bottom: 5em;
-    box-shadow: 1px 1px 5px 1px rgba(180,180,180,0.25);
+    box-shadow: 1px 1px 5px 1px rgba(180, 180, 180, 0.25);
     border-radius: 10%;
 }
 
-#profilePhoto{
+#profilePhoto {
     display: block;
     width: 150px;
     border-radius: 50%;
     margin: 0 auto;
     margin-bottom: 1em;
     position: relative;
-    top:-5em;
+    top: -5em;
 }
+
 #profilePhotoEditCon {
     position: relative;
     margin: 0 auto;
     top: -16em;
     left: 6.3em;
 }
-#profilePhotoEdit{
+
+#profilePhotoEdit {
     display: none;
     width: 150px;
     height: 150px;
@@ -43,7 +44,7 @@
     /* cursor:pointer; */
 }
 
-#photoUploader{
+#photoUploader {
     display: none;
 }
 
@@ -52,16 +53,15 @@
     position: relative;
 }
 
-
-#profileSection, #profileDisplay{
+#profileSection, #profileDisplay {
     padding: 1em;
     float: left;
     position: relative;
     top: -6.5em;
-    left:1em;
+    left: 1em;
 }
 
- #profileDisplay{
+#profileDisplay {
     float: right;
     width: 230px;
 }
@@ -73,69 +73,72 @@
     height: 1.5em;
     display: none;
 }
+
 #age_con {
     margin-top: 0;
     margin-bottom: 0;
     width: 200px;
 }
-#userName_con, #gender_con{
+
+#userName_con, #gender_con {
     width: 200px;
 }
 
-#userNameDisplay, #ageDisplay, #genderDisplay{
-    cursor : pointer;
+#userNameDisplay, #ageDisplay, #genderDisplay {
+    cursor: pointer;
 }
 
 form button {
-    height : 24px !important;
+    height: 24px !important;
     line-height: 24px !important;
 }
+
 .row {
     margin-bottom: 0;
 }
 
-
-form input, form li, form li span{
+form input, form li, form li span {
     background: transparent !important;
     height: 1.31em !important;
 }
-div .select-wrapper{
-    width : 100px !important;
+
+div .select-wrapper {
+    width: 100px !important;
     display: inline-block;
-    float:left;
+    float: left;
 }
 
-input{
+input {
     border-bottom: 1px solid #ffd98b !important;
     color: #ffd98b !important;
 }
 
-
 @media screen and (max-width: 1200px) {
     #profilePhotoEditCon {
-    top: -16.3em;
-    left: 6.5em;
+        top: -16.3em;
+        left: 6.5em;
+    }
 }
-}
+
 @media screen and (max-width: 991px) {
     #profilePhotoEditCon {
         top: -16.7em;
         left: 6.8em;
-}
-}
-/*
-@media screen and (max-width: 700px) {
-  #trip_container {
-    grid-template-columns: repeat(1, 1fr);
-  }
+    }
 }
 
-@media screen and (max-width: 601px) {
-  #trip_container {
-    grid-template-columns: repeat(1, 1fr);
-  }
+@media screen and (max-width: 440px) {
+    #profile {
+        width: 250px;
+        height: 19.5em;
+    }
+
+    #profileSection {
+        line-height: 1.6em;
+    }
+
+    #profileDisplay {
+        position: relative;
+        top: -18.6em
+    }
 }
-
-@media screen and (max-width: 1201px) {
-
-} */
