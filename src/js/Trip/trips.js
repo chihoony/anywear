@@ -466,6 +466,10 @@ router.delete('/:id', authAccess, function (req, res) {
         }
 });
 
+
+/**
+ * Handles the generation of outfits for the given trip
+ */ 
 function generateOutfits(trip) {
     // generating outfits
 
