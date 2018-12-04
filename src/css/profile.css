@@ -128,6 +128,9 @@ input {
 }
 
 @media screen and (max-width: 440px) {
+    #profilePhotoEditCon{
+        left: 3.6em !important;
+    }
     #profile {
         width: 250px;
         height: 19.5em;
