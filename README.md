@@ -10,7 +10,6 @@ Group 33
 Hannah | Bret | Edward
 </h3>
 
-
 anywear is a school project for comp1930
 
 anywear handles the boring and most stressful part of traveling... What to pack
@@ -26,7 +25,7 @@ What it does:
       <li>bag size</li>
     </ul>
   </li>
-  <li>Use of weather api to generate outfits to match the weather</li>
+  <li>Generates multiple outfits to choose from</li>
 
   <li>something</li>
 </ul>
