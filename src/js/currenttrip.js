@@ -160,7 +160,7 @@ $(document).ready(function() {
             imgBottom.attr('src', current.pieces[1].imgLink);
           }
 
-          carouselItem.append(imgBottom, imgTop);
+          carouselItem.append(imgTop, imgBottom);
         }
         carouselCon.append(carouselItem);
       } else if (current.pieces[0].imgLink) {
@@ -227,7 +227,7 @@ $(document).ready(function() {
         imgTop.attr('src', outfit.pieces[0].imgLink);
         imgBottom.attr('src', outfit.pieces[1].imgLink);
       }
-      card.append(imgBottom, imgTop, cardBody);
+      card.append(imgTop, imgBottom, cardBody);
     }
 
     outfit_calendar_con.append(card);
