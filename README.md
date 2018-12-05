@@ -10,10 +10,10 @@ Group 33
 Hannah | Bret | Edward
 </h3>
 
-anyWear: A school project
+anyWear: A school project</br>
 BCIT - comp1930
 
-anyWear handles the boring and most stressful part of traveling... What to pack!
+anyWear handles the boring and most stressful part of traveling... What to pack!</br>
 It works to save time by creating outfits for users when their on their trips. 
 
 What it does:
