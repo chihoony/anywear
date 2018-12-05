@@ -15,11 +15,18 @@ anywear is a school project for comp1930
 
 anywear handles the boring and most stressful part of traveling... What to pack
 
-
+What it does:
 <ul>
-  <li>something</li>
-  <li>something</li>
-  <li>something</li>
-  <li>something</li>
+  <li>Grab from the google database of locations</li>
+  <li>Generate a trip for that location</li>
+  <li>Creates what clothing should be brought on the trip based on:
+    <ul>
+      <li>weather</li>
+      <li>season</li>
+      <li>bag size</li>
+    </ul>
+  </li>
+  <li>Use of weather api to generate outfits to match the weather</li>
+
   <li>something</li>
 </ul>
