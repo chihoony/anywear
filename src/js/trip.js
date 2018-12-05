@@ -1,3 +1,13 @@
+/**
+* trip.js
+*
+* Populates a trip page with a users current trip page.
+* Also sends requests for updating a articles in a trip and deletion of a articles.
+* Different function calls for displaying the shirts, pants, and jackets.
+*/
+
+// Object of countries and their corresponding country code
+// used for country code parsing
 var countryCodes = [
   {name: 'Afghanistan', code: 'AF'},
   {name: 'Åland Islands', code: 'AX'},
@@ -257,32 +267,34 @@ $(document).ready(function() {
   var jacketcon = $("#jacket_con");
   M.updateTextFields();
 
-//////////////////////////////////////// ajax functions ////////////////////////////////////////
-// setting encrypted and secure user token
+  //////////////////////////////////////// ajax functions ////////////////////////////////////////
+  // setting encrypted and secure user token
   $.ajaxSetup({
-      headers: { 'x-auth-token': localStorage.getItem('token') }
-    });
+    headers: {
+      'x-auth-token': localStorage.getItem('token')
+    }
+  });
 
   console.log(localStorage.getItem('tripID'));
 
   // gets a valid single trip
-  function getTrip(callback){
+  function getTrip(callback) {
     $.ajax({
-        type: 'get',
-        url: `/api/trips/${localStorage.getItem('tripID')}`,
-        success: function(data){
-          console.log(data);
-          callback(data.trip);
-        },
-        error: function(e){
-            console.log(e.responseText);
-            // TODO: Display error to user
-        },
-        statusCode: {
-          404: function() {
-            console.log(`No trips found at ${url}`);
-          }
+      type: 'get',
+      url: `/api/trips/${localStorage.getItem('tripID')}`,
+      success: function(data) {
+        console.log(data);
+        callback(data.trip);
+      },
+      error: function(e) {
+        console.log(e.responseText);
+        // TODO: Display error to user
+      },
+      statusCode: {
+        404: function() {
+          console.log(`No trips found at ${url}`);
         }
+      }
     });
   }
 
@@ -342,7 +354,7 @@ $(document).ready(function() {
     })
   }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////
   // populates and creates trip containers in the html view
   function populateTripInfo(trip) {
     let thisTrip = trip;
@@ -356,8 +368,8 @@ $(document).ready(function() {
     $('#checkout_con p').text(thisTrip.checkOut);
 
     /**
-    * Sets the trips background (need a huge list of images so only went with 10 and a default).
-    */
+     * Sets the trips background (need a huge list of images so only went with 10 and a default).
+     */
     var backgroundStyle = {
       'background-image': `url(/img/city/${thisTrip.city}.jpeg)`
     };
@@ -382,14 +394,14 @@ $(document).ready(function() {
       case "Sydney":
       case "Tokyo":
       case "Vancouver":
-      tripCityName = thisTrip.city;
-      break;
+        tripCityName = thisTrip.city;
+        break;
       default:
-      backgroundStyle = {
-        'background-image': `url(/img/city/default.jpeg)`
-      };
-      tripCityName = "default";
-      break;
+        backgroundStyle = {
+          'background-image': `url(/img/city/default.jpeg)`
+        };
+        tripCityName = "default";
+        break;
     }
     $('.parallax img').attr('src', `../../img/city/${tripCityName}.jpeg`);
 
@@ -499,28 +511,28 @@ $(document).ready(function() {
   getArticles('pant', populateBottomWear);
   getArticles('jacket', populateJacketWear);
 
-//CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
-var submenuOpen = 0;
-$(document).mousedown(function(e) {
-  if (!$('.cloth_figure').is(e.target) // if the target of the click isn't the container...
-    &&
-    $('.cloth_figure').has(e.target).length === 0 &&
-    submenuOpen == 1) // ... nor a descendant of the container
-  {
-    $('.overlay_menu').slideUp(200);
-    submenuOpen = 0;
-  }
-});
+  //CLOSING ANY OPEN SUBMENU IF YOU CLICK OUTSIDE OF IT
+  var submenuOpen = 0;
+  $(document).mousedown(function(e) {
+    if (!$('.cloth_figure').is(e.target) // if the target of the click isn't the container...
+      &&
+      $('.cloth_figure').has(e.target).length === 0 &&
+      submenuOpen == 1) // ... nor a descendant of the container
+    {
+      $('.overlay_menu').slideUp(200);
+      submenuOpen = 0;
+    }
+  });
 
 
-//OPENING THE SUBMENU FOR A PIECE OF CLOTH
-$(document).on('click', '.icon_delete', function() {
-  if ($(this).siblings('.overlay_menu').css('display') == "none") {
-    $('.icon_delete').siblings('.overlay_menu').slideUp(200);
-  }
-  $(this).siblings('.overlay_menu').slideToggle(200);
-  submenuOpen = 1;
-});
+  //OPENING THE SUBMENU FOR A PIECE OF CLOTH
+  $(document).on('click', '.icon_delete', function() {
+    if ($(this).siblings('.overlay_menu').css('display') == "none") {
+      $('.icon_delete').siblings('.overlay_menu').slideUp(200);
+    }
+    $(this).siblings('.overlay_menu').slideToggle(200);
+    submenuOpen = 1;
+  });
 
   //REMOVING A PIECE OF CLOTH
   $('.overlay_bottom').on('click', function() {
@@ -572,20 +584,18 @@ $(document).on('click', '.icon_delete', function() {
     //SWAPPED IMAGE
     $('#left-img').attr('src', imageSrc);
     //OPENING SWAP MENU
-    $('#edit-overlay').fadeIn('400', function() {
-    });
+    $('#edit-overlay').fadeIn('400', function() {});
   });
 
 
   //CLOSE OVERLAYSWAP MENU
   $(document).mouseup(function(e) {
-      var container = $("#edit-con");
+    var container = $("#edit-con");
 
-      // if the target of the click isn't the container nor a descendant of the container
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
-        $('#edit-overlay').fadeOut('400', function() {
-        });
-      }
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      $('#edit-overlay').fadeOut('400', function() {});
+    }
   });
 
 
@@ -620,7 +630,7 @@ $(document).on('click', '.icon_delete', function() {
 
     $("#edit-overlay").fadeOut('400', function() {
 
-    swapArticles(oldArticleKey, newArticleSwap);
+      swapArticles(oldArticleKey, newArticleSwap);
     })
 
 
@@ -630,47 +640,47 @@ $(document).on('click', '.icon_delete', function() {
 
   //TODO THIS NEEDS TO PUT/UPDATE THE NEW DATA FROM THE EDIT SCREEN.
   // Posting a new trip to the database.
-   $(document).on('click', '#bttonNext', function(e){
-     $(document).ready(function() {
+  $(document).on('click', '#bttonNext', function(e) {
+    $(document).ready(function() {
       M.updateTextFields();
     });
-     var form0 = document.getElementById('search_term_input');
-     var form1 = document.getElementById('check_in_input');
-     var form2 = document.getElementById('check_out_input');
-     var form3 = document.getElementById('bag_size_input');
+    var form0 = document.getElementById('search_term_input');
+    var form1 = document.getElementById('check_in_input');
+    var form2 = document.getElementById('check_out_input');
+    var form3 = document.getElementById('bag_size_input');
 
-     console.log("1" + form0);
+    console.log("1" + form0);
 
-     if (form0.checkValidity() && form1.checkValidity()
-          && form2.checkValidity() && form3.checkValidity()) {
-       var cName = siftForCountry($('#search_term_input').val());
-       var cCity = siftForCity($('#search_term_input').val());
-       var cCode = findCountryCode(cName);
-       var cIn = $('#check_in_input').val();
-       var cOut = $('#check_out_input').val();
-       e.preventDefault();
-       $.ajax(
-         {
-           type: 'post',
-           url: '/api/trips',
-           dataType: 'json',
-           data: { city: cCity,
-                   countryCode: cCode,
-                   countryName: cName,
-                   checkIn: $('#check_in_input').val(),
-                   checkOut: $('#check_out_input').val(),
-                   bagSize: $('#bag_size_input').val()
-                 },
-           success: function(data) {
-             location.href = '/alltrips';
-           },
-           error: function(e) {
-             alert("Message from the server " + e.responseText);
+    if (form0.checkValidity() && form1.checkValidity() &&
+      form2.checkValidity() && form3.checkValidity()) {
+      var cName = siftForCountry($('#search_term_input').val());
+      var cCity = siftForCity($('#search_term_input').val());
+      var cCode = findCountryCode(cName);
+      var cIn = $('#check_in_input').val();
+      var cOut = $('#check_out_input').val();
+      e.preventDefault();
+      $.ajax({
+        type: 'post',
+        url: '/api/trips',
+        dataType: 'json',
+        data: {
+          city: cCity,
+          countryCode: cCode,
+          countryName: cName,
+          checkIn: $('#check_in_input').val(),
+          checkOut: $('#check_out_input').val(),
+          bagSize: $('#bag_size_input').val()
+        },
+        success: function(data) {
+          location.href = '/alltrips';
+        },
+        error: function(e) {
+          alert("Message from the server " + e.responseText);
 
-         }
-       });
-     };
-   });
+        }
+      });
+    };
+  });
 
 });
 

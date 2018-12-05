@@ -1,3 +1,10 @@
+/**
+* trips.js
+*
+* Backend server code that handles anything pertaining to a trips requests.
+* Also handles generating a list of articles uses the trips parameters.
+* Also handles generating outfits for a trip taking into considering the weeks forecast
+*/
 const _ = require('lodash');
 var authAccess = require('../../../middleware/auth');
 const express = require('express');
@@ -469,7 +476,7 @@ router.delete('/:id', authAccess, function (req, res) {
 
 /**
  * Handles the generation of outfits for the given trip
- */ 
+ */
 function generateOutfits(trip) {
     // generating outfits
 
@@ -560,13 +567,13 @@ request('http://api.openweathermap.org/data/2.5/weather?q=' + trip.country + ','
     });
 }
 
-/** 
+/**
  * checkIfCurrentTrip takes a trip object in the param
- * 
+ *
  * returns true if the current date is within the trips date
- * 
+ *
  * returns false if current date is not within the trips date
- */ 
+ */
 function checkIfCurrentTrip(trip) {
     var fDate, lDate, cDate;
     fDate = Date.parse(trip.checkIn);

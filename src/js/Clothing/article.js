@@ -1,3 +1,9 @@
+/**
+* article.js
+*
+* Backend server code that handles a article schema and does backend
+* validating after front end validation.
+*/
 const Joi = require("joi");
 const mongoose = require("mongoose");
 

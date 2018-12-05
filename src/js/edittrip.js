@@ -1,3 +1,10 @@
+/**
+* edittrip.js
+*
+* helper js file that parses through a string that is a country.
+* Checks to see if it's a valid country and returns the corresponding country code.
+*
+*/
 var countryCodes = [
   {name: 'Afghanistan', code: 'AF'},
   {name: 'Åland Islands', code: 'AX'},

@@ -1,3 +1,12 @@
+/**
+* trips.js
+*
+* handles populating trips.ejs with user specific content.
+* Calls to delete and update a trip,and also getting a list of trips is made here.
+*/
+
+// Object of countries and their corresponding country code
+// used for country code parsing
 var countryCodes = [
   {name: 'Afghanistan', code: 'AF'},
   {name: 'Åland Islands', code: 'AX'},
@@ -309,13 +318,14 @@ $(document).ready(function() {
       type: 'put',
       url: `/api/trips/editTrip/${id}`,
       dataType: 'json',
-      data: { city: c.city,
-              countryCode: c.code,
-              countryName: c.name,
-              checkIn: $('#check_in_input').val(),
-              checkOut: $('#check_out_input').val(),
-              bagSize: $('#bag_size_input').val()
-            },
+      data: {
+        city: c.city,
+        countryCode: c.code,
+        countryName: c.name,
+        checkIn: $('#check_in_input').val(),
+        checkOut: $('#check_out_input').val(),
+        bagSize: $('#bag_size_input').val()
+      },
 
       success: function(data) {
         console.log(data);
@@ -343,7 +353,7 @@ $(document).ready(function() {
   // populates the  page with the necessary information.
   // trip information and the editing warddrobe windows..
   function populatePage(trips) {
-    if(!trips.length)
+    if (!trips.length)
       location.href = '/createtrip';
 
     for (var i = 0; i < trips.length; i++) {
@@ -414,12 +424,12 @@ $(document).ready(function() {
         case "Sydney":
         case "Tokyo":
         case "Vancouver":
-        break;
+          break;
         default:
-        backgroundStyle = {
-          'background-image': `url(/img/city/default.jpeg)`
-        };
-        break;
+          backgroundStyle = {
+            'background-image': `url(/img/city/default.jpeg)`
+          };
+          break;
       }
 
 
@@ -445,7 +455,7 @@ $(document).ready(function() {
     } else {
 
       let tripID = $(this).attr('data-key');
-      window.location=`/trip/${tripID}`;
+      window.location = `/trip/${tripID}`;
       console.log(`/trip/${tripID}`);
     }
   });
@@ -566,9 +576,9 @@ $(document).ready(function() {
     var container = $("#edit-con");
 
     // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0
-      && !$(e.target).parent().hasClass('pac-item')
-      && !$(e.target).parent().hasClass('pac-container')) {
+    if (!container.is(e.target) && container.has(e.target).length === 0 &&
+      !$(e.target).parent().hasClass('pac-item') &&
+      !$(e.target).parent().hasClass('pac-container')) {
       $('#edit-overlay').fadeOut('400', function() {});
     }
   });
@@ -588,8 +598,8 @@ $(document).ready(function() {
     // also send the trip id here too.
     // TODO AJAX CALL
     $(document).ready(function() {
-     M.updateTextFields();
-   });
+      M.updateTextFields();
+    });
     var form0 = document.getElementById('search_term_input');
     var form1 = document.getElementById('check_in_input');
     var form2 = document.getElementById('check_out_input');
@@ -597,15 +607,21 @@ $(document).ready(function() {
 
     console.log("1" + form0);
 
-    if (form0.checkValidity() && form1.checkValidity()
-         && form2.checkValidity() && form3.checkValidity()) {
+    if (form0.checkValidity() && form1.checkValidity() &&
+      form2.checkValidity() && form3.checkValidity()) {
       var cName = siftForCountry($('#search_term_input').val());
       var cCity = siftForCity($('#search_term_input').val());
       var cCode = findCountryCode(cName);
       var cIn = $('#check_in_input').val();
       var cOut = $('#check_out_input').val();
 
-      countryData = {name: cName, city: cCity, code: cCode, checkIn: cIn,checkOut: cOut};
+      countryData = {
+        name: cName,
+        city: cCity,
+        code: cCode,
+        checkIn: cIn,
+        checkOut: cOut
+      };
       editTrip(selectedTrip.data('key'), countryData)
 
 

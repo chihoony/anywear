@@ -1,3 +1,9 @@
+/**
+* auth.js
+*
+* Backend server code that authorizes a user to login if they have a valid token.
+* And if they do they return the users information.
+*/
 const Joi = require('joi');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');

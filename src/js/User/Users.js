@@ -1,3 +1,8 @@
+/**
+* Users.js
+*
+* Backend server code that handles anything pertaining to a users requests.
+*/
 const auth = require('../../../middleware/auth');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');

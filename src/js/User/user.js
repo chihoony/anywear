@@ -1,3 +1,9 @@
+/**
+* user.js
+*
+* Backend server code that handles a user schema and does backend
+* validating after front end validation.
+*/
 const Joi = require("joi");
 const mongoose = require("mongoose");
 const config = require('config');

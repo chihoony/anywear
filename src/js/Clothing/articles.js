@@ -1,3 +1,8 @@
+/**
+* articles.js
+*
+* Backend server code that handles anything pertaining to a articles requests.
+*/
 const _ = require('lodash');
 var authAccess = require('../../../middleware/auth');
 const express = require('express');
@@ -38,7 +43,7 @@ router.post('/', authAccess, async (req, res) => {
 
 /**
  * GETS a article at the specified 'articleID' param
- * 
+ *
  * Responds with article object
  */
 router.get('/:articleID', authAccess, async (req, res) => {

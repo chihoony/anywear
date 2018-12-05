@@ -1,7 +1,18 @@
+/**
+ * currenttrip.js
+ * The corresponding javascript file that populates the currenttrip.ejs html page.
+ *
+ * Ajax calls gets and pulls the current trip from the database from a the current user.
+ * User must be a valid user to be presented this page.
+ * Also displays current weather using the weather api.
+ *
+ */
+
+
 // initializing the left and right button
 document.addEventListener('DOMContentLoaded', function() {
-var elems = document.querySelectorAll('.carousel');
-var instances = M.Carousel.init(elems);
+  var elems = document.querySelectorAll('.carousel');
+  var instances = M.Carousel.init(elems);
 });
 
 
@@ -19,7 +30,7 @@ $(document).ready(function() {
   $.ajaxPrefilter(function(options) {
     if (options.crossDomain && $.support.cors) {
       options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-     }
+    }
   });
   // Setting token header
   $.ajaxSetup({
@@ -29,22 +40,22 @@ $(document).ready(function() {
   });
 
   function getTrip(callback) {
-      $.ajax({
-        type: 'get',
-        url: `/api/trips/${localStorage.getItem('currentTripID')}`,
-        success: function(data) {
-          console.log('--------------- ')
-          console.log(data);
-          city = data.trip.city;
-          $('#countryHeader').text(data.trip.city + ", " + data.trip.countryName);
-          console.log(callback(data.trip.city, data.trip.countryCode));
-          $.getJSON(callback(data.trip.city, data.trip.countryCode), weatherCallBack);
-        },
-        error: function(e) {
-          console.log(e.responseText);
-        }
-      });
-    }
+    $.ajax({
+      type: 'get',
+      url: `/api/trips/${localStorage.getItem('currentTripID')}`,
+      success: function(data) {
+        console.log('--------------- ')
+        console.log(data);
+        city = data.trip.city;
+        $('#countryHeader').text(data.trip.city + ", " + data.trip.countryName);
+        console.log(callback(data.trip.city, data.trip.countryCode));
+        $.getJSON(callback(data.trip.city, data.trip.countryCode), weatherCallBack);
+      },
+      error: function(e) {
+        console.log(e.responseText);
+      }
+    });
+  }
 
   function getOutfits(callback) {
     $.ajax({
@@ -98,19 +109,19 @@ $(document).ready(function() {
 
 
 
-   // move next carousel
-   $('.moveNextCarousel').click(function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      $('.carousel').carousel('next');
-   });
+  // move next carousel
+  $('.moveNextCarousel').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('.carousel').carousel('next');
+  });
 
-   // move prev carousel
-   $('.movePrevCarousel').click(function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      $('.carousel').carousel('prev');
-   });
+  // move prev carousel
+  $('.movePrevCarousel').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('.carousel').carousel('prev');
+  });
 
   $('#current_trip_nav').addClass('active');
 
@@ -139,7 +150,7 @@ $(document).ready(function() {
             imgTop.attr('src', current.pieces[1].imgLink);
             imgBottom.attr('src', current.pieces[0].imgLink);
             imgJacket.attr('src', current.pieces[2].imgLink);
-          } else if (current.pieces[2].category == "shirt"){
+          } else if (current.pieces[2].category == "shirt") {
             imgTop.attr('src', current.pieces[2].imgLink);
             imgBottom.attr('src', current.pieces[0].imgLink);
             imgJacket.attr('src', current.pieces[1].imgLink);
@@ -172,7 +183,7 @@ $(document).ready(function() {
 
     //initializing the carousel after populating it.
     $('.carousel.carousel-slider').carousel({
-       indicators: false
+      indicators: false
     });
     // resizing the carousel to the current height.
     if ($('.carousel-item').first().children('img').length < 3) {
@@ -192,7 +203,12 @@ $(document).ready(function() {
     var cardTitle = $('<span class="card-title activator grey-text text-darken-4"></span>');
     var cardDate = $('<p></p>');
 
-    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    };
 
     cardDate.html((new Date(outfit.date)).toLocaleDateString("en-US", options));
 
@@ -207,7 +223,7 @@ $(document).ready(function() {
         imgTop.attr('src', outfit.pieces[1].imgLink);
         imgBottom.attr('src', outfit.pieces[0].imgLink);
         imgJacket.attr('src', outfit.pieces[2].imgLink);
-      } else if (outfit.pieces[2].category == "shirt"){
+      } else if (outfit.pieces[2].category == "shirt") {
         imgTop.attr('src', outfit.pieces[2].imgLink);
         imgBottom.attr('src', outfit.pieces[0].imgLink);
         imgJacket.attr('src', outfit.pieces[1].imgLink);
@@ -247,16 +263,28 @@ $(document).ready(function() {
       weather_id = 600;
     }
 
-    if (weather_id < 299) { weatherImage = 'thunder.jpg';}
-    else if (weather_id < 399) { weatherImage = 'drizzle.gif';}
-    else if (weather_id < 599) { weatherImage = 'rain.gif';}
-    else if (weather_id < 699) { weatherImage = 'snow.jpg'; snowStorm.toggleSnow();}
-    else if (weather_id < 799) { weatherImage = 'atmosphere.jpg';}
-    else if (weather_id == 800){ weatherImage = 'clear.jpg';}
-    else if (weather_id == 804){ weatherImage = 'scattered.jpg';}
-    else if (weather_id == 804){ weatherImage = 'overcast.jpg';}
-    else if (weather_id < 810) { weatherImage = 'cloud.jpg';}
-    else { weatherImage = 'other.jpg';}
+    if (weather_id < 299) {
+      weatherImage = 'thunder.jpg';
+    } else if (weather_id < 399) {
+      weatherImage = 'drizzle.gif';
+    } else if (weather_id < 599) {
+      weatherImage = 'rain.gif';
+    } else if (weather_id < 699) {
+      weatherImage = 'snow.jpg';
+      snowStorm.toggleSnow();
+    } else if (weather_id < 799) {
+      weatherImage = 'atmosphere.jpg';
+    } else if (weather_id == 800) {
+      weatherImage = 'clear.jpg';
+    } else if (weather_id == 804) {
+      weatherImage = 'scattered.jpg';
+    } else if (weather_id == 804) {
+      weatherImage = 'overcast.jpg';
+    } else if (weather_id < 810) {
+      weatherImage = 'cloud.jpg';
+    } else {
+      weatherImage = 'other.jpg';
+    }
 
 
     $('#carouselBackground').css('background-image', `url(../img/weather/${weatherImage})`);
