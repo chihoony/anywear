@@ -60,7 +60,7 @@ Description:
       <li>Age (optional)</li>
     </ul>
   </li>
-  <li>Creates a user and sets a token for authorization</li
+  <li>Creates a user and sets a token for authorization</li>
 </ul>
 <h3>
 Create Trip Page
