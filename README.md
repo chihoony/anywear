@@ -127,3 +127,20 @@ Description:
   <li>Grabs user information from mongodb</li>
   <li>Displays profile picture and user information</li>
   <li>Editable user information</li>
+
+
+<h1>
+How to install: 
+</h1>
+Necessary downloads: <br/>
+Mongodb, node <br/><br/>
+Step 1: set jwt_key = foobar in PATH <br/>
+<li># Setting PATH for JWTKey </li>
+<li>export anywear_jwtKey=foobar</li>
+Step 2: Download imageImporter from BBGetz and follow readme steps in the readme.txt file located in src/img/clothes/
+<li>https://github.com/BretGG/addImageImporter</li>
+Step 3: run mongod <br/>
+Step 4: npm install <br/>
+Step 5: To run the program run this command
+<li>npm run devstart</li>
+</h1>

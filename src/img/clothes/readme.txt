@@ -1,3 +1,8 @@
+Install image importer from this link:
+https://github.com/BretGG/addImageImporter
+
+@credits to BretGG
+
 For anywear database.
 
 Example:
