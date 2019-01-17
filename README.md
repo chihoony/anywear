@@ -135,12 +135,12 @@ How to install:
 Necessary downloads: <br/>
 Mongodb, node <br/><br/>
 Step 1: set jwt_key = foobar in PATH <br/>
-<li># Setting PATH for JWTKey </li>
-<li>export anywear_jwtKey=foobar</li>
+<ul><li># Setting PATH for JWTKey </li>
+<li>export anywear_jwtKey=foobar</li></ul>
 Step 2: Download imageImporter from BBGetz and follow readme steps in the readme.txt file located in src/img/clothes/
-<li>https://github.com/BretGG/addImageImporter</li>
+<ul><li>https://github.com/BretGG/addImageImporter</li></ul>
 Step 3: run mongod <br/>
 Step 4: npm install <br/>
 Step 5: To run the program run this command
-<li>npm run devstart</li>
+<ul><li>npm run devstart</li></ul>
 </h1>
